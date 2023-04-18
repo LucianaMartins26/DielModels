@@ -16,12 +16,6 @@ class CompartmentsCreator:
             The metabolic model
         """
         self.model: Model = model
-        self.compartment_dict: Dict[str, str] = {"_c_Day": "c_Day", "_p_Day": "p_Day", "_m_Day": "m_Day",
-                                                 "_x_Day": "x_Day", "_v_Day": "v_Day", "_biomass_Day": "biomass_Day",
-                                                 "_acc_Day": "acc_Day", "_ext_Day": "ext_Day", "_c_Night": "c_Night",
-                                                 "_p_Night": "p_Night", "_m_Night": "m_Night", "_x_Night": "x_Night",
-                                                 "_v_Night": "v_Night", "_biomass_Night": "biomass_Night",
-                                                 "_acc_Night": "acc_Night", "_ext_Night": "ext_Night"}
 
     def day_attribution(self) -> Model:
         """
