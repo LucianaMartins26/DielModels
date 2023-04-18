@@ -28,6 +28,8 @@ class TestCompartmentsCreator(TestCase):
         for compartment in non_diel_model_copy.compartments:
             self.assertIn("_Day", compartment)
 
+        cobra.io.write_sbml_model(non_diel_model_copy, os.path.join(TEST_DIR, "data", "AraGEM_day.xml"))
+
     def test_duplicate_models_day(self):
 
         ara_gem_day = cobra.io.read_sbml_model(os.path.join(TEST_DIR, "data", "AraGEM_day.xml"))
@@ -43,3 +45,5 @@ class TestCompartmentsCreator(TestCase):
 
         for compartment in ara_gem_day.compartments:
             assert "_Day" in compartment or "_Night" in compartment
+
+        cobra.io.write_sbml_model(ara_gem_day, os.path.join(TEST_DIR, "data", "AraGEM_day_night.xml"))

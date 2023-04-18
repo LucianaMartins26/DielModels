@@ -35,6 +35,7 @@ class CompartmentsCreator:
             r.id = r.id + "_Day"
         for m in self.model.metabolites:
             m.id = m.id + "_Day"
+            m.name = m.name + " Day"
             m.compartment = m.compartment + "_Day"
 
         for k, v in compartments_copy.items():
@@ -63,6 +64,7 @@ class CompartmentsCreator:
             for m in r.metabolites:
                 duplicate_m = m.copy()
                 duplicate_m.id = m.id.replace("_Day", "_Night")
+                duplicate_m.name = m.name.replace("Day", "Night")
                 duplicate_m.compartment = m.compartment.replace("_Day", "_Night")
                 duplicate_r.add_metabolites({duplicate_m: r.metabolites[m]})
 
