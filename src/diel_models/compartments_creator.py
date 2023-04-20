@@ -1,6 +1,4 @@
 import copy
-from typing import Dict
-
 from cobra import Model, Reaction
 
 
