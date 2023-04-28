@@ -88,7 +88,7 @@ class StoragePoolCreator:
         """
         According to the given metabolite IDs,
         this function creates the complementary reactions,
-        i.e. if it previously created the Day<->Storage Pool reaction,
+        i.e. if it previously created the Day <-> Storage Pool reaction,
         it now creates the Storage Pool <-> Night reaction and vice versa.
         """
         other_side_exchanges_r: List[Reaction] = []
@@ -116,5 +116,4 @@ class StoragePoolCreator:
                 other_side_exchange_r.upper_bound = 1000.0
                 other_side_exchange_r.name = f"{met.name.replace('Night', 'Day')} exchange"
                 other_side_exchanges_r.append(other_side_exchange_r)
-
         self.model.add_reactions(other_side_exchanges_r)
