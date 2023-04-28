@@ -25,13 +25,13 @@ class CompartmentsCreator:
         compartments_copy = copy.deepcopy(self.model.compartments)
         for model_reaction in self.model.reactions:
             model_reaction.id = model_reaction.id + "_Day"
-        for m in self.model.metabolites:
-            m.id = m.id + "_Day"
-            m.name = m.name + " Day"
-            m.compartment = m.compartment + "_Day"
+        for model_metabolite in self.model.metabolites:
+            model_metabolite.id = model_metabolite.id + "_Day"
+            model_metabolite.name = model_metabolite.name + " Day"
+            model_metabolite.compartment = model_metabolite.compartment + "_Day"
 
-        for k, v in compartments_copy.items():
-            self.model._compartments[k + "_Day"] = v + " Day"
+        for compartment_id, compartment_description in compartments_copy.items():
+            self.model._compartments[compartment_id + "_Day"] = compartment_description + " Day"
 
         return self.model.metabolites
 
@@ -46,23 +46,23 @@ class CompartmentsCreator:
         The model with the reactions and the metabolites duplicated and properly identified
         """
         compartments_copy = copy.deepcopy(self.model.compartments)
-        for r in self.model.reactions:
-            duplicate_r = Reaction(id=r.id.replace("_Day", "_Night"),
-                                   name=r.name,
-                                   subsystem=r.subsystem,
-                                   lower_bound=r.lower_bound,
-                                   upper_bound=r.upper_bound)
+        for model_reaction in self.model.reactions:
+            duplicate_reaction = Reaction(id=model_reaction.id.replace("_Day", "_Night"),
+                                          name=model_reaction.name,
+                                          subsystem=model_reaction.subsystem,
+                                          lower_bound=model_reaction.lower_bound,
+                                          upper_bound=model_reaction.upper_bound)
 
-            for m in r.metabolites:
-                duplicate_m = m.copy()
-                duplicate_m.id = m.id.replace("_Day", "_Night")
-                duplicate_m.name = m.name.replace("Day", "Night")
-                duplicate_m.compartment = m.compartment.replace("_Day", "_Night")
-                duplicate_r.add_metabolites({duplicate_m: r.metabolites[m]})
+            for model_metabolite in model_reaction.metabolites:
+                duplicate_metabolite = model_metabolite.copy()
+                duplicate_metabolite.id = model_metabolite.id.replace("_Day", "_Night")
+                duplicate_metabolite.name = model_metabolite.name.replace("Day", "Night")
+                duplicate_metabolite.compartment = model_metabolite.compartment.replace("_Day", "_Night")
+                duplicate_reaction.add_metabolites({duplicate_metabolite: model_reaction.metabolites[model_metabolite]})
 
-            self.model.add_reactions([duplicate_r])
+            self.model.add_reactions([duplicate_reaction])
 
-        for k, v in compartments_copy.items():
-            self.model._compartments[k.replace("_Day", "_Night")] = v.replace("Day", "Night")
+        for compartment_id, compartment_description in compartments_copy.items():
+            self.model._compartments[compartment_id.replace("_Day", "_Night")] = compartment_description.replace("Day", "Night")
 
         return self.model
