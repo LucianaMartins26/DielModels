@@ -23,8 +23,8 @@ class CompartmentsCreator:
         Reactions and metabolites ids with "_Day" as sufix
         """
         compartments_copy = copy.deepcopy(self.model.compartments)
-        for r in self.model.reactions:
-            r.id = r.id + "_Day"
+        for model_reaction in self.model.reactions:
+            model_reaction.id = model_reaction.id + "_Day"
         for m in self.model.metabolites:
             m.id = m.id + "_Day"
             m.name = m.name + " Day"
