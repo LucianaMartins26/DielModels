@@ -63,6 +63,6 @@ class CompartmentsCreator:
             self.model.add_reactions([duplicate_reaction])
 
         for compartment_id, compartment_description in compartments_copy.items():
-            self.model._compartments[compartment_id.replace("_Day", "_Night")] = compartment_description("Day", "Night")
+            self.model._compartments[compartment_id.replace("_Day", "_Night")] = compartment_description.replace("Day", "Night")
 
         return self.model
