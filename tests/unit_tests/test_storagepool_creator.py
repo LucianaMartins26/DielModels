@@ -54,5 +54,13 @@ class TestStoragePool(TestCase):
         storagepool_creator.sp_first_reactions()
         storagepool_creator.sp_second_reactions()
 
-        self.assertEqual(2*(len(diel_model_copy.metabolites.query("_sp"))),
+        self.assertEqual(2 * (len(diel_model_copy.metabolites.query("_sp"))),
                          len(diel_model_copy.reactions.query("exchange")))
+
+        assert all(reaction_met_id in [reaction.id for reaction in diel_model_copy.reactions.query("exchange")]
+                   for reaction_met_id in ["S_Holo_45__91_carboxylase_93__c_Day_exchange",
+                                           "S_Homoeriodictyol_32_chalcone_c_Night_exchange",
+                                           "S_Homogentisate_c_Day_exchange", "S_Hordenine_c_Day_exchange",
+                                           "S_Holo_45__91_carboxylase_93__c_Night_exchange",
+                                           "S_Homoeriodictyol_32_chalcone_c_Day_exchange",
+                                           "S_Homogentisate_c_Night_exchange", "S_Hordenine_c_Night_exchange"])
