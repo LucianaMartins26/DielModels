@@ -4,7 +4,7 @@ from unittest import TestCase
 
 import cobra
 
-from diel_models.storagepool_creator import StoragePoolCreator
+from diel_models.storage_pool_creator import StoragePoolCreator
 from tests import TEST_DIR
 
 
