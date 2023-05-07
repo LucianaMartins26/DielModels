@@ -1,0 +1,24 @@
+import os
+import copy
+from unittest import TestCase
+
+import cobra
+
+from diel_models.photon_reaction_restrictor import PhotonReactionRestrictor
+from tests import TEST_DIR
+
+
+class TestPhotonRestrictor(TestCase):
+
+    def test_restrain(self):
+        diel_storagepool_model = os.path.join(TEST_DIR, "data", "Diel_AraGEM2010_with_storage_pool.xml")
+        diel_storagepool_model_2 = cobra.io.read_sbml_model(diel_storagepool_model)
+        diel_storagepool_model_copy = copy.deepcopy(diel_storagepool_model_2)
+
+        photonrestrictor = PhotonReactionRestrictor(diel_storagepool_model_copy, "Ex16_Night")
+        photonrestrictor.restrain()
+
+        photon_night_reaction = diel_storagepool_model_copy.reactions.get_by_id("Ex16_Night")
+
+        self.assertEqual(photon_night_reaction.lower_bound, 0)
+        self.assertEqual(photon_night_reaction.upper_bound, 0)
