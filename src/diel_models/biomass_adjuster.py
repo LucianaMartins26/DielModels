@@ -32,8 +32,11 @@ class BiomassAdjuster:
         """
 
         for photosynthesis_reaction in self.photosynthesis_reactions_at_night:
-            self.model.reactions.get_by_id(photosynthesis_reaction).lower_bound = 0
-            self.model.reactions.get_by_id(photosynthesis_reaction).upper_bound = 0
+            if photosynthesis_reaction in self.model.reactions:
+                self.model.reactions.get_by_id(photosynthesis_reaction).lower_bound = 0
+                self.model.reactions.get_by_id(photosynthesis_reaction).upper_bound = 0
+            else:
+                raise ValueError("Reaction id not present in the model that was given.")
 
     def total_biomass_reaction(self) -> Reaction:
         """
@@ -43,9 +46,13 @@ class BiomassAdjuster:
         -------
         biomass_reaction_total: cobra.Reaction
         """
+        if self.model.reactions.has_id(self.id_biomass_reaction_day) and \
+                self.model.reactions.has_id(self.id_biomass_reaction_night):
+            biomass_reaction_day = self.model.reactions.get_by_id(self.id_biomass_reaction_day)
+            biomass_reaction_night = self.model.reactions.get_by_id(self.id_biomass_reaction_night)
 
-        biomass_reaction_day = self.model.reactions.get_by_id(self.id_biomass_reaction_day)
-        biomass_reaction_night = self.model.reactions.get_by_id(self.id_biomass_reaction_night)
+        else:
+            raise ValueError("Reaction id not present in the model that was given")
 
         biomass_reaction_total = Reaction(id="Biomass_Total",
                                           name="Total Biomass Reaction",

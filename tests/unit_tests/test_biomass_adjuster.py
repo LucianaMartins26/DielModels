@@ -26,6 +26,19 @@ class TestBiomassAdjuster(TestCase):
             self.assertEqual(reaction.lower_bound, 0)
             self.assertEqual(reaction.upper_bound, 0)
 
+    def test_reset_boundaries_with_invalid_photosynthesis_reaction(self):
+
+        diel_sp_no_night_photon_model = os.path.join(TEST_DIR, "data",
+                                                     "Diel_AraGEM_sp_photon_restricted.xml")
+        diel_model = cobra.io.read_sbml_model(diel_sp_no_night_photon_model)
+        diel_model_copy = copy.deepcopy(diel_model)
+
+        biomass_adjuster = BiomassAdjuster(diel_model_copy, "BIO_L_Day", "BIO_L_Night",
+                                           ["R03845_c_Night", "Invalid"])
+
+        with self.assertRaises(ValueError):
+            biomass_adjuster.reset_boundaries()
+
     def test_total_biomass_reaction(self):
 
         diel_sp_no_night_photon_model = os.path.join(TEST_DIR, "data",
@@ -48,3 +61,16 @@ class TestBiomassAdjuster(TestCase):
         self.assertIn('Biomass_Total', str(diel_model_copy.objective.expression))
 
         cobra.io.write_sbml_model(diel_model_copy, os.path.join(TEST_DIR, "data", "Diel_AraGEM_completed.xml"))
+
+    def test_total_biomass_with_invalid_biomass_reaction(self):
+
+        diel_sp_no_night_photon_model = os.path.join(TEST_DIR, "data",
+                                                     "Diel_AraGEM_sp_photon_restricted.xml")
+        diel_model = cobra.io.read_sbml_model(diel_sp_no_night_photon_model)
+        diel_model_copy = copy.deepcopy(diel_model)
+
+        biomass_adjuster = BiomassAdjuster(diel_model_copy, "BIO_L_Day", "Invalid",
+                                           ["R03845_c_Night", "R07856_c_Night"])
+
+        with self.assertRaises(ValueError):
+            biomass_adjuster.total_biomass_reaction()
