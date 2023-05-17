@@ -33,8 +33,7 @@ class BiomassAdjuster:
 
         for photosynthesis_reaction in self.photosynthesis_reactions_at_night:
             if photosynthesis_reaction in self.model.reactions:
-                self.model.reactions.get_by_id(photosynthesis_reaction).lower_bound = 0
-                self.model.reactions.get_by_id(photosynthesis_reaction).upper_bound = 0
+                self.model.reactions.get_by_id(photosynthesis_reaction).bounds = (0,0)
             else:
                 raise ValueError("Reaction id not present in the model that was given.")
 
