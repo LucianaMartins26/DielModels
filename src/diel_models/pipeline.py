@@ -6,6 +6,7 @@ from diel_models.compartments_creator import CompartmentsCreator
 from diel_models.storage_pool_creator import StoragePoolCreator
 from diel_models.photon_reaction_restrictor import PhotonReactionRestrictor
 from diel_models.biomass_adjuster import BiomassAdjuster
+from diel_models.nitrate_uptake_ratio import RatioUptakeNitrateCalibrator
 
 
 class Step(ABC):
@@ -85,6 +86,7 @@ class Biomass(Step):
 
     def __init__(self, model: Model, id_biomass_reaction_day: str, id_biomass_reaction_night: str,
                  photosynthesis_reactions_at_night: List[str]):
+
         self.model: Model = model
         self.id_biomass_reaction_day: str = id_biomass_reaction_day
         self.id_biomass_reaction_night: str = id_biomass_reaction_night
@@ -95,6 +97,23 @@ class Biomass(Step):
                                self.photosynthesis_reactions_at_night)
         test.reset_boundaries()
         test.total_biomass_reaction()
+
+    def validate(self):
+        pass
+
+class NitrateUptake(Step):
+
+    def __init__(self, model: Model, id_nitrate_uptake_reaction_day: str,
+                 id_nitrate_uptake_reaction_night: str):
+
+        self.model: Model = model
+        self.id_nitrate_uptake_reaction_day: str = id_nitrate_uptake_reaction_day
+        self.id_nitrate_uptake_reaction_night: str = id_nitrate_uptake_reaction_night
+
+    def run(self):
+        test = RatioUptakeNitrateCalibrator(self.model, self.id_nitrate_uptake_reaction_day,
+                                            self.id_nitrate_uptake_reaction_night)
+        test.ratio_set()
 
     def validate(self):
         pass
