@@ -1,8 +1,9 @@
 import copy
 from cobra import Model, Reaction
+from diel_models.pipeline import Step
 
 
-class CompartmentsCreator:
+class DayNightCreator(Step):
 
     def __init__(self, model: Model) -> None:
         """
@@ -11,7 +12,7 @@ class CompartmentsCreator:
         Parameters
         ----------
         model: cobra.Model
-            The metabolic model
+            Metabolic model
         """
         self.model: Model = model
 
@@ -68,3 +69,20 @@ class CompartmentsCreator:
             self.model._compartments[compartment_id.replace("_Day", "_Night")] = compartment_description.replace("Day", "Night")
 
         return self.model
+
+    def run(self) -> None:
+        """
+        Executes the methods of the class DayNightCreator
+        """
+        test = DayNightCreator(self.model)
+        test.day_attribution()
+        test.duplicate()
+
+    def validate(self) -> None:
+        """
+        Validates the model received initially in terms of reactions, metabolites and objective function
+        """
+
+        assert len(self.model.reactions) > 0, "The model does not have any reaction."
+        assert len(self.model.metabolites) > 0, "The model does not have any metabolite."
+        assert self.model.objective is not None, "The model does not have any objective function defined."

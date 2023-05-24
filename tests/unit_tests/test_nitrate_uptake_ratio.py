@@ -4,11 +4,11 @@ from unittest import TestCase
 
 import cobra
 
-from diel_models.nitrate_uptake_ratio import RatioUptakeNitrateCalibrator
+from diel_models.nitrate_uptake_ratio import NitrateUptakeRatioCalibrator
 from tests import TEST_DIR
 
 
-class TestRatioCalibrator(TestCase):
+class TestNitrateUptakeRatioCalibrator(TestCase):
 
     def test_ratio_set(self):
 
@@ -16,7 +16,7 @@ class TestRatioCalibrator(TestCase):
         diel_model_2 = cobra.io.read_sbml_model(diel_model)
         diel_model_copy = copy.deepcopy(diel_model_2)
 
-        nitrateuptakeratiocalibrator = RatioUptakeNitrateCalibrator(diel_model_copy, "Ex4_Day", "Ex4_Night")
+        nitrateuptakeratiocalibrator = NitrateUptakeRatioCalibrator(diel_model_copy, "Ex4_Day", "Ex4_Night")
         nitrateuptakeratiocalibrator.ratio_set()
 
         nitrate_uptake_reaction_day = diel_model_copy.reactions.get_by_id("Ex4_Day")
@@ -34,7 +34,7 @@ class TestRatioCalibrator(TestCase):
         diel_model_2 = cobra.io.read_sbml_model(diel_model)
         diel_model_copy = copy.deepcopy(diel_model_2)
 
-        nitrateuptakeratiocalibrator = RatioUptakeNitrateCalibrator(diel_model_copy, "Invalid", "Ex4_Night")
+        nitrateuptakeratiocalibrator = NitrateUptakeRatioCalibrator(diel_model_copy, "Invalid", "Ex4_Night")
 
         with self.assertRaises(ValueError):
             nitrateuptakeratiocalibrator.ratio_set()
@@ -45,7 +45,7 @@ class TestRatioCalibrator(TestCase):
         diel_model_2 = cobra.io.read_sbml_model(diel_model)
         diel_model_copy = copy.deepcopy(diel_model_2)
 
-        nitrateuptakeratiocalibrator = RatioUptakeNitrateCalibrator(diel_model_copy, "Ex4_Day", "Invalid")
+        nitrateuptakeratiocalibrator = NitrateUptakeRatioCalibrator(diel_model_copy, "Ex4_Day", "Invalid")
 
         with self.assertRaises(ValueError):
             nitrateuptakeratiocalibrator.ratio_set()

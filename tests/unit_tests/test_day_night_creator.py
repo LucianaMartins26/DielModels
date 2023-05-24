@@ -4,11 +4,11 @@ from unittest import TestCase
 
 import cobra
 
-from diel_models.compartments_creator import CompartmentsCreator
+from diel_models.day_night_creator import DayNightCreator
 from tests import TEST_DIR
 
 
-class TestCompartmentsCreator(TestCase):
+class TestDayNightCreator(TestCase):
 
     def test_compartments_creator(self):
 
@@ -16,7 +16,7 @@ class TestCompartmentsCreator(TestCase):
         non_diel_model = cobra.io.read_sbml_model(ara_gem_model)
         non_diel_model_copy = copy.deepcopy(non_diel_model)
 
-        compartment_creator = CompartmentsCreator(non_diel_model_copy)
+        compartment_creator = DayNightCreator(non_diel_model_copy)
 
         compartment_creator.day_attribution()
         for reaction in non_diel_model_copy.reactions:
@@ -34,7 +34,7 @@ class TestCompartmentsCreator(TestCase):
 
         ara_gem_day = cobra.io.read_sbml_model(os.path.join(TEST_DIR, "data", "AraGEM_day.xml"))
 
-        compartment_creator = CompartmentsCreator(ara_gem_day)
+        compartment_creator = DayNightCreator(ara_gem_day)
         compartment_creator.duplicate()
 
         for reaction in ara_gem_day.reactions:

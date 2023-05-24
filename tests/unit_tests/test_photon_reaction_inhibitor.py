@@ -4,18 +4,18 @@ from unittest import TestCase
 
 import cobra
 
-from diel_models.photon_reaction_restrictor import PhotonReactionRestrictor
+from diel_models.photon_reaction_inhibitor import PhotonReactionInhibitor
 from tests import TEST_DIR
 
 
-class TestPhotonRestrictor(TestCase):
+class TestPhotonInhibitor(TestCase):
 
     def test_restrain(self):
         diel_storagepool_model = os.path.join(TEST_DIR, "data", "Diel_AraGEM2010_with_storage_pool.xml")
         diel_storagepool_model_2 = cobra.io.read_sbml_model(diel_storagepool_model)
         diel_storagepool_model_copy = copy.deepcopy(diel_storagepool_model_2)
 
-        photonrestrictor = PhotonReactionRestrictor(diel_storagepool_model_copy, "Ex16_Night")
+        photonrestrictor = PhotonReactionInhibitor(diel_storagepool_model_copy, "Ex16_Night")
         photonrestrictor.restrain()
 
         photon_night_reaction = diel_storagepool_model_copy.reactions.get_by_id("Ex16_Night")
@@ -31,7 +31,7 @@ class TestPhotonRestrictor(TestCase):
         diel_storagepool_model_2 = cobra.io.read_sbml_model(diel_storagepool_model)
         diel_storagepool_model_copy = copy.deepcopy(diel_storagepool_model_2)
 
-        photonrestrictor = PhotonReactionRestrictor(diel_storagepool_model_copy, "Invalid")
+        photonrestrictor = PhotonReactionInhibitor(diel_storagepool_model_copy, "Invalid")
 
         with self.assertRaises(ValueError):
             photonrestrictor.restrain()

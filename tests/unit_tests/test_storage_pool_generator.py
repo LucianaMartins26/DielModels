@@ -4,7 +4,7 @@ from unittest import TestCase
 
 import cobra
 
-from diel_models.storage_pool_creator import StoragePoolCreator
+from diel_models.storage_pool_generator import StoragePoolGenerator
 from tests import TEST_DIR
 
 
@@ -15,9 +15,9 @@ class TestStoragePool(TestCase):
         diel_model = cobra.io.read_sbml_model(ara_gem_diel_model)
         diel_model_copy = copy.deepcopy(diel_model)
 
-        storagepool_creator = StoragePoolCreator(diel_model_copy, ["S_Holo_45__91_carboxylase_93__c_Day",
-                                                                   "S_Homoeriodictyol_32_chalcone_c_Night",
-                                                                   "S_Homogentisate_c_Day", "S_Hordenine_c_Day"])
+        storagepool_creator = StoragePoolGenerator(diel_model_copy, ["S_Holo_45__91_carboxylase_93__c_Day",
+                                                                     "S_Homoeriodictyol_32_chalcone_c_Night",
+                                                                     "S_Homogentisate_c_Day", "S_Hordenine_c_Day"])
 
         storagepool_creator.create_storage_pool_metabolites()
         self.assertIn("sp", diel_model_copy.compartments)
@@ -34,10 +34,10 @@ class TestStoragePool(TestCase):
         diel_model = cobra.io.read_sbml_model(ara_gem_diel_model)
         diel_model_copy = copy.deepcopy(diel_model)
 
-        storagepool_creator = StoragePoolCreator(diel_model_copy, ["S_Holo_45__91_carboxylase_93__c_Day",
-                                                                   "S_Homoeriodictyol_32_chalcone_c_Night",
-                                                                   "S_Homogentisate_c_Day", "S_Hordenine_c_Day",
-                                                                   "invalid"])
+        storagepool_creator = StoragePoolGenerator(diel_model_copy, ["S_Holo_45__91_carboxylase_93__c_Day",
+                                                                     "S_Homoeriodictyol_32_chalcone_c_Night",
+                                                                     "S_Homogentisate_c_Day", "S_Hordenine_c_Day",
+                                                                     "invalid"])
         with self.assertRaises(ValueError):
             storagepool_creator.create_storage_pool_metabolites()
 
@@ -47,9 +47,9 @@ class TestStoragePool(TestCase):
         diel_model = cobra.io.read_sbml_model(ara_gem_diel_model)
         diel_model_copy = copy.deepcopy(diel_model)
 
-        storagepool_creator = StoragePoolCreator(diel_model_copy, ["S_Holo_45__91_carboxylase_93__c_Day",
-                                                                   "S_Homoeriodictyol_32_chalcone_c_Night",
-                                                                   "S_Homogentisate_c_Day", "S_Hordenine_c_Day"])
+        storagepool_creator = StoragePoolGenerator(diel_model_copy, ["S_Holo_45__91_carboxylase_93__c_Day",
+                                                                     "S_Homoeriodictyol_32_chalcone_c_Night",
+                                                                     "S_Homogentisate_c_Day", "S_Hordenine_c_Day"])
         storagepool_creator.create_storage_pool_metabolites()
         storagepool_creator.create_storage_pool_first_reactions()
         storagepool_creator.create_storage_pool_second_reactions()

@@ -1,5 +1,17 @@
 import cobra
 from cobra import Model
+from abc import ABC, abstractmethod
+
+
+class Step(ABC):
+    @abstractmethod
+    def run(self) -> None:
+        """Performs the step."""
+        pass
+
+    def validate(self) -> None:
+        """Validates the model of the step."""
+        pass
 
 
 class Pipeline:

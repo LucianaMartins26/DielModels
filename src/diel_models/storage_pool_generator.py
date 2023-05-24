@@ -1,9 +1,10 @@
 from typing import List
 import cobra
 from cobra import Model, Metabolite, Reaction
+from diel_models.pipeline import Step
 
 
-class StoragePoolCreator:
+class StoragePoolGenerator(Step):
 
     def __init__(self, model: Model, metabolites: List[str]):
         """
@@ -129,3 +130,27 @@ class StoragePoolCreator:
                     self.create_exchange_reaction(metabolite_id, metabolite_sp_id, "Day"))
 
         self.model.add_reactions(other_side_exchange_reactions)
+
+    def run(self) -> None:
+        """
+        Executes the methods of the class StoragePoolCreator
+        """
+
+        test = StoragePoolGenerator(self.model, self.metabolites)
+        test.create_storage_pool_metabolites()
+        test.create_storage_pool_first_reactions()
+        test.create_storage_pool_second_reactions()
+
+    def validate(self) -> None:
+        """
+        Validates the model, since it has to have metabolites, reactions and a Day and Night compartments
+        """
+
+        for reaction in self.model.reactions:
+            assert "_Day" in reaction.id or "_Night" in reaction.id, "The model does not have Day and Night reactions."
+        for metabolite in self.model.metabolites:
+            assert "_Day" in metabolite.id or "_Night" in metabolite.id, "The model does not have Day and Night " \
+                                                                         "metabolites."
+        for compartment in self.model.compartments:
+            assert "_Day" in compartment or "_Night" in compartment, "The model does not have Day and Night " \
+                                                                     "compartments."

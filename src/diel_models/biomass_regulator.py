@@ -1,8 +1,9 @@
 from cobra import Model, Reaction
 from typing import List
+from diel_models.pipeline import Step
 
 
-class BiomassAdjuster:
+class BiomassRegulator(Step):
 
     def __init__(self, model: Model, id_biomass_reaction_day: str, id_biomass_reaction_night: str,
                  photosynthesis_reactions_at_night: List[str]) -> None:
@@ -33,7 +34,7 @@ class BiomassAdjuster:
 
         for photosynthesis_reaction in self.photosynthesis_reactions_at_night:
             if photosynthesis_reaction in self.model.reactions:
-                self.model.reactions.get_by_id(photosynthesis_reaction).bounds = (0,0)
+                self.model.reactions.get_by_id(photosynthesis_reaction).bounds = (0, 0)
             else:
                 raise ValueError("Reaction id not present in the model that was given.")
 
@@ -68,3 +69,16 @@ class BiomassAdjuster:
         self.model.objective = biomass_reaction_total
 
         return biomass_reaction_total
+
+    def run(self) -> None:
+        """
+        Executes the methods of the class BiomassAdjuster
+        """
+
+        test = BiomassRegulator(self.model, self.id_biomass_reaction_day, self.id_biomass_reaction_night,
+                                self.photosynthesis_reactions_at_night)
+        test.reset_boundaries()
+        test.total_biomass_reaction()
+
+    def validate(self) -> None:
+        pass
