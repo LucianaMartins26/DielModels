@@ -34,15 +34,11 @@ class NitrateUptakeRatioCalibrator(Step):
         else:
             raise ValueError("id_nitrate_uptake_reaction_night not present in the model that was given.")
 
-        for metabolite_id in nitrate_uptake_reaction_day.metabolites:
-            nitrate_uptake_reaction_day.add_metabolites(
-                {metabolite_id: -nitrate_uptake_reaction_day.metabolites[metabolite_id]})
-            nitrate_uptake_reaction_day.add_metabolites({metabolite_id: 3.0})
-
-        for metabolite_id in nitrate_uptake_reaction_night.metabolites:
-            nitrate_uptake_reaction_night.add_metabolites(
-                {metabolite_id: -nitrate_uptake_reaction_night.metabolites[metabolite_id]})
-            nitrate_uptake_reaction_night.add_metabolites({metabolite_id: 2.0})
+        same_flux = self.model.problem.Constraint(
+            self.model.reactions.nitrate_uptake_reaction_day.flux_expression -
+            self.model.reactions.nitrate_uptake_reaction_night.flux_expression * (3/2), lb=0,
+            ub=0)
+        self.model.add_cons_vars(same_flux)
 
     def run(self) -> Model:
         """
