@@ -4,7 +4,7 @@ from unittest import TestCase
 
 import cobra
 
-from diel_models.biomass_regulator import BiomassRegulator
+from diel_models.biomass_regulator import BiomassAdjuster
 from tests import TEST_DIR
 
 
@@ -16,8 +16,8 @@ class TestBiomassRegulator(TestCase):
         diel_model = cobra.io.read_sbml_model(diel_sp_no_night_photon_model)
         diel_model_copy = copy.deepcopy(diel_model)
 
-        biomass_adjuster = BiomassRegulator(diel_model_copy, "BIO_L_Day", "BIO_L_Night",
-                                            ["R03845_c_Night", "R07856_c_Night"])
+        biomass_adjuster = BiomassAdjuster(diel_model_copy, "BIO_L_Day", "BIO_L_Night",
+                                           ["R03845_c_Night", "R07856_c_Night"])
         biomass_adjuster.reset_boundaries()
 
         for id_reaction in ["R03845_c_Night", "R07856_c_Night"]:
@@ -31,8 +31,8 @@ class TestBiomassRegulator(TestCase):
         diel_model = cobra.io.read_sbml_model(diel_sp_no_night_photon_model)
         diel_model_copy = copy.deepcopy(diel_model)
 
-        biomass_adjuster = BiomassRegulator(diel_model_copy, "BIO_L_Day", "BIO_L_Night",
-                                            ["R03845_c_Night", "Invalid"])
+        biomass_adjuster = BiomassAdjuster(diel_model_copy, "BIO_L_Day", "BIO_L_Night",
+                                           ["R03845_c_Night", "Invalid"])
 
         with self.assertRaises(ValueError):
             biomass_adjuster.reset_boundaries()
@@ -43,8 +43,8 @@ class TestBiomassRegulator(TestCase):
         diel_model = cobra.io.read_sbml_model(diel_sp_no_night_photon_model)
         diel_model_copy = copy.deepcopy(diel_model)
 
-        biomass_adjuster = BiomassRegulator(diel_model_copy, "BIO_L_Day", "BIO_L_Night",
-                                            ["R03845_c_Night", "R07856_c_Night"])
+        biomass_adjuster = BiomassAdjuster(diel_model_copy, "BIO_L_Day", "BIO_L_Night",
+                                           ["R03845_c_Night", "R07856_c_Night"])
         biomass_adjuster.reset_boundaries()
         biomass_adjuster.total_biomass_reaction()
 
@@ -63,8 +63,8 @@ class TestBiomassRegulator(TestCase):
         diel_model = cobra.io.read_sbml_model(diel_sp_no_night_photon_model)
         diel_model_copy = copy.deepcopy(diel_model)
 
-        biomass_adjuster = BiomassRegulator(diel_model_copy, "BIO_L_Day", "Invalid",
-                                            ["R03845_c_Night", "R07856_c_Night"])
+        biomass_adjuster = BiomassAdjuster(diel_model_copy, "BIO_L_Day", "Invalid",
+                                           ["R03845_c_Night", "R07856_c_Night"])
 
         with self.assertRaises(ValueError):
             biomass_adjuster.total_biomass_reaction()

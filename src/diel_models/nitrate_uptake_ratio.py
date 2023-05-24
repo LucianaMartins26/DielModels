@@ -48,9 +48,7 @@ class NitrateUptakeRatioCalibrator(Step):
         Model
         """
 
-        test = NitrateUptakeRatioCalibrator(self.model, self.id_nitrate_uptake_reaction_day,
-                                            self.id_nitrate_uptake_reaction_night)
-        test.ratio_set()
+        self.ratio_set()
 
         return self.model
 

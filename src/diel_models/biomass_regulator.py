@@ -3,7 +3,7 @@ from typing import List
 from diel_models.pipeline import Step
 
 
-class BiomassRegulator(Step):
+class BiomassAdjuster(Step):
 
     def __init__(self, model: Model, id_biomass_reaction_day: str, id_biomass_reaction_night: str,
                  photosynthesis_reactions_at_night: List[str]) -> None:
@@ -67,6 +67,8 @@ class BiomassRegulator(Step):
 
         self.model.add_reactions([biomass_reaction_total])
         self.model.objective = biomass_reaction_total
+        biomass_reaction_day.bounds = (0, 0)
+        biomass_reaction_night.bounds = (0, 0)
 
     def run(self) -> Model:
         """
@@ -76,10 +78,10 @@ class BiomassRegulator(Step):
         Model
         """
 
-        test = BiomassRegulator(self.model, self.id_biomass_reaction_day, self.id_biomass_reaction_night,
-                                self.photosynthesis_reactions_at_night)
-        test.reset_boundaries()
-        test.total_biomass_reaction()
+        # test = BiomassAdjuster(self.model, self.id_biomass_reaction_day, self.id_biomass_reaction_night,
+        #                        self.photosynthesis_reactions_at_night)
+        # self.reset_boundaries()
+        self.total_biomass_reaction()
 
         return self.model
 

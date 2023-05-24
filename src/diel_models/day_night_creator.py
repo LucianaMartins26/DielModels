@@ -75,9 +75,8 @@ class DayNightCreator(Step):
         Returns
         Model
         """
-        test = DayNightCreator(self.model)
-        test.day_attribution()
-        test.duplicate()
+        self.day_attribution()
+        self.duplicate()
 
         return self.model
 

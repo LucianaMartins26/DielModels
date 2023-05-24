@@ -34,8 +34,7 @@ class PhotonReactionInhibitor(Step):
         Model
         """
 
-        test = PhotonReactionInhibitor(self.model, self.id_photon_reaction_night)
-        test.restrain()
+        self.restrain()
 
         return self.model
 
