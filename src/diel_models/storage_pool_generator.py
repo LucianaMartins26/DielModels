@@ -133,7 +133,10 @@ class StoragePoolGenerator(Step):
 
     def run(self) -> Model:
         """
-        Executes the methods of the class StoragePoolCreator
+        Executes the methods of the class StoragePoolGenerator
+
+        Returns
+        Model
         """
 
         test = StoragePoolGenerator(self.model, self.metabolites)

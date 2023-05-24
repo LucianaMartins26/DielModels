@@ -71,6 +71,9 @@ class DayNightCreator(Step):
     def run(self) -> Model:
         """
         Executes the methods of the class DayNightCreator
+
+        Returns
+        Model
         """
         test = DayNightCreator(self.model)
         test.day_attribution()

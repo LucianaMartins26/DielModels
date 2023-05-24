@@ -28,7 +28,10 @@ class PhotonReactionInhibitor(Step):
 
     def run(self) -> Model:
         """
-        Executes the method of the class PhotonReactionRestrictor
+        Executes the method of the class PhotonReactionInhibitor
+
+        Returns
+        Model
         """
 
         test = PhotonReactionInhibitor(self.model, self.id_photon_reaction_night)

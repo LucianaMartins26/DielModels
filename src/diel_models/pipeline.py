@@ -30,7 +30,7 @@ class Pipeline:
 
     def run(self) -> None:
         """
-        It runs the validate method followed by the run method and writes the resulting xml model from each step.
+        It runs the validate method followed by the run method.
         The resulting model is then set as self.model to be used in the next step.
         """
 

@@ -70,7 +70,10 @@ class BiomassRegulator(Step):
 
     def run(self) -> Model:
         """
-        Executes the methods of the class BiomassAdjuster
+        Executes the methods of the class BiomassRegulator
+
+        Returns
+        Model
         """
 
         test = BiomassRegulator(self.model, self.id_biomass_reaction_day, self.id_biomass_reaction_night,
