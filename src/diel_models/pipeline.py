@@ -36,6 +36,4 @@ class Pipeline:
 
         for step in self.steps:
             step.validate()
-            step.run()
-            cobra.io.write_sbml_model(self.model, "Model.xml")
-            self.model = cobra.io.read_sbml_model("Model.xml")
+            self.model = step.run()

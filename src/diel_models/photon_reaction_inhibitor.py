@@ -26,13 +26,15 @@ class PhotonReactionInhibitor(Step):
         else:
             raise ValueError("Reaction id not present in the model that was given.")
 
-    def run(self) -> None:
+    def run(self) -> Model:
         """
         Executes the method of the class PhotonReactionRestrictor
         """
 
         test = PhotonReactionInhibitor(self.model, self.id_photon_reaction_night)
         test.restrain()
+
+        return self.model
 
     def validate(self) -> None:
         """

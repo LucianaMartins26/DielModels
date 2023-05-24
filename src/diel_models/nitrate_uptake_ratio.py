@@ -44,7 +44,7 @@ class NitrateUptakeRatioCalibrator(Step):
                 {metabolite_id: -nitrate_uptake_reaction_night.metabolites[metabolite_id]})
             nitrate_uptake_reaction_night.add_metabolites({metabolite_id: 2.0})
 
-    def run(self) -> None:
+    def run(self) -> Model:
         """
         Executes the method of the class RatioUptakeNitrateCalibrator
         """
@@ -52,6 +52,8 @@ class NitrateUptakeRatioCalibrator(Step):
         test = NitrateUptakeRatioCalibrator(self.model, self.id_nitrate_uptake_reaction_day,
                                             self.id_nitrate_uptake_reaction_night)
         test.ratio_set()
+
+        return self.model
 
     def validate(self) -> None:
         pass

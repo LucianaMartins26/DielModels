@@ -16,7 +16,7 @@ class DayNightCreator(Step):
         """
         self.model: Model = model
 
-    def day_attribution(self) -> Model:
+    def day_attribution(self) -> None:
         """
         Loop into the reactions and metabolites of a metabolic model
         Returns
@@ -34,9 +34,7 @@ class DayNightCreator(Step):
         for compartment_id, compartment_description in compartments_copy.items():
             self.model._compartments[compartment_id + "_Day"] = compartment_description + " Day"
 
-        return self.model.metabolites
-
-    def duplicate(self) -> Model:
+    def duplicate(self) -> None:
         """
         Function that duplicates the original reactions and replaces
         the suffix "_Day" with the suffix "_Night" and further duplicates
@@ -60,23 +58,25 @@ class DayNightCreator(Step):
                     duplicate_metabolite.id = model_metabolite.id.replace("_Day", "_Night")
                     duplicate_metabolite.name = model_metabolite.name.replace("Day", "Night")
                     duplicate_metabolite.compartment = model_metabolite.compartment.replace("_Day", "_Night")
-                    duplicate_reaction.add_metabolites({duplicate_metabolite: model_reaction.metabolites[model_metabolite]})
+                    duplicate_reaction.add_metabolites(
+                        {duplicate_metabolite: model_reaction.metabolites[model_metabolite]})
 
                 if not self.model.reactions.has_id(duplicate_reaction.id):
                     self.model.add_reactions([duplicate_reaction])
 
         for compartment_id, compartment_description in compartments_copy.items():
-            self.model._compartments[compartment_id.replace("_Day", "_Night")] = compartment_description.replace("Day", "Night")
+            self.model._compartments[compartment_id.replace("_Day", "_Night")] = compartment_description.replace("Day",
+                                                                                                                 "Night")
 
-        return self.model
-
-    def run(self) -> None:
+    def run(self) -> Model:
         """
         Executes the methods of the class DayNightCreator
         """
         test = DayNightCreator(self.model)
         test.day_attribution()
         test.duplicate()
+
+        return self.model
 
     def validate(self) -> None:
         """

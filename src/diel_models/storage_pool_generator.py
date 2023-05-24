@@ -131,7 +131,7 @@ class StoragePoolGenerator(Step):
 
         self.model.add_reactions(other_side_exchange_reactions)
 
-    def run(self) -> None:
+    def run(self) -> Model:
         """
         Executes the methods of the class StoragePoolCreator
         """
@@ -140,6 +140,8 @@ class StoragePoolGenerator(Step):
         test.create_storage_pool_metabolites()
         test.create_storage_pool_first_reactions()
         test.create_storage_pool_second_reactions()
+
+        return self.model
 
     def validate(self) -> None:
         """

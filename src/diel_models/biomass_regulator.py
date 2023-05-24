@@ -38,7 +38,7 @@ class BiomassRegulator(Step):
             else:
                 raise ValueError("Reaction id not present in the model that was given.")
 
-    def total_biomass_reaction(self) -> Reaction:
+    def total_biomass_reaction(self) -> None:
         """
         Function that joins the two biomass reactions (day and night) into one.
         Defines this new reaction as the objective function of the model.
@@ -68,9 +68,7 @@ class BiomassRegulator(Step):
         self.model.add_reactions([biomass_reaction_total])
         self.model.objective = biomass_reaction_total
 
-        return biomass_reaction_total
-
-    def run(self) -> None:
+    def run(self) -> Model:
         """
         Executes the methods of the class BiomassAdjuster
         """
@@ -79,6 +77,8 @@ class BiomassRegulator(Step):
                                 self.photosynthesis_reactions_at_night)
         test.reset_boundaries()
         test.total_biomass_reaction()
+
+        return self.model
 
     def validate(self) -> None:
         pass
