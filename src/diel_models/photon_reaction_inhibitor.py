@@ -33,7 +33,6 @@ class PhotonReactionInhibitor(Step):
         Returns
         Model
         """
-
         self.restrain()
 
         return self.model

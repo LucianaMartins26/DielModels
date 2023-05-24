@@ -45,7 +45,7 @@ class BiomassAdjuster(Step):
         for reaction in [biomass_reaction_day, biomass_reaction_night]:
             for metabolite in reaction.metabolites:
                 coefficient = reaction.get_coefficient(metabolite.id)
-                biomass_reaction_total.add_metabolites({metabolite: coefficient})
+                biomass_reaction_total.add_metabolites({metabolite: coefficient / 2})
 
         self.model.add_reactions([biomass_reaction_total])
         self.model.objective = biomass_reaction_total
@@ -59,7 +59,6 @@ class BiomassAdjuster(Step):
         Returns
         Model
         """
-
         self.total_biomass_reaction()
 
         return self.model

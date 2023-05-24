@@ -33,9 +33,10 @@ class StoragePoolGenerator(Step):
 
         for identification in self.metabolites:
             if identification in self.model.metabolites:
-                metabolite_sp_id: str = identification.replace(
-                    self.model.metabolites.get_by_id(identification).compartment, "sp")
-                names.append(self.model.metabolites.get_by_id(identification).name)
+                metabolite_object = self.model.metabolites.get_by_id(identification)
+                new_id = identification.replace("Day", "").replace("Night", "")
+                metabolite_sp_id: str = f"{new_id}_sp"
+                names.append(metabolite_object.name)
                 self.metabolite_sp_ids.append(metabolite_sp_id)
             else:
                 raise ValueError("Metabolite id not present in the model that was given.")
@@ -76,10 +77,20 @@ class StoragePoolGenerator(Step):
                 self.model.metabolites.get_by_id(metabolite_id): -1.0,
                 self.model.metabolites.get_by_id(metabolite_sp_id): 1.0
             })
+        if direction == "Day" and "Night" in metabolite_id:
+            exchange_reaction.add_metabolites({
+                self.model.metabolites.get_by_id(metabolite_id.replace('Night', 'Day')): -1.0,
+                self.model.metabolites.get_by_id(metabolite_sp_id): 1.0
+            })
         if direction == "Night" and "Night" in metabolite_id:
             exchange_reaction.add_metabolites({
                 self.model.metabolites.get_by_id(metabolite_sp_id): -1.0,
                 self.model.metabolites.get_by_id(metabolite_id): 1.0
+            })
+        if direction == "Night" and "Day" in metabolite_id:
+            exchange_reaction.add_metabolites({
+                self.model.metabolites.get_by_id(metabolite_sp_id): -1.0,
+                self.model.metabolites.get_by_id(metabolite_id.replace('Day', 'Night')): 1.0
             })
         exchange_reaction.lower_bound = -1000.0
         exchange_reaction.upper_bound = 1000.0
@@ -102,24 +113,24 @@ class StoragePoolGenerator(Step):
 
         self.model.add_reactions(exchange_reactions)
 
-    # def create_storage_pool_second_reactions(self) -> None:
-    #     """
-    #     According to the given metabolite IDs,
-    #     this function creates the complementary reactions,
-    #     i.e. if it previously created the Day <-> Storage Pool reaction,
-    #     it now creates the Storage Pool <-> Night reaction and vice versa.
-    #     """
-    #     other_side_exchange_reactions: List[Reaction] = []
-    #
-    #     for metabolite_id, metabolite_sp_id in zip(self.metabolites, self.metabolite_sp_ids):
-    #         if "Day" in metabolite_id:
-    #             other_side_exchange_reactions.append(
-    #                 self.create_exchange_reaction(metabolite_id, metabolite_sp_id, "Night"))
-    #         if "Night" in metabolite_id:
-    #             other_side_exchange_reactions.append(
-    #                 self.create_exchange_reaction(metabolite_id, metabolite_sp_id, "Day"))
-    #
-    #     self.model.add_reactions(other_side_exchange_reactions)
+    def create_storage_pool_second_reactions(self) -> None:
+        """
+        According to the given metabolite IDs,
+        this function creates the complementary reactions,
+        i.e. if it previously created the Day <-> Storage Pool reaction,
+        it now creates the Storage Pool <-> Night reaction and vice versa.
+        """
+        other_side_exchange_reactions: List[Reaction] = []
+
+        for metabolite_id, metabolite_sp_id in zip(self.metabolites, self.metabolite_sp_ids):
+            if "Day" in metabolite_id:
+                other_side_exchange_reactions.append(
+                    self.create_exchange_reaction(metabolite_id, metabolite_sp_id, "Night"))
+            if "Night" in metabolite_id:
+                other_side_exchange_reactions.append(
+                    self.create_exchange_reaction(metabolite_id, metabolite_sp_id, "Day"))
+
+        self.model.add_reactions(other_side_exchange_reactions)
 
     def run(self) -> Model:
         """
@@ -132,7 +143,7 @@ class StoragePoolGenerator(Step):
         test = StoragePoolGenerator(self.model, self.metabolites)
         test.create_storage_pool_metabolites()
         test.create_storage_pool_first_reactions()
-        # test.create_storage_pool_second_reactions()
+        test.create_storage_pool_second_reactions()
 
         return self.model
 

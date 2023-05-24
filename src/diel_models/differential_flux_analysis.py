@@ -72,6 +72,7 @@ class DFA:
 
                 sampling = ACHRSampler(model_obj, thinning=thinning, n_jobs=n_jobs)
                 df_sampling = sampling.sample(10000)
+                # TODO: DIVIDIR EM DOIS
                 df_sampling.to_csv(os.path.join(self.results_folder, '%s_sampling.csv' % modelname))
 
             sampling_dic[modelname] = df_sampling

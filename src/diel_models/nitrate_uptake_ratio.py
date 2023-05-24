@@ -47,7 +47,6 @@ class NitrateUptakeRatioCalibrator(Step):
         Returns
         Model
         """
-
         self.ratio_set()
 
         return self.model
