@@ -12,7 +12,7 @@ class TestNitrateUptakeRatioCalibrator(TestCase):
 
     def test_ratio_set(self):
 
-        diel_model = os.path.join(TEST_DIR, "data", "Diel_Model_AraGEM.xml")
+        diel_model = os.path.join(TEST_DIR, "data", "Diel_Model_AraGEM_with_biomass_total.xml")
         diel_model_2 = cobra.io.read_sbml_model(diel_model)
         diel_model_copy = copy.deepcopy(diel_model_2)
 
@@ -30,7 +30,7 @@ class TestNitrateUptakeRatioCalibrator(TestCase):
 
     def test_ratio_set_with_invalid_day_reaction(self):
 
-        diel_model = os.path.join(TEST_DIR, "data", "Diel_Model_AraGEM.xml")
+        diel_model = os.path.join(TEST_DIR, "data", "Diel_Model_AraGEM_with_biomass_total.xml")
         diel_model_2 = cobra.io.read_sbml_model(diel_model)
         diel_model_copy = copy.deepcopy(diel_model_2)
 
@@ -41,7 +41,7 @@ class TestNitrateUptakeRatioCalibrator(TestCase):
 
     def test_ratio_set_with_invalid_night_reaction(self):
 
-        diel_model = os.path.join(TEST_DIR, "data", "Diel_Model_AraGEM.xml")
+        diel_model = os.path.join(TEST_DIR, "data", "Diel_Model_AraGEM_with_biomass_total.xml")
         diel_model_2 = cobra.io.read_sbml_model(diel_model)
         diel_model_copy = copy.deepcopy(diel_model_2)
 
