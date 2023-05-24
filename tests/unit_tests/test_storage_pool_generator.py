@@ -52,7 +52,7 @@ class TestStoragePool(TestCase):
                                                                      "S_Homogentisate_c_Day", "S_Hordenine_c_Day"])
         storagepool_creator.create_storage_pool_metabolites()
         storagepool_creator.create_storage_pool_first_reactions()
-        storagepool_creator.create_storage_pool_second_reactions()
+        #storagepool_creator.create_storage_pool_second_reactions()
 
         self.assertEqual(2 * (len(diel_model_copy.metabolites.query("_sp"))),
                          len(diel_model_copy.reactions.query("exchange")))

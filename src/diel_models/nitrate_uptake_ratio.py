@@ -35,8 +35,8 @@ class NitrateUptakeRatioCalibrator(Step):
             raise ValueError("id_nitrate_uptake_reaction_night not present in the model that was given.")
 
         same_flux = self.model.problem.Constraint(
-            self.model.reactions.nitrate_uptake_reaction_day.flux_expression -
-            self.model.reactions.nitrate_uptake_reaction_night.flux_expression * (3/2), lb=0,
+            nitrate_uptake_reaction_day.flux_expression -
+            nitrate_uptake_reaction_night.flux_expression * (3/2), lb=0,
             ub=0)
         self.model.add_cons_vars(same_flux)
 

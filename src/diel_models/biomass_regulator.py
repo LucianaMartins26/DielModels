@@ -1,12 +1,10 @@
 from cobra import Model, Reaction
-from typing import List
 from diel_models.pipeline import Step
 
 
 class BiomassAdjuster(Step):
 
-    def __init__(self, model: Model, id_biomass_reaction_day: str, id_biomass_reaction_night: str,
-                 photosynthesis_reactions_at_night: List[str]) -> None:
+    def __init__(self, model: Model, id_biomass_reaction_day: str, id_biomass_reaction_night: str) -> None:
         """
         Parameters
         ----------
@@ -16,27 +14,11 @@ class BiomassAdjuster(Step):
             Identification of the biomass reaction at night
         id_biomass_reaction_night: string
             Identification of the biomass reaction at day
-        photosynthesis_reactions_at_night: List of strings
-            List with identifications of the reactions of chlorophylls, caretonoids and/or others
         """
 
         self.model: Model = model
         self.id_biomass_reaction_day: str = id_biomass_reaction_day
         self.id_biomass_reaction_night: str = id_biomass_reaction_night
-        self.photosynthesis_reactions_at_night: List[str] = photosynthesis_reactions_at_night
-
-    def reset_boundaries(self) -> None:
-        """
-        Function that zeroes in on the limits of the given reactions responsible
-        for absorbing light and important for photosynthesis, since this process
-        does not take place at night.
-        """
-
-        for photosynthesis_reaction in self.photosynthesis_reactions_at_night:
-            if photosynthesis_reaction in self.model.reactions:
-                self.model.reactions.get_by_id(photosynthesis_reaction).bounds = (0, 0)
-            else:
-                raise ValueError("Reaction id not present in the model that was given.")
 
     def total_biomass_reaction(self) -> None:
         """
@@ -78,9 +60,6 @@ class BiomassAdjuster(Step):
         Model
         """
 
-        # test = BiomassAdjuster(self.model, self.id_biomass_reaction_day, self.id_biomass_reaction_night,
-        #                        self.photosynthesis_reactions_at_night)
-        # self.reset_boundaries()
         self.total_biomass_reaction()
 
         return self.model
