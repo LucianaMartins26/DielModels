@@ -1,13 +1,13 @@
 import os
-import scipy as sp
-from scipy.stats import sem, hypergeom
+from scipy.stats import hypergeom
 import statsmodels.api
 from cobra.sampling import ACHRSampler
 from cobra.io import read_sbml_model
-from utils.config import PROJECT_PATH
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import statsmodels.stats.multitest
+import scipy.stats as sp
 
 
 class DFA:
@@ -15,6 +15,7 @@ class DFA:
     Class to perform differential flux analysis between metabolic models based on the paper from
     ...
     """
+
     def __init__(self, modelid, datasetid, specific_models: dict, models_objective: dict, pathways_map: str = None):
         """
         Parameters
@@ -31,15 +32,17 @@ class DFA:
             path of the csv file containing the pathway of each reaction
         """
 
-        self.models_folder = os.path.join(PROJECT_PATH, 'reconstruction_results', modelid, 'results_troppo', datasetid,
-                                          'reconstructed_models')
+        self.models_folder = os.path.join('C:\\Users\\lucia\\Desktop\\DielModels', 'reconstruction_results',
+                                          modelid, 'results_troppo', datasetid, 'reconstructed_models')
 
-        self.results_folder = os.path.join(PROJECT_PATH, 'reconstruction_results', modelid, 'results_troppo', datasetid,
-                                           'dfa')
+        self.results_folder = os.path.join('C:\\Users\\lucia\\Desktop\\DielModels', 'reconstruction_results',
+                                           modelid, 'results_troppo', datasetid, 'dfa')
 
         self.specific_models = specific_models
         self.objectives = models_objective
         self.sampled_fluxes = None
+        self.day_sampling = None
+        self.night_sampling = None
         self.pathways = pathways_map
         self.results = None
 
@@ -55,11 +58,15 @@ class DFA:
             number of threads to use for flux sampling (not working??)
         Returns
         -------
-        self.sampled_fluxes: dict
-            dict with the sampled fluxes created (pandas dataframe) as values
+        day_sampling: pandas DataFrame
+            sampled fluxes for the daytime
+        night_sampling: pandas DataFrame
+            sampled fluxes for the nighttime
         """
 
-        sampling_dic = {}
+        day_sampling_dic = {}
+        night_sampling_dic = {}
+        model_sampling_dic = {}
 
         for modelname in self.specific_models:
             try:
@@ -71,14 +78,22 @@ class DFA:
                 model_obj.objective = self.objectives[modelname]
 
                 sampling = ACHRSampler(model_obj, thinning=thinning, n_jobs=n_jobs)
-                df_sampling = sampling.sample(10000)
-                # TODO: DIVIDIR EM DOIS
+                df_sampling = sampling.sample(3)
                 df_sampling.to_csv(os.path.join(self.results_folder, '%s_sampling.csv' % modelname))
 
-            sampling_dic[modelname] = df_sampling
+            df_day = df_sampling[df_sampling.columns[df_sampling.columns.str.endswith('_Day')]]
+            df_night = df_sampling[df_sampling.columns[df_sampling.columns.str.endswith('_Night')]]
 
-        self.sampled_fluxes = sampling_dic
-        return self.sampled_fluxes
+            day_sampling_dic[modelname] = df_day
+            night_sampling_dic[modelname] = df_night
+            model_sampling_dic[modelname] = df_sampling
+
+        self.sampled_fluxes = model_sampling_dic
+
+        self.day_sampling = pd.concat(day_sampling_dic.values(), keys=day_sampling_dic.keys())
+        self.night_sampling = pd.concat(night_sampling_dic.values(), keys=night_sampling_dic.keys())
+
+        return self.day_sampling, self.night_sampling
 
     def kstest(self):
         """
@@ -91,32 +106,32 @@ class DFA:
 
         """
 
-        modelnames = '_'. join(list(self.sampled_fluxes.keys()))
-        sampled_fluxes1, sampled_fluxes2 = list(self.sampled_fluxes.values())
-        rxns1 = set(sampled_fluxes1.columns)
-        rxns2 = set(sampled_fluxes2.columns)
+        modelnames = '_'.join(list(self.sampled_fluxes.keys()))
 
-        rxns_common = rxns1.intersection(rxns2)
+        rxns1 = set(self.day_sampling.columns)
+        rxns2 = set(self.night_sampling.columns)
+        rxns = rxns1.symmetric_difference(rxns2)
 
         pvals = []
         rxnid = []
         fc = []
 
-        for rxn in rxns_common:
-            data1 = sampled_fluxes1[rxn].round(decimals=4)
-            data2 = sampled_fluxes2[rxn].round(decimals=4)
+        for rxn in rxns:
+            if rxn.endswith('_Day'):
+                data1 = self.day_sampling[rxn].round(decimals=4)
+                data2 = self.night_sampling[rxn.replace('_Day', '_Night')].round(decimals=4)
 
-            data1 = data1.sample(n=1000)
-            data2 = data2.sample(n=1000)
+                data1 = data1.sample(n=3)
+                data2 = data2.sample(n=3)
 
-            if (data1.std() != 0 and data1.mean() != 0) or (data2.std() != 0 and data2.mean() != 0):
-                kstat, pval = sp.stats.ks_2samp(data1, data2)
+                if data1.std() != 0 and data1.mean() != 0 and data2.std() != 0 and data2.mean() != 0:
+                    kstat, pval = sp.ks_2samp(data1, data2)
 
-                foldc = (data1.mean() - data2.mean()) / abs(data1.mean() + data2.mean())
+                    foldc = (data1.mean() - data2.mean()) / abs(data1.mean() + data2.mean())
 
-                pvals.append(pval)
-                rxnid.append(rxn)
-                fc.append(foldc)
+                    pvals.append(pval)
+                    rxnid.append(rxn)
+                    fc.append(foldc)
 
         data_mwu = pd.DataFrame({'Reaction': rxnid, 'Pvalue': pvals})
         data_mwu = data_mwu.set_index('Reaction')
@@ -130,8 +145,8 @@ class DFA:
 
         data_sigFC = data_mwu.loc[(abs(data_mwu['FC']) > 0.82) & (data_mwu['Padj'] < 0.05), :]
 
-        rxns1 = set(sampled_fluxes1.columns)
-        rxns2 = set(sampled_fluxes2.columns)
+        rxns1 = set(self.day_sampling.columns)
+        rxns2 = set(self.night_sampling.columns)
 
         rxn_in1 = rxns1.difference(rxns2)
         rxn_in2 = rxns2.difference(rxns1)
@@ -139,14 +154,14 @@ class DFA:
         act = []
         rep = []
 
-        for rx in rxn_in1:  # Activated reactions
-            sig = bootstrapCI(sampled_fluxes1[rx])
+        for rx in rxn_in1:
+            sig = bootstrapCI(self.day_sampling[rx])
 
             if sig == 1:
                 act.append(rx)
 
-        for rx in rxn_in2:  # Activated reactions
-            sig = bootstrapCI(sampled_fluxes2[rx])
+        for rx in rxn_in2:
+            sig = bootstrapCI(self.night_sampling[rx])
 
             if sig == 1:
                 rep.append(rx)
@@ -318,7 +333,7 @@ if __name__ == '__main__':
 
     obj = {'leaf': 'e-Biomass_vvinif2023__cyto', 'stem': 'e-Biomass_vvinif2023__cyto'}
 
-    paths = os.path.join(PROJECT_PATH, 'reconstruction_results', model_id, 'pathways.csv')
+    paths = os.path.join('C:\\Users\\lucia\\Desktop\\DielModels', 'reconstruction_results', model_id, 'pathways.csv')
 
     obj_cls = DFA(modelid=model_id, datasetid=dataset_id, specific_models=pair_models, models_objective=obj,
                   pathways_map=paths)
