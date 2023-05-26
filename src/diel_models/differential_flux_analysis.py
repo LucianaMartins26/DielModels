@@ -9,6 +9,30 @@ import pandas as pd
 import statsmodels.stats.multitest
 import scipy.stats as sp
 
+from tests import TEST_DIR
+
+
+def split_reversible_reactions(model_to_sample):
+    exchanges_demands_sinks = [reaction.id for reaction in model_to_sample.exchanges] + [reaction.id for reaction in
+                                                                                         model_to_sample.demands] + [
+                                  reaction.id for reaction in model_to_sample.sinks]
+    exchanges_demands_sinks = set(exchanges_demands_sinks)
+    new_reactions = []
+    for reaction in model_to_sample.reactions:
+        if reaction not in exchanges_demands_sinks:
+            if reaction.lower_bound < 0 < reaction.upper_bound:
+                new_reaction = reaction.copy()
+                new_reaction.id = reaction.id + "_reverse"
+                new_reaction.lower_bound = 0
+                new_reaction.upper_bound = -reaction.lower_bound
+                for metabolite, coefficient in new_reaction.metabolites.items():
+                    new_reaction.add_metabolites({metabolite: -coefficient})
+                    new_reaction.add_metabolites({metabolite: -coefficient})
+                new_reactions.append(new_reaction)
+                reaction.lower_bound = 0
+    model_to_sample.add_reactions(new_reactions)
+    return model_to_sample
+
 
 class DFA:
     """
@@ -32,11 +56,9 @@ class DFA:
             path of the csv file containing the pathway of each reaction
         """
 
-        self.models_folder = os.path.join('C:\\Users\\lucia\\Desktop\\DielModels', 'reconstruction_results',
-                                          modelid, 'results_troppo', datasetid, 'reconstructed_models')
+        self.models_folder = os.path.join(TEST_DIR, 'models')
 
-        self.results_folder = os.path.join('C:\\Users\\lucia\\Desktop\\DielModels', 'reconstruction_results',
-                                           modelid, 'results_troppo', datasetid, 'dfa')
+        self.results_folder = os.path.join(TEST_DIR, 'dfa')
 
         self.specific_models = specific_models
         self.objectives = models_objective
@@ -46,7 +68,7 @@ class DFA:
         self.pathways = pathways_map
         self.results = None
 
-    def sampling(self, thinning: int = 100, n_jobs: int = 4):
+    def sampling(self, thinning: int = 100, n_jobs: int = 4, n_samples: int = 100):
         """
         Performs flux sampling
         Parameters
@@ -75,14 +97,22 @@ class DFA:
             except FileNotFoundError:
                 model_path = os.path.join(self.models_folder, '%s.xml' % (self.specific_models[modelname]))
                 model_obj = read_sbml_model(model_path)
+
+                model_obj = split_reversible_reactions(model_obj)
+
                 model_obj.objective = self.objectives[modelname]
 
+                model_obj.objective_direction = 'max'
+
                 sampling = ACHRSampler(model_obj, thinning=thinning, n_jobs=n_jobs)
-                df_sampling = sampling.sample(3)
+                df_sampling = sampling.sample(n_samples)
                 df_sampling.to_csv(os.path.join(self.results_folder, '%s_sampling.csv' % modelname))
 
-            df_day = df_sampling[df_sampling.columns[df_sampling.columns.str.endswith('_Day')]]
-            df_night = df_sampling[df_sampling.columns[df_sampling.columns.str.endswith('_Night')]]
+            df_day = df_sampling[df_sampling.columns[(df_sampling.columns.str.endswith('_Day')) |
+                                                     (df_sampling.columns.str.endswith('_Day_reverse'))]]
+
+            df_night = df_sampling[df_sampling.columns[(df_sampling.columns.str.endswith('_Night')) |
+                                                       (df_sampling.columns.str.endswith('_Night_reverse'))]]
 
             day_sampling_dic[modelname] = df_day
             night_sampling_dic[modelname] = df_night
@@ -121,8 +151,8 @@ class DFA:
                 data1 = self.day_sampling[rxn].round(decimals=4)
                 data2 = self.night_sampling[rxn.replace('_Day', '_Night')].round(decimals=4)
 
-                data1 = data1.sample(n=3)
-                data2 = data2.sample(n=3)
+                data1 = data1.sample(n=20)
+                data2 = data2.sample(n=20)
 
                 if data1.std() != 0 and data1.mean() != 0 and data2.std() != 0 and data2.mean() != 0:
                     kstat, pval = sp.ks_2samp(data1, data2)
@@ -144,34 +174,14 @@ class DFA:
         data_mwu['FC'] = fc
 
         data_sigFC = data_mwu.loc[(abs(data_mwu['FC']) > 0.82) & (data_mwu['Padj'] < 0.05), :]
+        data_sigFC = data_mwu.loc[(data_mwu['Padj'] < 0.05), :]
         print(sum(data_mwu['Padj'] < 0.05))
-        # rxns1 = set(self.day_sampling.columns)
-        # rxns2 = set(self.night_sampling.columns)
-        #
-        # rxn_in1 = rxns1.difference(rxns2)
-        # rxn_in2 = rxns2.difference(rxns1)
-        #
-        # act = []
-        # rep = []
-        #
-        # for rx in rxn_in1:
-        #     sig = bootstrapCI(self.day_sampling[rx])
-        #
-        #     if sig == 1:
-        #         act.append(rx)
-        #
-        # for rx in rxn_in2:
-        #     sig = bootstrapCI(self.night_sampling[rx])
-        #
-        #     if sig == 1:
-        #         rep.append(rx)
-        #
-        # file = os.path.join(self.results_folder, '%s_DFA_reaction_result.csv' % modelnames)
-        # data_sigFC.to_csv(file)
-        #
-        # self.results = data_sigFC.index.to_list()
-        #
-        # return self.results
+        file = os.path.join(self.results_folder, '%s_DFA_reaction_result.csv' % modelnames)
+        data_sigFC.to_csv(file)
+
+        self.results = data_sigFC.index.to_list()
+
+        return self.results
 
     def pathway_enrichment(self):
         """
@@ -323,19 +333,3 @@ def bootstrapCI(rxn: pd.Series):
         return 1
     else:
         return 0
-
-
-if __name__ == '__main__':
-    model_id = 'vvinif2023'
-    dataset_id = 'RNAseq'
-
-    pair_models = {'leaf': 'leaf_t0_Local2_fastcore', 'stem': 'stem_t0_Local2_fastcore'}
-
-    obj = {'leaf': 'e-Biomass_vvinif2023__cyto', 'stem': 'e-Biomass_vvinif2023__cyto'}
-
-    paths = os.path.join('C:\\Users\\lucia\\Desktop\\DielModels', 'reconstruction_results', model_id, 'pathways.csv')
-
-    obj_cls = DFA(modelid=model_id, datasetid=dataset_id, specific_models=pair_models, models_objective=obj,
-                  pathways_map=paths)
-
-    obj_cls.run_complete_dfa()
