@@ -11,7 +11,7 @@ from tests import TEST_DIR
 class TestPhotonInhibitor(TestCase):
 
     def test_restrain(self):
-        diel_storagepool_model = os.path.join(TEST_DIR, "data", "Diel_AraGEM2010_with_storage_pool.xml")
+        diel_storagepool_model = os.path.join(TEST_DIR, "data", "Diel_AraGEM_with_storage_pool.xml")
         diel_storagepool_model_2 = cobra.io.read_sbml_model(diel_storagepool_model)
         diel_storagepool_model_copy = copy.deepcopy(diel_storagepool_model_2)
 
@@ -27,7 +27,7 @@ class TestPhotonInhibitor(TestCase):
                                   os.path.join(TEST_DIR, "data", "Diel_AraGEM_sp_photon_restricted.xml"))
 
     def test_restrain_with_invalid_reaction(self):
-        diel_storagepool_model = os.path.join(TEST_DIR, "data", "Diel_AraGEM2010_with_storage_pool.xml")
+        diel_storagepool_model = os.path.join(TEST_DIR, "data", "Diel_AraGEM_with_storage_pool.xml")
         diel_storagepool_model_2 = cobra.io.read_sbml_model(diel_storagepool_model)
         diel_storagepool_model_copy = copy.deepcopy(diel_storagepool_model_2)
 

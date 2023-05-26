@@ -110,7 +110,7 @@ class DFA:
 
         rxns1 = set(self.day_sampling.columns)
         rxns2 = set(self.night_sampling.columns)
-        rxns = rxns1.symmetric_difference(rxns2)
+        rxns = rxns1.symmetric_difference(rxns2)  # all reactions
 
         pvals = []
         rxnid = []
@@ -144,34 +144,34 @@ class DFA:
         data_mwu['FC'] = fc
 
         data_sigFC = data_mwu.loc[(abs(data_mwu['FC']) > 0.82) & (data_mwu['Padj'] < 0.05), :]
-
-        rxns1 = set(self.day_sampling.columns)
-        rxns2 = set(self.night_sampling.columns)
-
-        rxn_in1 = rxns1.difference(rxns2)
-        rxn_in2 = rxns2.difference(rxns1)
-
-        act = []
-        rep = []
-
-        for rx in rxn_in1:
-            sig = bootstrapCI(self.day_sampling[rx])
-
-            if sig == 1:
-                act.append(rx)
-
-        for rx in rxn_in2:
-            sig = bootstrapCI(self.night_sampling[rx])
-
-            if sig == 1:
-                rep.append(rx)
-
-        file = os.path.join(self.results_folder, '%s_DFA_reaction_result.csv' % modelnames)
-        data_sigFC.to_csv(file)
-
-        self.results = data_sigFC.index.to_list()
-
-        return self.results
+        print(sum(data_mwu['Padj'] < 0.05))
+        # rxns1 = set(self.day_sampling.columns)
+        # rxns2 = set(self.night_sampling.columns)
+        #
+        # rxn_in1 = rxns1.difference(rxns2)
+        # rxn_in2 = rxns2.difference(rxns1)
+        #
+        # act = []
+        # rep = []
+        #
+        # for rx in rxn_in1:
+        #     sig = bootstrapCI(self.day_sampling[rx])
+        #
+        #     if sig == 1:
+        #         act.append(rx)
+        #
+        # for rx in rxn_in2:
+        #     sig = bootstrapCI(self.night_sampling[rx])
+        #
+        #     if sig == 1:
+        #         rep.append(rx)
+        #
+        # file = os.path.join(self.results_folder, '%s_DFA_reaction_result.csv' % modelnames)
+        # data_sigFC.to_csv(file)
+        #
+        # self.results = data_sigFC.index.to_list()
+        #
+        # return self.results
 
     def pathway_enrichment(self):
         """
