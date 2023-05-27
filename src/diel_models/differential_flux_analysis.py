@@ -149,7 +149,7 @@ class DFA:
         fc = []
 
         for rxn in rxns:
-            if rxn.endswith('_Day'):
+            if "_Day" in rxn:
                 data1 = self.day_sampling[rxn].round(decimals=4)
                 data2 = self.night_sampling[rxn.replace('_Day', '_Night')].round(decimals=4)
 
@@ -162,7 +162,7 @@ class DFA:
                     foldc = (data1.mean() - data2.mean()) / abs(data1.mean() + data2.mean())
 
                     pvals.append(pval)
-                    rxnid.append(rxn)
+                    rxnid.append(rxn.replace("_Day", ""))
                     fc.append(foldc)
 
         data_mwu = pd.DataFrame({'Reaction': rxnid, 'Pvalue': pvals})
@@ -207,12 +207,10 @@ class DFA:
 
             dataset = pd.concat([dataset, df_temp], axis=1)
 
-
         listrxnSize = []
         setSize = []
 
         d = [g for g in self.results]
-
 
         for col in dataset.columns:
             df = pd.DataFrame({'Reaction': dataset[col]})
