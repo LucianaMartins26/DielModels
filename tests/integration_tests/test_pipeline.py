@@ -1,4 +1,5 @@
 from unittest import TestCase
+
 from diel_models.pipeline import Pipeline
 import cobra
 import os
@@ -6,12 +7,13 @@ from tests import TEST_DIR
 from diel_models.day_night_creator import DayNightCreator
 from diel_models.storage_pool_generator import StoragePoolGenerator
 from diel_models.photon_reaction_inhibitor import PhotonReactionInhibitor
-from diel_models.biomass_regulator import BiomassAdjuster
+from diel_models.biomass_adjuster import BiomassAdjuster
 from diel_models.nitrate_uptake_ratio import NitrateUptakeRatioCalibrator
 
 
 def diel_models_creator(model, storage_pool_metabolites, photon_reaction_id, biomass_reaction_id,
                         nitrate_exchange_reaction):
+
     storage_pool_metabolites_with_day = [metabolite + "_Day" for metabolite in storage_pool_metabolites]
     photon_reaction_id_night = photon_reaction_id + "_Night"
     biomass_day_id = biomass_reaction_id + "_Day"

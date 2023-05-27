@@ -12,7 +12,7 @@ class TestDayNightCreator(TestCase):
 
     def test_compartments_creator(self):
 
-        ara_gem_model = os.path.join(TEST_DIR, "data", "AraGEM2010.xml")
+        ara_gem_model = os.path.join(TEST_DIR, "data", "aragem_photo.xml")
         non_diel_model = cobra.io.read_sbml_model(ara_gem_model)
         non_diel_model_copy = copy.deepcopy(non_diel_model)
 

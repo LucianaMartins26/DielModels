@@ -9,8 +9,6 @@ import pandas as pd
 import statsmodels.stats.multitest
 import scipy.stats as sp
 
-from tests import TEST_DIR
-
 
 def split_reversible_reactions(model_to_sample):
     exchanges_demands_sinks = [reaction.id for reaction in model_to_sample.exchanges] + [reaction.id for reaction in
@@ -56,9 +54,11 @@ class DFA:
             path of the csv file containing the pathway of each reaction
         """
 
-        self.models_folder = os.path.join(TEST_DIR, 'models')
+        self.models_folder = os.path.join("C:\\Users\\lucia\\Desktop\\DielModels", 'reconstruction_results', modelid,
+                                          'results_troppo', datasetid, 'reconstructed_models')
 
-        self.results_folder = os.path.join(TEST_DIR, 'dfa')
+        self.results_folder = os.path.join("C:\\Users\\lucia\\Desktop\\DielModels", 'reconstruction_results', modelid,
+                                           'results_troppo', datasetid, 'dfa')
 
         self.specific_models = specific_models
         self.objectives = models_objective
@@ -78,6 +78,8 @@ class DFA:
             10 means samples are returned every 10 steps
         n_jobs: int (default = 4)
             number of threads to use for flux sampling (not working??)
+        n_samples: int (default = 100)
+            number os samples to be returned
         Returns
         -------
         day_sampling: pandas DataFrame
@@ -175,7 +177,7 @@ class DFA:
 
         data_sigFC = data_mwu.loc[(abs(data_mwu['FC']) > 0.82) & (data_mwu['Padj'] < 0.05), :]
         data_sigFC = data_mwu.loc[(data_mwu['Padj'] < 0.05), :]
-        print(sum(data_mwu['Padj'] < 0.05))
+
         file = os.path.join(self.results_folder, '%s_DFA_reaction_result.csv' % modelnames)
         data_sigFC.to_csv(file)
 
@@ -205,10 +207,12 @@ class DFA:
 
             dataset = pd.concat([dataset, df_temp], axis=1)
 
+
         listrxnSize = []
         setSize = []
 
         d = [g for g in self.results]
+
 
         for col in dataset.columns:
             df = pd.DataFrame({'Reaction': dataset[col]})
