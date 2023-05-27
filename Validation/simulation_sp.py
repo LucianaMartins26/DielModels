@@ -8,7 +8,7 @@ from src.diel_models.nitrate_uptake_ratio import NitrateUptakeRatioCalibrator
 
 
 def load_model():
-    model = read_sbml_model("/Diel_Model_after_pipeline.xml")
+    model = read_sbml_model("C:\\Users\\lucia\\Desktop\\DielModels\\tests\\Diel_Model_after_pipeline.xml")
     model.reactions.get_by_id("Biomass_Total").upper_bound = 0.11
     model.reactions.get_by_id("Biomass_Total").lower_bound = 0.11
     model.objective = "Ex16_Day"
