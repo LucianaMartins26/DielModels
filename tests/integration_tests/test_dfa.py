@@ -7,7 +7,7 @@ class TestDFA(TestCase):
     def setUp(self) -> None:
         self.model_id = 'MODEL1507180028'
         self.dataset_id = 'DielModel'
-        self.model_specifics = {'diel_model': 'Diel_Model_after_complete_pipeline'}
+        self.model_specifics = {'diel_model': 'Diel_Model'}
         self.objectives = {'diel_model': 'Biomass_Total'}
         self.pathways = 'C:\\Users\\lucia\\Desktop\\DielModels\\reconstruction_results\\MODEL1507180028\\' \
                         'results_troppo\\DielModel\\dfa\\pathways_map.csv'

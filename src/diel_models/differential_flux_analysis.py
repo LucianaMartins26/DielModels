@@ -209,8 +209,13 @@ class DFA:
 
         listrxnSize = []
         setSize = []
+        results = []
 
-        d = [g for g in self.results]
+        for reaction in self.results:
+            reaction = reaction + "_Day"
+            results.append(reaction)
+
+        d = [r for r in results]
 
         for col in dataset.columns:
             df = pd.DataFrame({'Reaction': dataset[col]})
@@ -219,7 +224,7 @@ class DFA:
             out = []
 
             for reac in df['Reaction']:
-                if reac in self.results:
+                if reac in results:
                     out.append(reac)
                     if reac in d:
                         d.remove(reac)

@@ -1,0 +1,90 @@
+import pandas as pd
+from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
+import matplotlib.pyplot as plt
+
+
+def pca(df_sampling_path, df_kstest_path):
+
+    df_sampling = pd.read_csv(df_sampling_path)
+    df_kstest = pd.read_csv(df_kstest_path)
+
+    differentially_expressed_reactions = df_kstest['Reaction'].tolist()
+
+    columns_to_filter = [column for column in df_sampling.columns if
+                         any(reaction in column for reaction in differentially_expressed_reactions)]
+
+    df_filtered = df_sampling[columns_to_filter]
+
+    reactions_data = df_filtered.iloc[:, 1:].values
+
+    pca = PCA(n_components=2)
+    pca_result = pca.fit_transform(reactions_data)
+
+    pca_df = pd.DataFrame(pca_result, columns=['PC1', 'PC2'])
+
+    df_filtered_transposed = df_filtered.T
+
+    labels = ['Day' if 'Day' in reaction else 'Night' for reaction in df_filtered_transposed.index]
+
+    color_map = {'Day': 'orange', 'Night': 'purple'}
+
+    for i, row in pca_df.iterrows():
+        category = labels[i]
+        color = color_map[category]
+        plt.scatter(row['PC1'], row['PC2'], color=color)
+
+    plt.legend(handles=[plt.Line2D([], [], color='orange', label='Day'),
+                        plt.Line2D([], [], color='purple', label='Night')])
+
+    plt.title('PCA')
+    plt.savefig('gráfico_pca_df_filtrado.png')
+    plt.show()
+
+
+def tsne(df_sampling_path, df_kstest_path):
+    df_sampling = pd.read_csv(df_sampling_path)
+    df_kstest = pd.read_csv(df_kstest_path)
+
+    differentially_expressed_reactions = df_kstest['Reaction'].tolist()
+
+    columns_to_filter = [column for column in df_sampling.columns if
+                         any(reaction in column for reaction in differentially_expressed_reactions)]
+
+    df_filtered = df_sampling[columns_to_filter]
+
+    reactions_data = df_filtered.iloc[:, 1:].values
+
+    tsne = TSNE(n_components=2)
+    tsne_result = tsne.fit_transform(reactions_data)
+
+    tsne_df = pd.DataFrame(tsne_result, columns=['t-SNE1', 't-SNE2'])
+
+    df_filtered_transposed = df_filtered.T
+
+    labels = ['Day' if 'Day' in reaction else 'Night' for reaction in df_filtered_transposed.index]
+
+    color_map = {'Day': 'orange', 'Night': 'purple'}
+
+    for i, row in tsne_df.iterrows():
+        category = labels[i]
+        color = color_map[category]
+        plt.scatter(row['t-SNE1'], row['t-SNE2'], color=color)
+
+    plt.legend(handles=[plt.Line2D([], [], color='orange', label='Day'),
+                        plt.Line2D([], [], color='purple', label='Night')])
+
+    plt.title('t-SNE')
+    plt.savefig('gráfico_t-sne_df_filtrado.png')
+    plt.show()
+
+
+if __name__ == '__main__':
+    df_sampling_path = 'C:\\Users\\lucia\\Desktop\\DielModels\\reconstruction_results\\MODEL1507180028\\' \
+                       'results_troppo\\DielModel\\dfa\\diel_model_sampling.csv'
+
+    df_kstest_path = 'C:\\Users\\lucia\\Desktop\\DielModels\\reconstruction_results\\MODEL1507180028\\' \
+                     'results_troppo\\DielModel\\dfa\\diel_model_DFA_reaction_result.csv'
+
+    pca(df_sampling_path, df_kstest_path)
+    tsne(df_sampling_path, df_kstest_path)

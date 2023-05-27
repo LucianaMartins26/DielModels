@@ -58,4 +58,4 @@ class TestPipelineEndToEnd(TestCase):
 
         model = diel_models_creator(modelo, storage_pool_metabolites, "Ex16", "BIO_L", "Ex4")
 
-        cobra.io.write_sbml_model(model, "Diel_Model_after_complete_pipeline.xml")
+        cobra.io.write_sbml_model(model, "Diel_Model_after_pipeline.xml")
