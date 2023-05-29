@@ -23,7 +23,7 @@ def load_model():
 
 def simulate(model):
     solution = pfba(model).fluxes
-    fva_solution = fva(model, [storage for storage in model.reactions if "Day_sp" in storage.id],
+    fva_solution = fva(model, [storage for storage in model.reactions if "_sp" in storage.id],
                        fraction_of_optimum=1.0, processes=os.cpu_count())
     assert solution['Biomass_Total'] == 0.11
     assert round(solution['Ex4_Day'] * 2, 4) == round(solution['Ex4_Night'] * 3, 4)
@@ -32,7 +32,7 @@ def simulate(model):
 
 def analyze_solution(pfba_solution, fva_solution):
     produced_at_day = pfba_solution.loc[(pfba_solution.index.str.contains('Day_sp')) & (round(pfba_solution, 5) > 0)]
-    produced_at_night = pfba_solution.loc[(pfba_solution.index.str.contains('Day_sp')) & (round(pfba_solution, 5) < 0)]
+    produced_at_night = pfba_solution.loc[(pfba_solution.index.str.contains('Night_sp')) & (round(pfba_solution, 5) < 0)]
     produced_at_day = pd.concat([produced_at_day, fva_solution.loc[produced_at_day.index, ['minimum', 'maximum']]],
                                 axis=1)
     produced_at_night = pd.concat(
