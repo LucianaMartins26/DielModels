@@ -175,7 +175,6 @@ class DFA:
         data_mwu['Reject'] = reject
         data_mwu['FC'] = fc
 
-        data_sigFC = data_mwu.loc[(abs(data_mwu['FC']) > 0.82) & (data_mwu['Padj'] < 0.05), :]
         data_sigFC = data_mwu.loc[(data_mwu['Padj'] < 0.05), :]
 
         file = os.path.join(self.results_folder, '%s_DFA_reaction_result.csv' % modelnames)
@@ -212,8 +211,8 @@ class DFA:
         results = []
 
         for reaction in self.results:
-            reaction = reaction + "_Day"
-            results.append(reaction)
+            if reaction.endswith("Day"):
+                results.append(reaction)
 
         d = [r for r in results]
 
