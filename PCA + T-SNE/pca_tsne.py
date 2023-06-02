@@ -2,7 +2,6 @@ import pandas as pd
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 
 
 def pca(df_sampling_path, df_kstest_path):
@@ -22,10 +21,8 @@ def pca(df_sampling_path, df_kstest_path):
     pca = PCA(n_components=2)
     pca_result = pca.fit_transform(reactions_data.T)
 
-    # cumulative_variance = np.cumsum(variance_ratio)
-    # desired_variance = 0.95
-    # num_components = np.argmax(cumulative_variance >= desired_variance) + 1
-    # print(num_components)
+    variance_ratio = pca.explained_variance_ratio_
+    print(sum(variance_ratio))
 
     pca_df = pd.DataFrame(pca_result, columns=['PC1', 'PC2'])
 
