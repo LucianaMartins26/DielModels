@@ -1,5 +1,7 @@
+import os
 from unittest import TestCase
 from diel_models.differential_flux_analysis import DFA
+from project_path import PROJECT_PATH
 
 
 class TestDFA(TestCase):
@@ -9,8 +11,8 @@ class TestDFA(TestCase):
         self.dataset_id = 'DielModel'
         self.model_specifics = {'diel_model': 'Diel_Model'}
         self.objectives = {'diel_model': 'Biomass_Total'}
-        self.pathways = 'C:\\Users\\lucia\\Desktop\\DielModels\\reconstruction_results\\MODEL1507180028\\' \
-                        'results_troppo\\DielModel\\dfa\\pathways_map.csv'
+        self.pathways = os.path.join(PROJECT_PATH, 'reconstruction_results', self.model_id,
+                                     'results_troppo', self.dataset_id, 'dfa', 'pathways_map.csv')
 
     def test_dfa(self) -> None:
         dfa = DFA(self.model_id, self.dataset_id, self.model_specifics, self.objectives)

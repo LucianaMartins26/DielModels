@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import statsmodels.stats.multitest
 import scipy.stats as sp
+from project_path import PROJECT_PATH
 
 
 def split_reversible_reactions(model_to_sample):
@@ -54,10 +55,10 @@ class DFA:
             path of the csv file containing the pathway of each reaction
         """
 
-        self.models_folder = os.path.join("C:\\Users\\lucia\\Desktop\\DielModels", 'reconstruction_results', modelid,
+        self.models_folder = os.path.join(PROJECT_PATH, 'reconstruction_results', modelid,
                                           'results_troppo', datasetid, 'reconstructed_models')
 
-        self.results_folder = os.path.join("C:\\Users\\lucia\\Desktop\\DielModels", 'reconstruction_results', modelid,
+        self.results_folder = os.path.join(PROJECT_PATH, 'reconstruction_results', modelid,
                                            'results_troppo', datasetid, 'dfa')
 
         self.specific_models = specific_models
