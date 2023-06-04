@@ -1,14 +1,17 @@
 import os
 
+import cobra.io
 import pandas as pd
 from cobra.flux_analysis import pfba, flux_variability_analysis as fva
-from cobra.io import read_sbml_model
+from tests import TEST_DIR
 
 from src.diel_models.nitrate_uptake_ratio import NitrateUptakeRatioCalibrator
 
 
 def load_model():
-    model = read_sbml_model("C:\\Users\\lucia\\Desktop\\DielModels\\tests\\Diel_Model_after_pipeline.xml")
+    model_path = os.path.join(TEST_DIR, 'reconstruction_results', 'MODEL1507180028','results_troppo', 'DielModel',
+                              'reconstructed_models', 'Diel_Model.xml')
+    model = cobra.io.read_sbml_model(model_path)
     model.reactions.get_by_id("Biomass_Total").upper_bound = 0.11
     model.reactions.get_by_id("Biomass_Total").lower_bound = 0.11
     model.objective = "Ex16_Day"

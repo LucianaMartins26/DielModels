@@ -212,8 +212,8 @@ class DFA:
         results = []
 
         for reaction in self.results:
-            if reaction.endswith("Day"):
-                results.append(reaction)
+            if 'reverse' not in reaction:
+                results.append(reaction + '_Day')
 
         d = [r for r in results]
 

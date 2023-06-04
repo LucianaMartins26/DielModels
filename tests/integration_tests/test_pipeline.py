@@ -49,12 +49,11 @@ class TestPipelineEndToEnd(TestCase):
                                     "S_L_45_Valine_c[C_c]", "S_L_45_Arginine_c[C_c]",
                                     "S_L_45_Cysteine_c[C_c]", "S_L_45_Glutamine_c[C_c]",
                                     "S_L_45_Glutamate_c[C_c]", "S_Glycine_c[C_c]",
-                                    "S_L_45_Proline_c[C_c]", "S_L_45_Tyrosine_c[C_c]",
-                                    "S_L_45_Alanine_c[C_c]", "S_L_45_Asparagine_c[C_c]",
-                                    "S_L_45_Serine_c[C_c]", "S_Orthophosphate_c[C_c]",
-                                    "S_Starch_p[C_p]", "S_D_45_Fructose_c[C_c]",
-                                    "S__40_S_41__45_Malate_c[C_c]", "S_Fumarate_c[C_c]",
-                                    "S_Citrate_c[C_c]"]
+                                    "S_L_45_Tyrosine_c[C_c]", "S_L_45_Alanine_c[C_c]",
+                                    "S_L_45_Asparagine_c[C_c]", "S_L_45_Serine_c[C_c]",
+                                    "S_L_45_Aspartate_c[C_c]", "S_Starch_p[C_p]",
+                                    "S_D_45_Fructose_c[C_c]", "S__40_S_41__45_Malate_c[C_c]",
+                                    "S_Fumarate_c[C_c]", "S_Citrate_c[C_c]"]
 
         model = diel_models_creator(modelo, storage_pool_metabolites, "Ex16", "BIO_L", "Ex4")
 

@@ -1,7 +1,11 @@
+import os.path
+
 import pandas as pd
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
+
+from tests import TEST_DIR
 
 
 def pca(df_sampling_path, df_kstest_path):
@@ -85,11 +89,11 @@ def tsne(df_sampling_path, df_kstest_path):
 
 
 if __name__ == '__main__':
-    df_sampling_path = 'C:\\Users\\lucia\\Desktop\\DielModels\\reconstruction_results\\MODEL1507180028\\' \
-                       'results_troppo\\DielModel\\dfa\\diel_model_sampling.csv'
+    df_sampling_path = os.path.join(TEST_DIR, 'reconstruction_results', 'MODEL1507180028','results_troppo', 'DielModel',
+                              'dfa', 'diel_model_sampling.csv')
 
-    df_kstest_path = 'C:\\Users\\lucia\\Desktop\\DielModels\\reconstruction_results\\MODEL1507180028\\' \
-                     'results_troppo\\DielModel\\dfa\\diel_model_DFA_reaction_result.csv'
+    df_kstest_path = os.path.join(TEST_DIR, 'reconstruction_results', 'MODEL1507180028','results_troppo', 'DielModel',
+                              'dfa', 'diel_model_DFA_reaction_result.csv')
 
     pca(df_sampling_path, df_kstest_path)
     tsne(df_sampling_path, df_kstest_path)
