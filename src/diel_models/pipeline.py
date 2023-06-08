@@ -9,6 +9,7 @@ class Step(ABC):
         """Performs the step."""
         pass
 
+    @abstractmethod
     def validate(self) -> None:
         """Validates the model of the step."""
         pass
