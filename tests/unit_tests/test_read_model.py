@@ -11,6 +11,6 @@ class TestReadModel(unittest.TestCase):
         """
         Test reading a model from a file.
         """
-        model = cobra.io.read_sbml_model(os.path.join(TEST_DIR, "data", "AraGEM2010.xml"))
-        self.assertEqual("MODEL1507180028", model.id)
+        model = cobra.io.read_sbml_model(os.path.join(TEST_DIR, "data", "aragem_photo.xml"))
+        self.assertEqual("M_", model.id)
 
