@@ -28,9 +28,6 @@ class TestBiomassRegulator(TestCase):
 
         self.assertIn('Biomass_Total', str(diel_model_copy.objective.expression))
 
-        cobra.io.write_sbml_model(diel_model_copy, os.path.join(TEST_DIR, 'data',
-                                                                "Diel_Model_AraGEM_with_biomass_total.xml"))
-
     def test_total_biomass_with_invalid_biomass_reaction(self):
         diel_sp_no_night_photon_model = os.path.join(TEST_DIR, "data",
                                                      "Diel_AraGEM_sp_photon_restricted.xml")

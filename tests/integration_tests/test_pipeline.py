@@ -1,37 +1,13 @@
 from unittest import TestCase
 
-from diel_models.pipeline import Pipeline
 import cobra
 import os
+
+from cobra.flux_analysis import pfba
+
 from tests import TEST_DIR
-from diel_models.day_night_creator import DayNightCreator
-from diel_models.storage_pool_generator import StoragePoolGenerator
-from diel_models.photon_reaction_inhibitor import PhotonReactionInhibitor
-from diel_models.biomass_adjuster import BiomassAdjuster
-from diel_models.nitrate_uptake_ratio import NitrateUptakeRatioCalibrator
 
-
-def diel_models_creator(model, storage_pool_metabolites, photon_reaction_id, biomass_reaction_id,
-                        nitrate_exchange_reaction):
-
-    storage_pool_metabolites_with_day = [metabolite + "_Day" for metabolite in storage_pool_metabolites]
-    photon_reaction_id_night = photon_reaction_id + "_Night"
-    biomass_day_id = biomass_reaction_id + "_Day"
-    biomass_night_id = biomass_reaction_id + "_Night"
-    nitrate_exchange_reaction_night = nitrate_exchange_reaction + "_Night"
-    nitrate_exchange_reaction_day = nitrate_exchange_reaction + "_Day"
-
-    steps = [
-        DayNightCreator(model),
-        StoragePoolGenerator(model, storage_pool_metabolites_with_day),
-        PhotonReactionInhibitor(model, photon_reaction_id_night),
-        BiomassAdjuster(model, biomass_day_id, biomass_night_id),
-        NitrateUptakeRatioCalibrator(model, nitrate_exchange_reaction_day, nitrate_exchange_reaction_night)
-    ]
-
-    pipeline = Pipeline(model, steps)
-    pipeline.run()
-    return pipeline.model
+from diel_models.diel_models_creator import diel_models_creator
 
 
 class TestPipelineEndToEnd(TestCase):
@@ -55,6 +31,29 @@ class TestPipelineEndToEnd(TestCase):
                                     "S_D_45_Fructose_c[C_c]", "S__40_S_41__45_Malate_c[C_c]",
                                     "S_Fumarate_c[C_c]", "S_Citrate_c[C_c]"]
 
-        model = diel_models_creator(modelo, storage_pool_metabolites, "Ex16", "BIO_L", "Ex4")
+        diel_models_creator(modelo, storage_pool_metabolites, "Ex16", "BIO_L", "Ex4")
 
-        cobra.io.write_sbml_model(model, "Diel_Model_after_pipeline.xml")
+        for reaction in modelo.reactions:
+            if 'Biomass' not in reaction.id:
+                assert "_Day" in reaction.id or "_Night" in reaction.id, "The model does not have Day and Night reactions."
+        for metabolite in modelo.metabolites:
+            assert "_Day" in metabolite.id or "_Night" in metabolite.id or "sp" in metabolite.id, "The model does not " \
+                                                                                                  "have Day, Night or " \
+                                                                                                  "sp metabolites."
+        for compartment in modelo.compartments:
+            assert "_Day" in compartment or "_Night" in compartment or 'sp' in compartment, "The model does not have day " \
+                                                                                            "or night or " \
+                                                                                            "storage pool compartments"
+        self.assertEqual(modelo.reactions.get_by_id("Ex16_Night").bounds, (0, 0))
+        self.assertEqual(modelo.reactions.get_by_id("BIO_L_Day").bounds, (0, 0))
+        self.assertEqual(modelo.reactions.get_by_id("BIO_L_Night").bounds, (0, 0))
+
+        self.assertIn('Biomass_Total', str(modelo.objective.expression))
+
+        nitrate_uptake_reaction_day = modelo.reactions.get_by_id("Ex4_Day")
+        nitrate_uptake_reaction_night = modelo.reactions.get_by_id("Ex4_Night")
+
+        solution = pfba(modelo).fluxes
+
+        self.assertEqual(round(solution[nitrate_uptake_reaction_day.id] * 2, 4),
+                         round(solution[nitrate_uptake_reaction_night.id] * 3, 4))

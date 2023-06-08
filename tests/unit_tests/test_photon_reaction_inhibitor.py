@@ -23,9 +23,6 @@ class TestPhotonInhibitor(TestCase):
         self.assertEqual(photon_night_reaction.lower_bound, 0)
         self.assertEqual(photon_night_reaction.upper_bound, 0)
 
-        cobra.io.write_sbml_model(diel_storagepool_model_copy,
-                                  os.path.join(TEST_DIR, "data", "Diel_AraGEM_sp_photon_restricted.xml"))
-
     def test_restrain_with_invalid_reaction(self):
         diel_storagepool_model = os.path.join(TEST_DIR, "data", "Diel_AraGEM_with_storage_pool.xml")
         diel_storagepool_model_2 = cobra.io.read_sbml_model(diel_storagepool_model)

@@ -85,5 +85,3 @@ class TestStoragePool(TestCase):
                                            "Nitrate_c_Day_sp_exchange", "L-Histidine_Day_sp_exchange",
                                            "Sucrose_c_Night_sp_exchange", "Sulfate_c_Night_sp_exchange",
                                            "Nitrate_c_Night_sp_exchange", "L-Histidine_Night_sp_exchange"])
-
-        cobra.io.write_sbml_model(diel_model_copy, os.path.join(TEST_DIR, "data", "Diel_AraGEM_with_storage_pool.xml"))
