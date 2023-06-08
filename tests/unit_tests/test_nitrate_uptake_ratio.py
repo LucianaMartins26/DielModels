@@ -21,8 +21,8 @@ class TestNitrateUptakeRatioCalibrator(TestCase):
         diel_model_copy.reactions.get_by_id("Ex5_Night").bounds = (0, 1000)
         diel_model_copy.reactions.get_by_id("Ex5_Day").bounds = (0, 1000)
 
-        nitrateuptakeratiocalibrator = NitrateUptakeRatioCalibrator(diel_model_copy, "Ex4_Day", "Ex4_Night")
-        nitrateuptakeratiocalibrator.ratio_set()
+        nitrate_uptake_ratio_calibrator = NitrateUptakeRatioCalibrator(diel_model_copy, "Ex4_Day", "Ex4_Night")
+        nitrate_uptake_ratio_calibrator.ratio_set()
 
         nitrate_uptake_reaction_day = diel_model_copy.reactions.get_by_id("Ex4_Day")
         nitrate_uptake_reaction_night = diel_model_copy.reactions.get_by_id("Ex4_Night")
