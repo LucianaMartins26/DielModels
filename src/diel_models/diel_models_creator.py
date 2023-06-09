@@ -1,3 +1,7 @@
+from typing import List
+
+from cobra import Model
+
 from diel_models.day_night_creator import DayNightCreator
 from diel_models.storage_pool_generator import StoragePoolGenerator
 from diel_models.photon_reaction_inhibitor import PhotonReactionInhibitor
@@ -6,8 +10,8 @@ from diel_models.nitrate_uptake_ratio import NitrateUptakeRatioCalibrator
 from diel_models.pipeline import Pipeline
 
 
-def diel_models_creator(model, storage_pool_metabolites, photon_reaction_id, biomass_reaction_id,
-                        nitrate_exchange_reaction):
+def diel_models_creator(model: Model, storage_pool_metabolites: List[str], photon_reaction_id: str,
+                        biomass_reaction_id: str, nitrate_exchange_reaction: str) -> Model:
     """
     Function that allows you to run the pipeline in one go,
     returning the resulting model, where the arguments are all relative to the original model.
