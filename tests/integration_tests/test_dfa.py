@@ -24,7 +24,7 @@ class TestDFA(TestCase):
                                                                      'results_troppo', self.dataset_id,
                                                                      'reconstructed_models', 'Diel_Model.xml'))
 
-    def test_dfa(self) -> None:
+    def test_sampling(self) -> None:
         day_sampling, night_sampling = self.dfa.sampling(thinning=100, n_samples=1000)
 
         result_model = split_reversible_reactions(self.model_to_sample)
