@@ -105,7 +105,7 @@ class DFA:
 
                 model_obj.objective = self.objectives[modelname]
 
-                model_obj.objective_direction = 'max'
+                model_obj.objective_direction = 'min' #para o modelo do tomateiro tem que ser "min"
 
                 sampling = ACHRSampler(model_obj, thinning=thinning, n_jobs=n_jobs)
                 df_sampling = sampling.sample(n_samples)

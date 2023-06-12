@@ -26,7 +26,7 @@ class TestDFATomato(TestCase):
                                                                      'Tomato_Diel_Model.xml'))
 
     def test_sampling(self) -> None:
-        self.dfa.sampling(thinning=100, n_samples=1000)
+        day_sampling, night_sampling = self.dfa.sampling(thinning=100, n_samples=1000)
 
         result_model = split_reversible_reactions(self.model_to_sample)
         exchanges_demands_sinks = [reaction.id for reaction in self.model_to_sample.exchanges] + \
