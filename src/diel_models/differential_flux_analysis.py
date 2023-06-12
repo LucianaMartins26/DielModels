@@ -8,8 +8,22 @@ import numpy as np
 import pandas as pd
 import statsmodels.stats.multitest
 import scipy.stats as sp
-from tests import TEST_DIR
 
+from diel_models.nitrate_uptake_ratio import NitrateUptakeRatioCalibrator
+from tests import TEST_DIR
+def load_model(model_path):
+    model = read_sbml_model(model_path)
+    model.reactions.get_by_id("Biomass_Total").upper_bound = 0.11
+    model.reactions.get_by_id("Biomass_Total").lower_bound = 0.11
+    model.objective = "EX_x_Photon_Day"
+    model.objective_direction = "max"
+    nitrate_calibrator = NitrateUptakeRatioCalibrator(model, "EX_x_NO3_Day", "EX_x_NO3_Night")
+    nitrate_calibrator.run()
+    model = nitrate_calibrator.model
+    model.reactions.get_by_id("EX_x_NH4_Day").bounds = (0, 1000)
+    model.reactions.get_by_id("EX_x_NH4_Night").bounds = (0, 1000)
+    sol = model.optimize()
+    return model
 
 def split_reversible_reactions(model_to_sample):
     exchanges_demands_sinks = [reaction.id for reaction in model_to_sample.exchanges] + [reaction.id for reaction in
@@ -99,8 +113,8 @@ class DFA:
                                           index_col=0)
             except FileNotFoundError:
                 model_path = os.path.join(self.models_folder, '%s.xml' % (self.specific_models[modelname]))
-                model_obj = read_sbml_model(model_path)
-
+                #model_obj = read_sbml_model(model_path)
+                model_obj = load_model(model_path)
                 model_obj = split_reversible_reactions(model_obj)
 
                 model_obj.objective = self.objectives[modelname]
@@ -152,19 +166,21 @@ class DFA:
         for rxn in rxns:
             if "_Day" in rxn:
                 data1 = self.day_sampling[rxn].round(decimals=4)
-                data2 = self.night_sampling[rxn.replace('_Day', '_Night')].round(decimals=4)
 
-                data1 = data1.sample(n=20)
-                data2 = data2.sample(n=20)
+                if rxn.replace('_Day', '_Night') in self.night_sampling.columns:
+                    data2 = self.night_sampling[rxn.replace('_Day', '_Night')].round(decimals=4)
 
-                if data1.std() != 0 and data1.mean() != 0 and data2.std() != 0 and data2.mean() != 0:
-                    kstat, pval = sp.ks_2samp(data1, data2)
+                    data1 = data1.sample(n=20)
+                    data2 = data2.sample(n=20)
 
-                    foldc = (data1.mean() - data2.mean()) / abs(data1.mean() + data2.mean())
+                    if data1.std() != 0 and data1.mean() != 0 and data2.std() != 0 and data2.mean() != 0:
+                        kstat, pval = sp.ks_2samp(data1, data2)
 
-                    pvals.append(pval)
-                    rxnid.append(rxn.replace("_Day", ""))
-                    fc.append(foldc)
+                        foldc = (data1.mean() - data2.mean()) / abs(data1.mean() + data2.mean())
+
+                        pvals.append(pval)
+                        rxnid.append(rxn.replace("_Day", ""))
+                        fc.append(foldc)
 
         data_mwu = pd.DataFrame({'Reaction': rxnid, 'Pvalue': pvals})
         data_mwu = data_mwu.set_index('Reaction')
