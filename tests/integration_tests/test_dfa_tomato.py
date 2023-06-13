@@ -3,7 +3,7 @@ from unittest import TestCase
 
 import cobra.io
 
-from diel_models.differential_flux_analysis import DFA, split_reversible_reactions
+from diel_models.differential_flux_analysis_tomato import DFA, split_reversible_reactions
 from tests import TEST_DIR
 import pandas as pd
 

@@ -9,21 +9,8 @@ import pandas as pd
 import statsmodels.stats.multitest
 import scipy.stats as sp
 
-from diel_models.nitrate_uptake_ratio import NitrateUptakeRatioCalibrator
 from tests import TEST_DIR
-def load_model(model_path):
-    model = read_sbml_model(model_path)
-    model.reactions.get_by_id("Biomass_Total").upper_bound = 0.11
-    model.reactions.get_by_id("Biomass_Total").lower_bound = 0.11
-    model.objective = "EX_x_Photon_Day"
-    model.objective_direction = "max"
-    nitrate_calibrator = NitrateUptakeRatioCalibrator(model, "EX_x_NO3_Day", "EX_x_NO3_Night")
-    nitrate_calibrator.run()
-    model = nitrate_calibrator.model
-    model.reactions.get_by_id("EX_x_NH4_Day").bounds = (0, 1000)
-    model.reactions.get_by_id("EX_x_NH4_Night").bounds = (0, 1000)
-    sol = model.optimize()
-    return model
+
 
 def split_reversible_reactions(model_to_sample):
     exchanges_demands_sinks = [reaction.id for reaction in model_to_sample.exchanges] + [reaction.id for reaction in
@@ -113,13 +100,12 @@ class DFA:
                                           index_col=0)
             except FileNotFoundError:
                 model_path = os.path.join(self.models_folder, '%s.xml' % (self.specific_models[modelname]))
-                #model_obj = read_sbml_model(model_path)
-                model_obj = load_model(model_path)
+                model_obj = read_sbml_model(model_path)
                 model_obj = split_reversible_reactions(model_obj)
 
                 model_obj.objective = self.objectives[modelname]
 
-                model_obj.objective_direction = 'min' #para o modelo do tomateiro tem que ser "min"
+                model_obj.objective_direction = 'max'
 
                 sampling = ACHRSampler(model_obj, thinning=thinning, n_jobs=n_jobs)
                 df_sampling = sampling.sample(n_samples)
