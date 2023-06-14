@@ -6,13 +6,7 @@ from diel_models.diel_models_creator import diel_models_creator
 
 
 def diel_model(model):
-    # diel_models_creator(model,
-    #                     ["SUCROSE_Cyto", "SULFATE_Cyto", "NITRATE_Cyto", "HIS_Cyto", "ILE_Cyto", "LEU_Cyto", "LYS_Cyto",
-    #                      "MET_Cyto", "PHE_Cyto", "THR_Cyto", "TRP_Cyto", "VAL_Cyto", "ARG_Cyto", "CYS_Cyto", "GLN_Cyto",
-    #                      "x_GLT", "GLY_Cyto", "TYR_Cyto", "x_ALA", "ASN_Cyto", "SER_Cyto", "x_ASPARTATE", "STARCH_Cyto",
-    #                      "FRU_Cyto", "MAL_Cyto", "FUM_Cyto", "CIT_Cyto"], 'EX_x_Photon', 'biomass_reaction', 'EX_x_NO3')
-#starch
-#confirmar drains
+
     diel_models_creator(model, ["x_Starch"], 'EX_x_Photon', 'biomass_reaction', 'EX_x_NO3')
 
     model.reactions.get_by_id("EX_x_CO2_Day").bounds = (-1000000, 0)
@@ -31,6 +25,7 @@ def diel_model(model):
     model.reactions.get_by_id("EX_x_Starch_Night").bounds = (-1000000, 0)
 
     model.reactions.get_by_id("EX_x_UMP_Day").bounds = (0, 1000000)
+    model.reactions.get_by_id("EX_x_UMP_Night").bounds = (0, 0)
 
     df = pd.read_excel(os.path.join(TEST_DIR, 'data', 'Photoautotrophic conditions.xlsx'))
 

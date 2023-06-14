@@ -15,15 +15,15 @@ from tests import TEST_DIR
 
 def load_model(model_path):
     model = read_sbml_model(model_path)
-    model.reactions.get_by_id("Biomass_Total").upper_bound = 0.11
-    model.reactions.get_by_id("Biomass_Total").lower_bound = 0.11
-    model.objective = "EX_x_Photon_Day"
+    model.reactions.get_by_id("Biomass_Total").upper_bound = 100
+    model.reactions.get_by_id("Biomass_Total").lower_bound = 100
+    model.objective = "Biomass_Total"
     model.objective_direction = "max"
     nitrate_calibrator = NitrateUptakeRatioCalibrator(model, "EX_x_NO3_Day", "EX_x_NO3_Night")
     nitrate_calibrator.run()
     model = nitrate_calibrator.model
-    model.reactions.get_by_id("EX_x_NH4_Day").bounds = (0, 1000)
-    model.reactions.get_by_id("EX_x_NH4_Night").bounds = (0, 1000)
+    model.reactions.get_by_id("EX_x_NH4_Day").bounds = (0, 100000)
+    model.reactions.get_by_id("EX_x_NH4_Night").bounds = (0, 100000)
     sol = model.optimize()
     return model
 
@@ -121,7 +121,7 @@ class DFA:
 
                 model_obj.objective = self.objectives[modelname]
 
-                model_obj.objective_direction = 'min'
+                model_obj.objective_direction = 'max'
 
                 sampling = ACHRSampler(model_obj, thinning=thinning, n_jobs=n_jobs)
                 df_sampling = sampling.sample(n_samples)

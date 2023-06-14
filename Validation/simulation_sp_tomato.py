@@ -11,15 +11,15 @@ from src.diel_models.nitrate_uptake_ratio import NitrateUptakeRatioCalibrator
 def load_model():
     model_path = os.path.join(TEST_DIR, 'data', 'diel_tomato_model.xml')
     model = cobra.io.read_sbml_model(model_path)
-    model.reactions.get_by_id("Biomass_Total").upper_bound = 0.11
-    model.reactions.get_by_id("Biomass_Total").lower_bound = 0.11
+    model.reactions.get_by_id("Biomass_Total").upper_bound = 100
+    model.reactions.get_by_id("Biomass_Total").lower_bound = 100
     model.objective = "EX_x_Photon_Day"
-    model.objective_direction = "max"
+    model.objective_direction = "min"
     nitrate_calibrator = NitrateUptakeRatioCalibrator(model, "EX_x_NO3_Day", "EX_x_NO3_Night")
     nitrate_calibrator.run()
     model = nitrate_calibrator.model
-    model.reactions.get_by_id("EX_x_NH4_Day").bounds = (-1000000, 0)
-    model.reactions.get_by_id("EX_x_NH4_Night").bounds = (-1000000, 0)
+    model.reactions.get_by_id("EX_x_NH4_Day").bounds = (0, 100000)
+    model.reactions.get_by_id("EX_x_NH4_Night").bounds = (0, 100000)
     return model
 
 
@@ -27,7 +27,7 @@ def simulate(model):
     solution = pfba(model).fluxes
     fva_solution = fva(model, [storage for storage in model.reactions if "Day_sp" in storage.id],
                        fraction_of_optimum=1.0, processes=os.cpu_count())
-    assert solution['Biomass_Total'] == 0.11
+    assert solution['Biomass_Total'] == 100
     assert round(solution['EX_x_NO3_Day'] * 2, 4) == round(solution['EX_x_NO3_Night'] * 3, 4)
     return solution, fva_solution
 

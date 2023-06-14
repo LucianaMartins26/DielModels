@@ -3,7 +3,7 @@ from unittest import TestCase
 
 import cobra.io
 
-from diel_models.differential_flux_analysis_tomato import DFA, split_reversible_reactions
+from DFA.differential_flux_analysis_tomato import DFA, split_reversible_reactions
 from tests import TEST_DIR
 import pandas as pd
 
@@ -15,8 +15,6 @@ class TestDFATomato(TestCase):
         self.dataset_id = 'TomatoDielModel'
         self.model_specifics = {'tomato_diel_model': 'Tomato_Diel_Model'}
         self.objectives = {'tomato_diel_model': 'Biomass_Total'}
-        # self.pathways = os.path.join(TEST_DIR, 'tomato_reconstruction_results', self.model_id,
-        #                             'results_troppo', self.dataset_id, 'dfa', 'pathways_map.csv')
         self.results_folder = os.path.join(TEST_DIR, 'reconstruction_results', self.model_id, 'results_troppo',
                                            self.dataset_id, 'dfa')
         self.dfa = DFA(self.model_id, self.dataset_id, self.model_specifics, self.objectives)
