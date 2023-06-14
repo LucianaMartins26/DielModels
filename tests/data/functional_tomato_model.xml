@@ -5001,6 +5001,7 @@
       <parameter sboTerm="SBO:0000625" id="R_dAMP_bm_tx_lower_bound" value="-1000000" units="mmol_per_gDW_per_hr" constant="true"/>
       <parameter sboTerm="SBO:0000625" id="R_dCMP_bm_tx_lower_bound" value="-1000000" units="mmol_per_gDW_per_hr" constant="true"/>
       <parameter sboTerm="SBO:0000625" id="R_dGMP_bm_tx_lower_bound" value="-1000000" units="mmol_per_gDW_per_hr" constant="true"/>
+      <parameter sboTerm="SBO:0000625" id="R_EX_x_biomass_upper_bound" value="1000000" units="mmol_per_gDW_per_hr" constant="true"/>
     </listOfParameters>
     <listOfReactions>
       <reaction metaid="meta_R_EX_ATPWork_Cyto" sboTerm="SBO:0000627" id="R_EX_ATPWork_Cyto" name="EX_ATPWork_Cyto" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
@@ -27763,7 +27764,7 @@
           <speciesReference species="M_DGMP_Cyto" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
-      <reaction id="R_Ex_x_biomass" name="Biomass exchange reaction" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
+      <reaction id="R_EX_x_biomass" name="Biomass exchange reaction" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="R_EX_x_biomass_upper_bound">
         <listOfReactants>
           <speciesReference species="M_x_biomass" stoichiometry="1" constant="true"/>
         </listOfReactants>

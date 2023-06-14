@@ -9,18 +9,17 @@ from src.diel_models.nitrate_uptake_ratio import NitrateUptakeRatioCalibrator
 
 
 def load_model():
-    model_path = os.path.join(TEST_DIR, 'reconstruction_results', 'TOMATOMODEL','results_troppo', 'TomatoDielModel',
-                              'reconstructed_models', 'Tomato_Diel_Model.xml')
+    model_path = os.path.join(TEST_DIR, 'data', 'diel_tomato_model.xml')
     model = cobra.io.read_sbml_model(model_path)
     model.reactions.get_by_id("Biomass_Total").upper_bound = 0.11
     model.reactions.get_by_id("Biomass_Total").lower_bound = 0.11
     model.objective = "EX_x_Photon_Day"
-    model.objective_direction = "min"
+    model.objective_direction = "max"
     nitrate_calibrator = NitrateUptakeRatioCalibrator(model, "EX_x_NO3_Day", "EX_x_NO3_Night")
     nitrate_calibrator.run()
     model = nitrate_calibrator.model
-    model.reactions.get_by_id("EX_x_NH4_Day").bounds = (0, 1000)
-    model.reactions.get_by_id("EX_x_NH4_Night").bounds = (0, 1000)
+    model.reactions.get_by_id("EX_x_NH4_Day").bounds = (-1000000, 0)
+    model.reactions.get_by_id("EX_x_NH4_Night").bounds = (-1000000, 0)
     return model
 
 

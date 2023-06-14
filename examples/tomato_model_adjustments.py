@@ -29,7 +29,6 @@ def tomato_model_adjust(tomato_model):
         else:
             print(f"Not possible to find: {reaction_name}")
 
-
     ## Create biomass metabolite and it's exchange reaction
 
     biomass_metabolite = cobra.Metabolite(
@@ -39,9 +38,9 @@ def tomato_model_adjust(tomato_model):
         compartment="DefaultCompartment",
     )
 
-    biomass_metabolite_rxn = cobra.Reaction("Ex_x_biomass")
+    biomass_metabolite_rxn = cobra.Reaction("EX_x_biomass")
     biomass_metabolite_rxn.name = "Biomass exchange reaction"
-    biomass_metabolite_rxn.bounds = (0, 1000)
+    biomass_metabolite_rxn.bounds = (0, 1000000)
 
     biomass_metabolite_rxn.add_metabolites({
         biomass_metabolite: -1})

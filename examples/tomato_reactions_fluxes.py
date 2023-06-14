@@ -5,21 +5,29 @@ from cobra.flux_analysis import pfba
 
 
 def validate_reactions_fluxes(original_model, diel_model):
+    original_model.objective = "biomass_reaction"
+    original_model.reactions.get_by_id("biomass_reaction").bounds = (0.11, 0.11)
+    original_model.reactions.get_by_id("ATPase_Cyto").bounds = (7.1, 7.1)
     original_model.objective_direction = "min"
     original_solution = pfba(original_model).fluxes
 
-    diel_model.objective = "EX_x_Photon_Day"
+    diel_model.objective = "Biomass_Total"
+    diel_model.reactions.get_by_id("Biomass_Total").bounds = (0.11, 0.11)
+    diel_model.reactions.get_by_id("ATPase_Cyto_Day").bounds = (7.1, 7.1)
     diel_model.objective_direction = "min"
     diel_solution = pfba(diel_model).fluxes
 
-    print(f'Photon Reaction: {original_solution["EX_x_Photon"]}, {diel_solution["EX_x_Photon_Day"]}, '
+    print(f'Photon Drain: {original_solution["EX_x_Photon"]}, {diel_solution["EX_x_Photon_Day"]}, '
           f'{diel_solution["EX_x_Photon_Night"]}')
 
-    print(f'Photosynthesis reaction 1: {original_solution["reac_1017"]}, {diel_solution["reac_1017_Day"]}, '
+    print(f'Photon reaction 1: {original_solution["reac_1017"]}, {diel_solution["reac_1017_Day"]}, '
           f'{diel_solution["reac_1017_Night"]}')
 
-    print(f'Photosynthesis reaction 2: {original_solution["reac_1883"]}, {diel_solution["reac_1883_Day"]}, '
+    print(f'Photon reaction 2: {original_solution["reac_1883"]}, {diel_solution["reac_1883_Day"]}, '
           f'{diel_solution["reac_1883_Night"]}')
+
+    print(f'Photon reaction 3: {original_solution["Photon_tx"]}, {diel_solution["Photon_tx_Day"]}, '
+          f'{diel_solution["Photon_tx_Night"]}')
 
     print(f'RuBisCO + CO2: {original_solution["reac_1070"]}, {diel_solution["reac_1070_Day"]}, '
           f'{diel_solution["reac_1070_Night"]}')
