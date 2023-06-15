@@ -21,11 +21,14 @@ def diel_model(model):
     model.reactions.get_by_id("EX_x_Cellulose_Day").bounds = (0, 1000000)
     model.reactions.get_by_id("EX_x_Cellulose_Night").bounds = (0, 1000000)
 
-    model.reactions.get_by_id("EX_x_Starch_Day").bounds = (0, 1000000)
-    model.reactions.get_by_id("EX_x_Starch_Night").bounds = (-1000000, 0)
+    model.reactions.get_by_id("Starch_bm_tx_Day").bounds = (-1000000, 0)
+    model.reactions.get_by_id("Starch_bm_tx_Night").bounds = (0, 1000000)
 
     model.reactions.get_by_id("EX_x_UMP_Day").bounds = (0, 1000000)
     model.reactions.get_by_id("EX_x_UMP_Night").bounds = (0, 0)
+
+    model.reactions.get_by_id("EX_x_Starch_Day").bounds = (-1000000, 0)
+    model.reactions.get_by_id("EX_x_Starch_Night").bounds = (0, 1000000)
 
     df = pd.read_excel(os.path.join(TEST_DIR, 'data', 'Photoautotrophic conditions.xlsx'))
 
