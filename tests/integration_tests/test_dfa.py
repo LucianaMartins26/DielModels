@@ -3,7 +3,7 @@ from unittest import TestCase
 
 import cobra.io
 
-from diel_models.differential_flux_analysis import DFA, split_reversible_reactions
+from DFA.differential_flux_analysis import DFA, split_reversible_reactions
 from tests import TEST_DIR
 import pandas as pd
 
@@ -24,7 +24,7 @@ class TestDFA(TestCase):
                                                                      'results_troppo', self.dataset_id,
                                                                      'reconstructed_models', 'Diel_Model.xml'))
 
-    def test_dfa(self) -> None:
+    def test_sampling(self) -> None:
         day_sampling, night_sampling = self.dfa.sampling(thinning=100, n_samples=1000)
 
         result_model = split_reversible_reactions(self.model_to_sample)
