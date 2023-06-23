@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>diel_models package &mdash; DielModels v1.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            DielModels
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">diel_models package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-diel_models.biomass_adjuster">diel_models.biomass_adjuster module</a><ul>
+<li><a class="reference internal" href="#diel_models.biomass_adjuster.BiomassAdjuster"><code class="docutils literal notranslate"><span class="pre">BiomassAdjuster</span></code></a><ul>
+<li><a class="reference internal" href="#diel_models.biomass_adjuster.BiomassAdjuster.run"><code class="docutils literal notranslate"><span class="pre">BiomassAdjuster.run()</span></code></a></li>
+<li><a class="reference internal" href="#diel_models.biomass_adjuster.BiomassAdjuster.total_biomass_reaction"><code class="docutils literal notranslate"><span class="pre">BiomassAdjuster.total_biomass_reaction()</span></code></a></li>
+<li><a class="reference internal" href="#diel_models.biomass_adjuster.BiomassAdjuster.validate"><code class="docutils literal notranslate"><span class="pre">BiomassAdjuster.validate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-diel_models.day_night_creator">diel_models.day_night_creator module</a><ul>
+<li><a class="reference internal" href="#diel_models.day_night_creator.DayNightCreator"><code class="docutils literal notranslate"><span class="pre">DayNightCreator</span></code></a><ul>
+<li><a class="reference internal" href="#diel_models.day_night_creator.DayNightCreator.day_attribution"><code class="docutils literal notranslate"><span class="pre">DayNightCreator.day_attribution()</span></code></a></li>
+<li><a class="reference internal" href="#diel_models.day_night_creator.DayNightCreator.duplicate"><code class="docutils literal notranslate"><span class="pre">DayNightCreator.duplicate()</span></code></a></li>
+<li><a class="reference internal" href="#diel_models.day_night_creator.DayNightCreator.run"><code class="docutils literal notranslate"><span class="pre">DayNightCreator.run()</span></code></a></li>
+<li><a class="reference internal" href="#diel_models.day_night_creator.DayNightCreator.validate"><code class="docutils literal notranslate"><span class="pre">DayNightCreator.validate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-diel_models.diel_models_creator">diel_models.diel_models_creator module</a><ul>
+<li><a class="reference internal" href="#diel_models.diel_models_creator.diel_models_creator"><code class="docutils literal notranslate"><span class="pre">diel_models_creator()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-diel_models.nitrate_uptake_ratio">diel_models.nitrate_uptake_ratio module</a><ul>
+<li><a class="reference internal" href="#diel_models.nitrate_uptake_ratio.NitrateUptakeRatioCalibrator"><code class="docutils literal notranslate"><span class="pre">NitrateUptakeRatioCalibrator</span></code></a><ul>
+<li><a class="reference internal" href="#diel_models.nitrate_uptake_ratio.NitrateUptakeRatioCalibrator.ratio_set"><code class="docutils literal notranslate"><span class="pre">NitrateUptakeRatioCalibrator.ratio_set()</span></code></a></li>
+<li><a class="reference internal" href="#diel_models.nitrate_uptake_ratio.NitrateUptakeRatioCalibrator.run"><code class="docutils literal notranslate"><span class="pre">NitrateUptakeRatioCalibrator.run()</span></code></a></li>
+<li><a class="reference internal" href="#diel_models.nitrate_uptake_ratio.NitrateUptakeRatioCalibrator.validate"><code class="docutils literal notranslate"><span class="pre">NitrateUptakeRatioCalibrator.validate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-diel_models.photon_reaction_inhibitor">diel_models.photon_reaction_inhibitor module</a><ul>
+<li><a class="reference internal" href="#diel_models.photon_reaction_inhibitor.PhotonReactionInhibitor"><code class="docutils literal notranslate"><span class="pre">PhotonReactionInhibitor</span></code></a><ul>
+<li><a class="reference internal" href="#diel_models.photon_reaction_inhibitor.PhotonReactionInhibitor.restrain"><code class="docutils literal notranslate"><span class="pre">PhotonReactionInhibitor.restrain()</span></code></a></li>
+<li><a class="reference internal" href="#diel_models.photon_reaction_inhibitor.PhotonReactionInhibitor.run"><code class="docutils literal notranslate"><span class="pre">PhotonReactionInhibitor.run()</span></code></a></li>
+<li><a class="reference internal" href="#diel_models.photon_reaction_inhibitor.PhotonReactionInhibitor.validate"><code class="docutils literal notranslate"><span class="pre">PhotonReactionInhibitor.validate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-diel_models.pipeline">diel_models.pipeline module</a><ul>
+<li><a class="reference internal" href="#diel_models.pipeline.Pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline</span></code></a><ul>
+<li><a class="reference internal" href="#diel_models.pipeline.Pipeline.run"><code class="docutils literal notranslate"><span class="pre">Pipeline.run()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#diel_models.pipeline.Step"><code class="docutils literal notranslate"><span class="pre">Step</span></code></a><ul>
+<li><a class="reference internal" href="#diel_models.pipeline.Step.run"><code class="docutils literal notranslate"><span class="pre">Step.run()</span></code></a></li>
+<li><a class="reference internal" href="#diel_models.pipeline.Step.validate"><code class="docutils literal notranslate"><span class="pre">Step.validate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-diel_models.storage_pool_generator">diel_models.storage_pool_generator module</a><ul>
+<li><a class="reference internal" href="#diel_models.storage_pool_generator.StoragePoolGenerator"><code class="docutils literal notranslate"><span class="pre">StoragePoolGenerator</span></code></a><ul>
+<li><a class="reference internal" href="#diel_models.storage_pool_generator.StoragePoolGenerator.create_exchange_reaction"><code class="docutils literal notranslate"><span class="pre">StoragePoolGenerator.create_exchange_reaction()</span></code></a></li>
+<li><a class="reference internal" href="#diel_models.storage_pool_generator.StoragePoolGenerator.create_storage_pool_first_reactions"><code class="docutils literal notranslate"><span class="pre">StoragePoolGenerator.create_storage_pool_first_reactions()</span></code></a></li>
+<li><a class="reference internal" href="#diel_models.storage_pool_generator.StoragePoolGenerator.create_storage_pool_metabolites"><code class="docutils literal notranslate"><span class="pre">StoragePoolGenerator.create_storage_pool_metabolites()</span></code></a></li>
+<li><a class="reference internal" href="#diel_models.storage_pool_generator.StoragePoolGenerator.create_storage_pool_second_reactions"><code class="docutils literal notranslate"><span class="pre">StoragePoolGenerator.create_storage_pool_second_reactions()</span></code></a></li>
+<li><a class="reference internal" href="#diel_models.storage_pool_generator.StoragePoolGenerator.run"><code class="docutils literal notranslate"><span class="pre">StoragePoolGenerator.run()</span></code></a></li>
+<li><a class="reference internal" href="#diel_models.storage_pool_generator.StoragePoolGenerator.validate"><code class="docutils literal notranslate"><span class="pre">StoragePoolGenerator.validate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-diel_models">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DielModels</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">diel_models package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/diel_models.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="diel-models-package">
+<h1>diel_models package<a class="headerlink" href="#diel-models-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-diel_models.biomass_adjuster">
+<span id="diel-models-biomass-adjuster-module"></span><h2>diel_models.biomass_adjuster module<a class="headerlink" href="#module-diel_models.biomass_adjuster" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="diel_models.biomass_adjuster.BiomassAdjuster">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diel_models.biomass_adjuster.</span></span><span class="sig-name descname"><span class="pre">BiomassAdjuster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_biomass_reaction_day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_biomass_reaction_night</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diel_models.biomass_adjuster.BiomassAdjuster" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#diel_models.pipeline.Step" title="diel_models.pipeline.Step"><code class="xref py py-class docutils literal notranslate"><span class="pre">Step</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.biomass_adjuster.BiomassAdjuster.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Model</span></span></span><a class="headerlink" href="#diel_models.biomass_adjuster.BiomassAdjuster.run" title="Permalink to this definition"></a></dt>
+<dd><p>Executes the methods of the class BiomassRegulator</p>
+<p>Returns
+Model</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.biomass_adjuster.BiomassAdjuster.total_biomass_reaction">
+<span class="sig-name descname"><span class="pre">total_biomass_reaction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#diel_models.biomass_adjuster.BiomassAdjuster.total_biomass_reaction" title="Permalink to this definition"></a></dt>
+<dd><p>Function that joins the two biomass reactions (day and night) into one.
+Defines this new reaction as the objective function of the model.
+:returns: <strong>biomass_reaction_total</strong>
+:rtype: cobra.Reaction</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.biomass_adjuster.BiomassAdjuster.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#diel_models.biomass_adjuster.BiomassAdjuster.validate" title="Permalink to this definition"></a></dt>
+<dd><p>Validates the model of the step.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-diel_models.day_night_creator">
+<span id="diel-models-day-night-creator-module"></span><h2>diel_models.day_night_creator module<a class="headerlink" href="#module-diel_models.day_night_creator" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="diel_models.day_night_creator.DayNightCreator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diel_models.day_night_creator.</span></span><span class="sig-name descname"><span class="pre">DayNightCreator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diel_models.day_night_creator.DayNightCreator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#diel_models.pipeline.Step" title="diel_models.pipeline.Step"><code class="xref py py-class docutils literal notranslate"><span class="pre">Step</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.day_night_creator.DayNightCreator.day_attribution">
+<span class="sig-name descname"><span class="pre">day_attribution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#diel_models.day_night_creator.DayNightCreator.day_attribution" title="Permalink to this definition"></a></dt>
+<dd><p>Loop into the reactions and metabolites of a metabolic model
+:rtype: Reactions and metabolites ids with “_Day” as sufix</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.day_night_creator.DayNightCreator.duplicate">
+<span class="sig-name descname"><span class="pre">duplicate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#diel_models.day_night_creator.DayNightCreator.duplicate" title="Permalink to this definition"></a></dt>
+<dd><p>Function that duplicates the original reactions and replaces
+the suffix “_Day” with the suffix “_Night” and further duplicates
+the corresponding metabolites</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The model with the reactions and the metabolites duplicated and properly identified</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.day_night_creator.DayNightCreator.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Model</span></span></span><a class="headerlink" href="#diel_models.day_night_creator.DayNightCreator.run" title="Permalink to this definition"></a></dt>
+<dd><p>Executes the methods of the class DayNightCreator</p>
+<p>Returns
+Model</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.day_night_creator.DayNightCreator.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#diel_models.day_night_creator.DayNightCreator.validate" title="Permalink to this definition"></a></dt>
+<dd><p>Validates the model received initially in terms of reactions, metabolites and objective function</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-diel_models.diel_models_creator">
+<span id="diel-models-diel-models-creator-module"></span><h2>diel_models.diel_models_creator module<a class="headerlink" href="#module-diel_models.diel_models_creator" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="diel_models.diel_models_creator.diel_models_creator">
+<span class="sig-prename descclassname"><span class="pre">diel_models.diel_models_creator.</span></span><span class="sig-name descname"><span class="pre">diel_models_creator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storage_pool_metabolites</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_reaction_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">biomass_reaction_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nitrate_exchange_reaction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Model</span></span></span><a class="headerlink" href="#diel_models.diel_models_creator.diel_models_creator" title="Permalink to this definition"></a></dt>
+<dd><p>Function that allows you to run the pipeline in one go,
+returning the resulting model, where the arguments are all relative to the original model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>cobra.Model</em>) – Metabolic model</p></li>
+<li><p><strong>storage_pool_metabolites</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – list with all the metabolites for sp</p></li>
+<li><p><strong>photon_reaction_id</strong> (<em>str</em>) – id for photon reaction</p></li>
+<li><p><strong>biomass_reaction_id</strong> (<em>str</em>) – id for biomass_reaction</p></li>
+<li><p><strong>nitrate_exchange_reaction</strong> (<em>str</em>) – id for nitrate exchange reaction</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Metabolic model after pipeline</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-diel_models.nitrate_uptake_ratio">
+<span id="diel-models-nitrate-uptake-ratio-module"></span><h2>diel_models.nitrate_uptake_ratio module<a class="headerlink" href="#module-diel_models.nitrate_uptake_ratio" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="diel_models.nitrate_uptake_ratio.NitrateUptakeRatioCalibrator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diel_models.nitrate_uptake_ratio.</span></span><span class="sig-name descname"><span class="pre">NitrateUptakeRatioCalibrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_nitrate_uptake_reaction_day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_nitrate_uptake_reaction_night</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diel_models.nitrate_uptake_ratio.NitrateUptakeRatioCalibrator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#diel_models.pipeline.Step" title="diel_models.pipeline.Step"><code class="xref py py-class docutils literal notranslate"><span class="pre">Step</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.nitrate_uptake_ratio.NitrateUptakeRatioCalibrator.ratio_set">
+<span class="sig-name descname"><span class="pre">ratio_set</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#diel_models.nitrate_uptake_ratio.NitrateUptakeRatioCalibrator.ratio_set" title="Permalink to this definition"></a></dt>
+<dd><p>This function establishes a 3:2 ratio of nitrate uptake between day and night, respectively.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.nitrate_uptake_ratio.NitrateUptakeRatioCalibrator.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Model</span></span></span><a class="headerlink" href="#diel_models.nitrate_uptake_ratio.NitrateUptakeRatioCalibrator.run" title="Permalink to this definition"></a></dt>
+<dd><p>Executes the method of the class NitrateUptakeRatioCalibrator</p>
+<p>Returns
+Model</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.nitrate_uptake_ratio.NitrateUptakeRatioCalibrator.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#diel_models.nitrate_uptake_ratio.NitrateUptakeRatioCalibrator.validate" title="Permalink to this definition"></a></dt>
+<dd><p>Validates the model of the step.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-diel_models.photon_reaction_inhibitor">
+<span id="diel-models-photon-reaction-inhibitor-module"></span><h2>diel_models.photon_reaction_inhibitor module<a class="headerlink" href="#module-diel_models.photon_reaction_inhibitor" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="diel_models.photon_reaction_inhibitor.PhotonReactionInhibitor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diel_models.photon_reaction_inhibitor.</span></span><span class="sig-name descname"><span class="pre">PhotonReactionInhibitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_photon_reaction_night</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diel_models.photon_reaction_inhibitor.PhotonReactionInhibitor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#diel_models.pipeline.Step" title="diel_models.pipeline.Step"><code class="xref py py-class docutils literal notranslate"><span class="pre">Step</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.photon_reaction_inhibitor.PhotonReactionInhibitor.restrain">
+<span class="sig-name descname"><span class="pre">restrain</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#diel_models.photon_reaction_inhibitor.PhotonReactionInhibitor.restrain" title="Permalink to this definition"></a></dt>
+<dd><p>Function that resets the photon reaction limits to zero at night.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.photon_reaction_inhibitor.PhotonReactionInhibitor.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Model</span></span></span><a class="headerlink" href="#diel_models.photon_reaction_inhibitor.PhotonReactionInhibitor.run" title="Permalink to this definition"></a></dt>
+<dd><p>Executes the method of the class PhotonReactionInhibitor</p>
+<p>Returns
+Model</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.photon_reaction_inhibitor.PhotonReactionInhibitor.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#diel_models.photon_reaction_inhibitor.PhotonReactionInhibitor.validate" title="Permalink to this definition"></a></dt>
+<dd><p>Validates the model that in addition to the above factors it must contain metabolites and storage pool
+compartments</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-diel_models.pipeline">
+<span id="diel-models-pipeline-module"></span><h2>diel_models.pipeline module<a class="headerlink" href="#module-diel_models.pipeline" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="diel_models.pipeline.Pipeline">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diel_models.pipeline.</span></span><span class="sig-name descname"><span class="pre">Pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diel_models.pipeline.Pipeline" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.pipeline.Pipeline.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#diel_models.pipeline.Pipeline.run" title="Permalink to this definition"></a></dt>
+<dd><p>It runs the validate method followed by the run method.
+The resulting model is then set as self.model to be used in the next step.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="diel_models.pipeline.Step">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diel_models.pipeline.</span></span><span class="sig-name descname"><span class="pre">Step</span></span><a class="headerlink" href="#diel_models.pipeline.Step" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.pipeline.Step.run">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#diel_models.pipeline.Step.run" title="Permalink to this definition"></a></dt>
+<dd><p>Performs the step.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.pipeline.Step.validate">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#diel_models.pipeline.Step.validate" title="Permalink to this definition"></a></dt>
+<dd><p>Validates the model of the step.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-diel_models.storage_pool_generator">
+<span id="diel-models-storage-pool-generator-module"></span><h2>diel_models.storage_pool_generator module<a class="headerlink" href="#module-diel_models.storage_pool_generator" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="diel_models.storage_pool_generator.StoragePoolGenerator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">diel_models.storage_pool_generator.</span></span><span class="sig-name descname"><span class="pre">StoragePoolGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metabolites</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#diel_models.storage_pool_generator.StoragePoolGenerator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#diel_models.pipeline.Step" title="diel_models.pipeline.Step"><code class="xref py py-class docutils literal notranslate"><span class="pre">Step</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.storage_pool_generator.StoragePoolGenerator.create_exchange_reaction">
+<span class="sig-name descname"><span class="pre">create_exchange_reaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metabolite_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metabolite_sp_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Reaction</span></span></span><a class="headerlink" href="#diel_models.storage_pool_generator.StoragePoolGenerator.create_exchange_reaction" title="Permalink to this definition"></a></dt>
+<dd><p>It creates a Reaction object representing an exchange reaction
+for the specified metabolite in the specified direction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metabolite_id</strong> – </p></li>
+<li><p><strong>metabolite_sp_id</strong> – </p></li>
+<li><p><strong>direction</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Reaction object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.storage_pool_generator.StoragePoolGenerator.create_storage_pool_first_reactions">
+<span class="sig-name descname"><span class="pre">create_storage_pool_first_reactions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#diel_models.storage_pool_generator.StoragePoolGenerator.create_storage_pool_first_reactions" title="Permalink to this definition"></a></dt>
+<dd><p>According to the given metabolite IDs,
+this function creates the corresponding exchange reaction
+of the metabolite to the storage pool.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.storage_pool_generator.StoragePoolGenerator.create_storage_pool_metabolites">
+<span class="sig-name descname"><span class="pre">create_storage_pool_metabolites</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#diel_models.storage_pool_generator.StoragePoolGenerator.create_storage_pool_metabolites" title="Permalink to this definition"></a></dt>
+<dd><p>According to the given metabolite IDs,
+this function creates new metabolites for a new compartment: storage pool</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If a metabolite ID is not present in the given model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.storage_pool_generator.StoragePoolGenerator.create_storage_pool_second_reactions">
+<span class="sig-name descname"><span class="pre">create_storage_pool_second_reactions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#diel_models.storage_pool_generator.StoragePoolGenerator.create_storage_pool_second_reactions" title="Permalink to this definition"></a></dt>
+<dd><p>According to the given metabolite IDs,
+this function creates the complementary reactions,
+i.e. if it previously created the Day &lt;-&gt; Storage Pool reaction,
+it now creates the Storage Pool &lt;-&gt; Night reaction and vice versa.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.storage_pool_generator.StoragePoolGenerator.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Model</span></span></span><a class="headerlink" href="#diel_models.storage_pool_generator.StoragePoolGenerator.run" title="Permalink to this definition"></a></dt>
+<dd><p>Executes the methods of the class StoragePoolGenerator</p>
+<p>Returns
+Model</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diel_models.storage_pool_generator.StoragePoolGenerator.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#diel_models.storage_pool_generator.StoragePoolGenerator.validate" title="Permalink to this definition"></a></dt>
+<dd><p>Validates the model, since it has to have metabolites, reactions and a Day and Night compartments</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-diel_models">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-diel_models" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Luciana Martins and João Capela.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
