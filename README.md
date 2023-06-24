@@ -1,7 +1,7 @@
 # DielModels
 
 ### Description
-In this context, *DielModels* is a python package generated from this project (https://github.com/LucianaMartins26/DielModels.git).
+In this context, *DielModels* is a python package generated from this project [HERE](https://github.com/LucianaMartins26/DielModels.git).
 
 Despite numerous successful studies, modeling plant metabolism remains challenging for several reasons, such as limited information, incomplete annotations, and dynamic changes in plant metabolism that occur under different conditions, including night and day.
 In particular, the integration of these day-night cycles (diel cycles) is complex, laborious, and time-consuming.
@@ -26,7 +26,7 @@ If each method is to be applied individually it is essential that the first 3 st
 
 **Alternatively, it is possible to apply all methods to a given model, running the entire pipeline using:**
 
-```
+```python
 import cobra
 import diel_models
 from diel_models.diel_models_creator import diel_models_creator
