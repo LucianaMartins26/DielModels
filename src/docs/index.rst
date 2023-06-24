@@ -10,5 +10,4 @@ Welcome to DielModels's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   modules
    diel_models
