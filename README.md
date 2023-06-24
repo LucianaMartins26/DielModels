@@ -8,13 +8,20 @@ In particular, the integration of these day-night cycles (diel cycles) is comple
 
 With this in mind, this package aims to accelerate this process by being able to transform a non-diel model into a diel model.
 
-### Installation
-#### Pip
+### Table of contents:
+
+- [Installation](#installation)
+    - [Pip](#pip)
+- [Getting Started](#getting-started)
+- [Documentation](#documentation)
+
+## Installation
+### Pip
 
 ``` pip install DielModels==1.0.2 ```
 
-### Getting Started
-Through this package you can:
+## Getting Started
+Through this package, you can:
 
 * Assign day and night to the non-diel model;
 * Insert specified metabolites into the storage pool allowing their transition between day and night, and vice versa; 
@@ -39,3 +46,7 @@ diel_models_creator(model, storage_pool_metabolites, 'Photon_Reaction_ID', 'Biom
 ```
 
 It is possible due to the created *Pipeline* class that derives from a *Step* class with abstract methods - both present in the package.
+
+## Documentation
+
+For extra documentation, you can check this [ReadTheDocs](http://dielmodels.readthedocs.io/).
