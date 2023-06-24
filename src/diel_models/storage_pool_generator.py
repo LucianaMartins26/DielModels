@@ -61,9 +61,12 @@ class StoragePoolGenerator(Step):
 
         Parameters
         ----------
-        metabolite_id
-        metabolite_sp_id
-        direction
+        metabolite_id: str
+            ID from original metabolite
+        metabolite_sp_id: str
+            ID from metabolite in sp
+        direction: str
+            Day or Night
 
         Returns
         -------
