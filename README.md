@@ -26,7 +26,7 @@ If each method is to be applied individually it is essential that the first 3 st
 
 **Alternatively, it is possible to apply all methods to a given model, running the entire pipeline using:**
 
-```python
+```
 import cobra
 import diel_models
 from diel_models.diel_models_creator import diel_models_creator
