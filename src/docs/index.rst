@@ -12,4 +12,3 @@ Contents:
    :maxdepth: 2
 
    diel_models
-   modules
