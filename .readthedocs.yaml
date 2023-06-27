@@ -24,6 +24,6 @@ sphinx:
 #    - pdf
 
 # Optionally declare the Python requirements required to build your docs
-#python:
-#   install:
-#   - requirements: src/docs/requirements_rtd.txt
+python:
+   install:
+   - requirements: src/docs/requirements_rtd.txt
