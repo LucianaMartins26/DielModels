@@ -13,7 +13,6 @@ With this in mind, this package aims to accelerate this process by being able to
 - [Installation](#installation)
     - [Pip](#pip)
 - [Getting Started](#getting-started)
-- [Documentation](#documentation)
 
 ## Installation
 ### Pip
@@ -46,7 +45,3 @@ diel_models_creator(model, storage_pool_metabolites, 'Photon_Reaction_ID', 'Biom
 ```
 
 It is possible due to the created *Pipeline* class that derives from a *Step* class with abstract methods - both present in the package.
-
-## Documentation
-
-For extra documentation, you can check this [ReadTheDocs](http://dielmodels.readthedocs.io/).
