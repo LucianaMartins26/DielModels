@@ -1,3 +1,6 @@
+import os
+import sys
+
 # Configuration file for the Sphinx documentation builder.
 #
 # For the full list of built-in configuration values, see the documentation:
@@ -11,6 +14,8 @@ copyright = '2023, Luciana Martins and João Capela'
 author = 'Luciana Martins and João Capela'
 release = 'v1.0.2'
 
+sys.path.insert(0, os.path.abspath('../diel_models'))
+
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
@@ -18,8 +23,6 @@ extensions = ['sphinx.ext.napoleon', 'myst_parser']
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-
-
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output

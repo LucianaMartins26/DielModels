@@ -85,12 +85,3 @@ diel_models_creator(model, storage_pool_metabolites, 'Photon_Reaction_ID',
    :undoc-members:
    :show-inheritance:
 ```
-
-## Module contents
-
-```{eval-rst}
-.. automodule:: diel_models
-   :members:
-   :undoc-members:
-   :show-inheritance:
-```
