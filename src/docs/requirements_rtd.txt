@@ -1,4 +1,9 @@
-myst_parser==2.0.0
+DielModels @ git+https://github.com/LucianaMartins26/DielModels#egg=diel_models
+sphinx
+rst-to-myst
+sphinx-rtd-theme
+sphinx-autobuild
+myst-parser
 cobra==0.26.2
 pandas==1.5.3
 statsmodels==0.13.5
