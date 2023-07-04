@@ -14,7 +14,7 @@ copyright = '2023, Luciana Martins and João Capela'
 author = 'Luciana Martins and João Capela'
 release = 'v1.0.2'
 
-sys.path.insert(0, os.path.abspath('../diel_models'))
+sys.path.insert(0, os.path.abspath('../src/'))
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
