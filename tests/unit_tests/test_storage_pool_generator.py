@@ -81,7 +81,103 @@ class TestStoragePool(TestCase):
                          len(diel_model_copy.reactions.query("_sp_exchange")))
 
         assert all(reaction_met_id in [reaction.id for reaction in diel_model_copy.reactions.query("_sp_exchange")]
-                   for reaction_met_id in ["Sucrose_c_Day_sp_exchange", "Sulfate_c_Day_sp_exchange",
-                                           "Nitrate_c_Day_sp_exchange", "L-Histidine_Day_sp_exchange",
-                                           "Sucrose_c_Night_sp_exchange", "Sulfate_c_Night_sp_exchange",
-                                           "Nitrate_c_Night_sp_exchange", "L-Histidine_Night_sp_exchange"])
+                   for reaction_met_id in ["Sucrose_c__Day_sp_exchange", "Sulfate_c__Day_sp_exchange",
+                                           "Nitrate_c__Day_sp_exchange", "L-Histidine__Day_sp_exchange",
+                                           "Sucrose_c__Night_sp_exchange", "Sulfate_c__Night_sp_exchange",
+                                           "Nitrate_c__Night_sp_exchange", "L-Histidine__Night_sp_exchange"])
+
+
+    def test_create_storage_pool_metabolites_multi_tissue(self):
+        multi_tissue_model = os.path.join(TEST_DIR, "data", "Multi_Tissue_day_night.xml")
+        multi_model = cobra.io.read_sbml_model(multi_tissue_model)
+        multi_model_copy = copy.deepcopy(multi_model)
+
+        storagepool_creator = StoragePoolGenerator(multi_model_copy, ['C00095[c]_Day', 'C00095[d]_Day', 'C00099[d]_Day',
+                                                                      'C00099[c]_Day', 'C00064[c]_Day', 'C00064[d]_Day',
+                                                                      'C00042[c]_Day', 'C00042[d]_Day', 'C00089[c]_Day',
+                                                                      'C00089[d]_Day', 'C00122[c]_Day', 'C00122[d]_Day'],
+                                                   ["Bundle Sheath", "Mesophyll"])
+
+        storagepool_creator.create_storage_pool_metabolites()
+        self.assertIn("Bundle_Sheath_sp", multi_model_copy.compartments)
+        self.assertIn("Mesophyll_sp", multi_model_copy.compartments)
+
+        for metabolite in multi_model_copy.metabolites:
+            if metabolite.compartment == "Bundle_Sheath_sp":
+                self.assertIn("Bundle_Sheath_sp", metabolite.id)
+                self.assertNotIn("Day", metabolite.name)
+                self.assertNotIn("Night", metabolite.name)
+
+            if metabolite.compartment == "Mesophyll_sp":
+                self.assertIn("Mesophyll_sp", metabolite.id)
+                self.assertNotIn("Day", metabolite.name)
+                self.assertNotIn("Night", metabolite.name)
+
+    def test_sp_metabolites_with_invalid_metabolite_multi_tissue(self):
+        multi_tissue_model = os.path.join(TEST_DIR, "data", "Multi_Tissue_day_night.xml")
+        multi_model = cobra.io.read_sbml_model(multi_tissue_model)
+        multi_model_copy = copy.deepcopy(multi_model)
+
+        storagepool_creator = StoragePoolGenerator(multi_model_copy, ['C00095[c]_Day', 'C00095[d]_Day', 'C00099[d]_Day',
+                                                                      'C00099[c]_Day', 'C00064[c]_Day', 'C00064[d]_Day',
+                                                                      'C00042[c]_Day', 'C00042[d]_Day', 'C00089[c]_Day',
+                                                                      'C00089[d]_Day', 'C00122[c]_Day', 'C00122[d]_Day',
+                                                                      'Invalid'], ["Bundle Sheath", "Mesophyll"])
+        with self.assertRaises(ValueError):
+            storagepool_creator.create_storage_pool_metabolites()
+
+    def test_sp_metabolites_with_invalid_tissue_multi_tissue(self):
+        multi_tissue_model = os.path.join(TEST_DIR, "data", "Multi_Tissue_day_night.xml")
+        multi_model = cobra.io.read_sbml_model(multi_tissue_model)
+        multi_model_copy = copy.deepcopy(multi_model)
+
+        storagepool_creator = StoragePoolGenerator(multi_model_copy, ['C00095[c]_Day', 'C00095[d]_Day', 'C00099[d]_Day',
+                                                                      'C00099[c]_Day', 'C00064[c]_Day', 'C00064[d]_Day',
+                                                                      'C00042[c]_Day', 'C00042[d]_Day', 'C00089[c]_Day',
+                                                                      'C00089[d]_Day', 'C00122[c]_Day', 'C00122[d]_Day'],
+                                                   ["Bundle Sheath", "Xylem"])
+        with self.assertRaises(ValueError):
+            storagepool_creator.create_storage_pool_metabolites()
+
+    def test_create_storage_pool_reactions_multi_tissue(self):
+        multi_tissue_model = os.path.join(TEST_DIR, "data", "Multi_Tissue_day_night.xml")
+        multi_model = cobra.io.read_sbml_model(multi_tissue_model)
+        multi_model_copy = copy.deepcopy(multi_model)
+
+        storagepool_creator = StoragePoolGenerator(multi_model_copy, ['C00095[c]_Day', 'C00095[d]_Day', 'C00099[d]_Day',
+                                                                      'C00099[c]_Day', 'C00064[c]_Day', 'C00064[d]_Day',
+                                                                      'C00042[c]_Day', 'C00042[d]_Day', 'C00089[c]_Day',
+                                                                      'C00089[d]_Day', 'C00122[c]_Day', 'C00122[d]_Day'],
+                                                   ["Bundle Sheath", "Mesophyll"])
+        storagepool_creator.create_storage_pool_metabolites()
+        storagepool_creator.create_storage_pool_first_reactions()
+        storagepool_creator.create_storage_pool_second_reactions()
+
+        self.assertEqual(2 * (len(multi_model_copy.metabolites.query("_sp"))),
+                         len(multi_model_copy.reactions.query("_sp_exchange")))
+
+        assert all(reaction_met_id in [reaction.id for reaction in multi_model_copy.reactions.query("_sp_exchange")]
+                   for reaction_met_id in ["D-Fructose__Bundle_Sheath_Day_sp_exchange",
+                                           "D-Fructose__Mesophyll_Day_sp_exchange",
+                                           "B-Alanine__Mesophyll_Day_sp_exchange",
+                                           "B-Alanine__Bundle_Sheath_Day_sp_exchange",
+                                           "Gln__Bundle_Sheath_Day_sp_exchange",
+                                           "Gln__Mesophyll_Day_sp_exchange",
+                                           "Suc__Bundle_Sheath_Day_sp_exchange",
+                                           "Suc__Mesophyll_Day_sp_exchange",
+                                           "Sucrose__Bundle_Sheath_Day_sp_exchange",
+                                           "Sucrose__Mesophyll_Day_sp_exchange",
+                                           "Fum__Bundle_Sheath_Day_sp_exchange",
+                                           "Fum__Mesophyll_Day_sp_exchange",
+                                           "D-Fructose__Bundle_Sheath_Night_sp_exchange",
+                                           "D-Fructose__Mesophyll_Night_sp_exchange",
+                                           "B-Alanine__Mesophyll_Night_sp_exchange",
+                                           "B-Alanine__Bundle_Sheath_Night_sp_exchange",
+                                           "Gln__Bundle_Sheath_Night_sp_exchange",
+                                           "Gln__Mesophyll_Night_sp_exchange",
+                                           "Suc__Bundle_Sheath_Night_sp_exchange",
+                                           "Suc__Mesophyll_Night_sp_exchange",
+                                           "Sucrose__Bundle_Sheath_Night_sp_exchange",
+                                           "Sucrose__Mesophyll_Night_sp_exchange",
+                                           "Fum__Bundle_Sheath_Night_sp_exchange",
+                                           "Fum__Mesophyll_Night_sp_exchange"])

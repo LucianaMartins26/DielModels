@@ -28,9 +28,8 @@ class TestDayNightCreator(TestCase):
         for compartment in non_diel_model_copy.compartments:
             self.assertIn("_Day", compartment)
 
-        cobra.io.write_sbml_model(non_diel_model_copy, os.path.join(TEST_DIR, "data", "AraGEM_day.xml"))
 
-    def test_duplicate_models_day(self):
+    def test_duplicate(self):
 
         ara_gem_day = cobra.io.read_sbml_model(os.path.join(TEST_DIR, "data", "AraGEM_day.xml"))
 
@@ -46,4 +45,37 @@ class TestDayNightCreator(TestCase):
         for compartment in ara_gem_day.compartments:
             assert "_Day" in compartment or "_Night" in compartment
 
-        cobra.io.write_sbml_model(ara_gem_day, os.path.join(TEST_DIR, "data", "AraGEM_day_night.xml"))
+
+    def test_compartments_creator_multi_tissue(self):
+
+        multi_tissue_model = os.path.join(TEST_DIR, "data", "TS4_Model_lv3.xml")
+        multi_model = cobra.io.read_sbml_model(multi_tissue_model)
+        multi_model_copy = copy.deepcopy(multi_model)
+
+        compartment_creator = DayNightCreator(multi_model_copy)
+
+        compartment_creator.day_attribution()
+        for reaction in multi_model_copy.reactions:
+            self.assertIn("_Day", reaction.id)
+
+        for metabolite in multi_model_copy.metabolites:
+            self.assertIn("_Day", metabolite.id)
+
+        for compartment in multi_model_copy.compartments:
+            self.assertIn("_Day", compartment)
+
+    def test_duplicate_multi_tissue_model(self):
+
+        multi_tissue_day = cobra.io.read_sbml_model(os.path.join(TEST_DIR, "data", "Multi_Tissue_day.xml"))
+
+        compartment_creator = DayNightCreator(multi_tissue_day)
+        compartment_creator.duplicate()
+
+        for reaction in multi_tissue_day.reactions:
+            assert "_Day" in reaction.id or "_Night" in reaction.id
+
+        for metabolite in multi_tissue_day.metabolites:
+            assert "_Day" in metabolite.id or "_Night" in metabolite.id
+
+        for compartment in multi_tissue_day.compartments:
+            assert "_Day" in compartment or "_Night" in compartment
