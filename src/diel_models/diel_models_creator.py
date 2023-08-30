@@ -10,8 +10,8 @@ from diel_models.nitrate_uptake_ratio import NitrateUptakeRatioCalibrator
 from diel_models.pipeline import Pipeline
 
 
-def diel_models_creator(model: Model, storage_pool_metabolites: List[str], photon_reaction_id: str,
-                        biomass_reaction_id: str, nitrate_exchange_reaction: str) -> Model:
+def diel_models_creator(model: Model, storage_pool_metabolites: List[str], photon_reaction_id: List[str],
+                        biomass_reaction_id: str, nitrate_exchange_reaction: List[str], tissues: List[str] = None) -> Model:
     """
     Function that allows you to run the pipeline in one go,
     returning the resulting model, where the arguments are all relative to the original model.
@@ -21,28 +21,30 @@ def diel_models_creator(model: Model, storage_pool_metabolites: List[str], photo
     model: cobra.Model
         Metabolic model
     storage_pool_metabolites: List[str]
-        list with all the metabolites for sp
-    photon_reaction_id: str
-        id for photon reaction
+        list with all the metabolites for storage pool
+    photon_reaction_id: List[str]
+        id or ids for photon reaction(s) - in case of multi tissues models for example
     biomass_reaction_id: str
         id for biomass_reaction
-    nitrate_exchange_reaction: str
-        id for nitrate exchange reaction
+    nitrate_exchange_reaction: List[str]
+        id for nitrate exchange reaction(s) - in case of multi tissues models for example.
+    tissues: List[str], optional
+            List of tissues in the multi-tissue model, defaults to None for single-tissue models.
 
     Returns
     -------
     Metabolic model after pipeline
     """
     storage_pool_metabolites_with_day = [metabolite + "_Day" for metabolite in storage_pool_metabolites]
-    photon_reaction_id_night = photon_reaction_id + "_Night"
+    photon_reaction_id_night = [photon_night_reaction + "_Night" for photon_night_reaction in photon_reaction_id]
     biomass_day_id = biomass_reaction_id + "_Day"
     biomass_night_id = biomass_reaction_id + "_Night"
-    nitrate_exchange_reaction_night = nitrate_exchange_reaction + "_Night"
-    nitrate_exchange_reaction_day = nitrate_exchange_reaction + "_Day"
+    nitrate_exchange_reaction_night = [nitrate_reaction + "_Night" for nitrate_reaction in nitrate_exchange_reaction]
+    nitrate_exchange_reaction_day = [nitrate_reaction + "_Day" for nitrate_reaction in nitrate_exchange_reaction]
 
     steps = [
         DayNightCreator(model),
-        StoragePoolGenerator(model, storage_pool_metabolites_with_day),
+        StoragePoolGenerator(model, storage_pool_metabolites_with_day, tissues),
         PhotonReactionInhibitor(model, photon_reaction_id_night),
         BiomassAdjuster(model, biomass_day_id, biomass_night_id),
         NitrateUptakeRatioCalibrator(model, nitrate_exchange_reaction_day, nitrate_exchange_reaction_night)

@@ -1,30 +1,34 @@
+from typing import List
+
 from cobra import Model
 from diel_models.pipeline import Step
 
 
 class PhotonReactionInhibitor(Step):
 
-    def __init__(self, model: Model, id_photon_reaction_night: str) -> None:
+    def __init__(self, model: Model, id_photon_reaction_night: List[str]) -> None:
         """
         Parameters
         ----------
         model: cobra.Model
             Metabolic model
-        id_photon_reaction_night: string
-            Identification of the photon reaction at night.
+        id_photon_reaction_night: List[str]
+            Identification of the photon reaction(s) at night - in case of, for example, multi tissue models.
         """
         self.model: Model = model
-        self.id_photon_reaction_night: str = id_photon_reaction_night
+        self.id_photon_reaction_night: List[str] = id_photon_reaction_night
 
     def restrain(self) -> None:
         """
-        Function that resets the photon reaction limits to zero at night.
+        Function that resets the photon reaction(s) limits to zero at night.
         """
-        if self.model.reactions.has_id(self.id_photon_reaction_night):
-            photon_reaction_night = self.model.reactions.get_by_id(self.id_photon_reaction_night)
-            photon_reaction_night.bounds = (0, 0)
-        else:
-            raise ValueError("Reaction id not present in the model that was given.")
+
+        for photon_night_reaction in self.id_photon_reaction_night:
+            if self.model.reactions.has_id(photon_night_reaction):
+                photon_reaction_night = self.model.reactions.get_by_id(photon_night_reaction)
+                photon_reaction_night.bounds = (0, 0)
+            else:
+                raise ValueError("Reaction id not present in the model that was given.")
 
     def run(self) -> Model:
         """
