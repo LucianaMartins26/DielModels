@@ -7,7 +7,7 @@ from diel_models.diel_models_creator import diel_models_creator
 
 def diel_model(model):
 
-    diel_models_creator(model, ["x_Starch"], 'EX_x_Photon', 'biomass_reaction', 'EX_x_NO3')
+    diel_models_creator(model, ["x_Starch"], ['EX_x_Photon'], 'biomass_reaction', ['EX_x_NO3'])
 
     model.reactions.get_by_id("EX_x_CO2_Day").bounds = (-1000000, 0)
     model.reactions.get_by_id("EX_x_CO2_Night").bounds = (0, 1000000)
