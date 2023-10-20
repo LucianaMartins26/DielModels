@@ -5,7 +5,6 @@ from cobra.flux_analysis import pfba
 
 
 def validate_reactions_fluxes(original_model, diel_model):
-
     original_model.objective = "Ex16"
     original_model.objective_direction = "max"
     original_solution = pfba(original_model).fluxes

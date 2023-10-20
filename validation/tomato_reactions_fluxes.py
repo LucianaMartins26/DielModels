@@ -2,8 +2,8 @@ import os
 import cobra
 from tests import TEST_DIR
 
-def validate_reactions_fluxes(original_model, diel_model):
 
+def validate_reactions_fluxes(original_model, diel_model):
     original_model.objective = "biomass_reaction"
     original_model.reactions.get_by_id("biomass_reaction").bounds = (100, 100)
     original_model.reactions.get_by_id("ATPase_Cyto").bounds = (7.1, 7.1)
