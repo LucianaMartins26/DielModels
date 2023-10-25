@@ -18,10 +18,42 @@ def validate_reactions_fluxes(original_model, diel_model, original_multitissue_m
     diel_model.objective_direction = "max"
     diel_model.reactions.get_by_id("Biomass_Total").lower_bound = 0.11
     diel_model.reactions.get_by_id("Biomass_Total").upper_bound = 0.11
+    diel_carboxylation_day = diel_model.reactions.get_by_id("R00024__chlo_Day")
+    diel_oxygenation_day = diel_model.reactions.get_by_id("R03140__chlo_Day")
+
+    same_flux = diel_model.problem.Constraint(
+        diel_carboxylation_day.flux_expression * 1 -
+        diel_oxygenation_day.flux_expression * 3, lb=0, ub=0)
+    diel_model.add_cons_vars(same_flux)
+
+    diel_carboxylation_night = diel_model.reactions.get_by_id("R00024__chlo_Night")
+    diel_oxygenation_night = diel_model.reactions.get_by_id("R03140__chlo_Night")
+
+    same_flux = diel_model.problem.Constraint(
+        diel_carboxylation_night.flux_expression * 1 -
+        diel_oxygenation_night.flux_expression * 3, lb=0, ub=0)
+    diel_model.add_cons_vars(same_flux)
+
     diel_solution = pfba(diel_model).fluxes
 
     diel_multitissue_model.objective = "EX_C00205__dra_Day"
     diel_multitissue_model.objective_direction = "max"
+    diel_multi_carboxylation_day = diel_multitissue_model.reactions.get_by_id("R00024__plst_Leaf_Day")
+    diel_multi_oxygenation_day = diel_multitissue_model.reactions.get_by_id("R03140__plst_Leaf_Day")
+
+    same_flux = diel_multitissue_model.problem.Constraint(
+        diel_multi_carboxylation_day.flux_expression * 1 -
+        diel_multi_oxygenation_day.flux_expression * 3, lb=0, ub=0)
+    diel_multitissue_model.add_cons_vars(same_flux)
+
+    diel_multi_carboxylation_night = diel_multitissue_model.reactions.get_by_id("R00024__plst_Leaf_Night")
+    diel_multi_oxygenation_night = diel_multitissue_model.reactions.get_by_id("R03140__plst_Leaf_Night")
+
+    same_flux = diel_multitissue_model.problem.Constraint(
+        diel_multi_carboxylation_night.flux_expression * 1 -
+        diel_multi_oxygenation_night.flux_expression * 3, lb=0, ub=0)
+    diel_multitissue_model.add_cons_vars(same_flux)
+
     diel_multitissue_solution = pfba(diel_multitissue_model).fluxes
 
     data = {'RuBisCO + O2': [original_solution["R03140__chlo"], original_multitissue_solution["R03140__plst_Leaf"],
