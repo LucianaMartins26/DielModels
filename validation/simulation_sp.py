@@ -16,7 +16,7 @@ def load_model():
     model.reactions.get_by_id("Biomass_Total").lower_bound = 0.11
     model.objective = "Ex16_Day"
     model.objective_direction = "min"
-    nitrate_calibrator = NitrateUptakeRatioCalibrator(model, "Ex4_Day", "Ex4_Night")
+    nitrate_calibrator = NitrateUptakeRatioCalibrator(model, ["Ex4_Day"], ["Ex4_Night"])
     nitrate_calibrator.run()
     model = nitrate_calibrator.model
     model.reactions.get_by_id("Ex5_Night").bounds = (0, 1000)

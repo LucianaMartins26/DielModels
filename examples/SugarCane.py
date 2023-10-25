@@ -44,7 +44,7 @@ def diel_sugarcane(model):
                          "S_L_45_Cystine_c", "S_L_45_Glutamine_c", "S_Glycine_c", "S_L_45_Proline_c",
                          "S_L_45_Tyrosine_c", "S_Glutamate_c", "S_L_45_Alanine_c", "S_L_45_Aspartate_c",
                          "S_L_45_Serine_c", "S_Starch_p", "S_beta_45_D_45_Fructose_c", "S__40_S_41__45_Malate_c",
-                         "S_Fumarate_c", "S_Citrate_c"], ["EX11"], "Biomass_rxn", ["EX_S_Nitrate_ext"])
+                         "S_Fumarate_c", "S_Citrate_c"], ["EX11"], ["EX_S_Nitrate_ext"], "Biomass_rxn")
 
     cobra.io.write_sbml_model(model, os.path.join(TEST_DIR, 'models', 'diel_sugarcane_model.xml'))
 

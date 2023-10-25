@@ -11,8 +11,7 @@ def diel_rice(model):
                          "met_DASH_L_c", "phe_DASH_L_c", "thr_DASH_L_c", "trp_DASH_L_c", "val_DASH_L_c", "arg_DASH_L_c",
                          "cys_DASH_L_c", "glu_DASH_L_c", "gly_c", "pro_DASH_L_c", "tyr_DASH_L_c", "ala_DASH_L_c",
                          "gln_DASH_L_c", "asn_DASH_L_c", "ser_DASH_L_c", "starch_s", "fru_DASH_B_c", "mal_DASH_L_c",
-                         "fum_c", "cit_c"], ["EX_photonVis_LPAREN_e_RPAREN_"], "Straw_Biomass",
-                        ["EX_no3_LPAREN_e_RPAREN_"])
+                         "fum_c", "cit_c"], ["EX_photonVis_LPAREN_e_RPAREN_"], ["EX_no3_LPAREN_e_RPAREN_"], "Straw_Biomass")
 
     cobra.io.write_sbml_model(model, os.path.join(TEST_DIR, 'models', 'diel_rice_Lakshmanan_model.xml'))
 

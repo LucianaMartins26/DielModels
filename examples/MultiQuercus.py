@@ -26,8 +26,8 @@ def diel_multi_quercus(model):
                          "C02336__cyto_Ibark", "C02336__cyto_Phellogen", "C00208__cyto_Leaf", "C00208__cyto_Ibark",
                          "C00208__cyto_Phellogen", "C00122__cyto_Leaf", "C00122__cyto_Ibark", "C00122__cyto_Phellogen",
                          "C00158__cyto_Leaf", "C00158__cyto_Ibark", "C00158__cyto_Phellogen"],
-                        ["EX_C00205__dra"], "Total_biomass",
-                        ["EX_C00244__dra"], ['Leaf', 'Ibark', 'Phellogen'])
+                        ["EX_C00205__dra"], ["EX_C00244__dra"], "Total_biomass",
+                        ['Leaf', 'Ibark', 'Phellogen'])
 
     cobra.io.write_sbml_model(model, os.path.join(TEST_DIR, 'models', 'diel_multi_quercus_model.xml'))
 

@@ -28,7 +28,7 @@ def diel_maize_iEB5204(model):
                         ["SUCROSE", "SULFATE", "NITRATE", "HIS", "ILE", "LEU", "LYS", "MET", "PHE", "TRP", "THR", "VAL",
                          "ASN", "CYS", "GLN", "GLY", "PRO", "TYR", "GLT", "L_alanine", "L_ASPARTATE", "SER",
                          "starch_monomer_equivalent", "BETA_D_FRUCTOSE", "MAL", "FUM", "CIT"], ["tx__Light_"],
-                        "Biomass_rxn", ["tx_NITRATE"])
+                        ["tx_NITRATE"], "Biomass_rxn")
 
     cobra.io.write_sbml_model(model, os.path.join(TEST_DIR, 'models', 'diel_maizeiEB5204_model.xml'))
 

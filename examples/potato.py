@@ -12,7 +12,7 @@ def diel_potato(model):
                          "L_Valine[c]", "L_Asparagine[c]", "L_Cystine[c]", "L_Glutamine[c]", "Glycine[c]",
                          "L_Proline[c]", "L_Tyrosine[c]", "L_Glutamate[c]", "L_Alanine[c]", "L_Aspartate[c]",
                          "L_Serine[c]", "Starch[c]", "D_Fructose[c]", "(S)_Malate[c]", "Fumarate[c]", "Citrate[c]"],
-                        ["RB002"], "RBS01", ["RB001"])
+                        ["RB002"], ["RB001"], "RBS01")
 
     cobra.io.write_sbml_model(model, os.path.join(TEST_DIR, 'models', 'diel_potato_model.xml'))
 
