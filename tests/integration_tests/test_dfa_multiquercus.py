@@ -14,7 +14,7 @@ class TestDFA(TestCase):
         self.model_id = 'MultiTissueQuercusModel'
         self.dataset_id = 'MultiQuercusDielModel'
         self.model_specifics = {'multi_quercus_diel_model': 'Multi_Quercus_Diel_Model'}
-        self.objectives = {'multi_quercus_diel_model': 'Biomass_Total'}
+        self.objectives = {'multi_quercus_diel_model': 'Total_biomass'}
         self.pathways = os.path.join(TEST_DIR, 'reconstruction_results', self.model_id,
                                      'results_troppo', self.dataset_id, 'dfa', 'pathways_map.csv')
         self.results_folder = os.path.join(TEST_DIR, 'reconstruction_results', self.model_id, 'results_troppo',
