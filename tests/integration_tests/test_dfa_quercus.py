@@ -15,11 +15,9 @@ class TestDFA(TestCase):
         self.dataset_id = 'QuercusDielModel'
         self.model_specifics = {'quercus_diel_model': 'Quercus_Diel_Model'}
         self.objectives = {'quercus_diel_model': 'Biomass_Total'}
-        self.pathways = os.path.join(TEST_DIR, 'reconstruction_results', self.model_id,
-                                     'results_troppo', self.dataset_id, 'dfa', 'pathways_map.csv')
         self.results_folder = os.path.join(TEST_DIR, 'reconstruction_results', self.model_id, 'results_troppo',
                                            self.dataset_id, 'dfa')
-        self.dfa = DFA(self.model_id, self.dataset_id, self.model_specifics, self.objectives, self.pathways)
+        self.dfa = DFA(self.model_id, self.dataset_id, self.model_specifics, self.objectives)
         self.model_to_sample = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'reconstruction_results', self.model_id,
                                                                      'results_troppo', self.dataset_id,
                                                                      'reconstructed_models', 'Quercus_Diel_Model.xml'))
@@ -77,18 +75,3 @@ class TestDFA(TestCase):
 
         expected_columns = ['Reaction', 'Pvalue', 'Padj', 'Reject', 'FC']
         self.assertListEqual(list(result_df.columns), expected_columns)
-
-    def test_pathways(self) -> None:
-
-        self.dfa.sampling()
-        self.dfa.kstest()
-
-        self.assertTrue(os.path.exists(self.pathways))
-
-        self.dfa.pathway_enrichment()
-
-        for modelname in self.model_specifics:
-            expected_csv_file = os.path.join(self.results_folder, '%s_DFA_pathway_result.csv' % modelname)
-            expected_png_file = os.path.join(self.results_folder, '%s_DFA_pathway_result.png' % modelname)
-            self.assertTrue(os.path.exists(expected_csv_file))
-            self.assertTrue(os.path.exists(expected_png_file))
