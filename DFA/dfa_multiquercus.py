@@ -21,7 +21,7 @@ class DFAMultiQuercus:
                                                                      'Multi_Quercus_Diel_Model.xml'))
 
     def sampling(self) -> None:
-        self.dfa.sampling(thinning=100, n_samples=1000)
+        self.dfa.sampling(thinning=30, n_samples=1000)
 
     def ktest(self) -> None:
         self.dfa.sampling()

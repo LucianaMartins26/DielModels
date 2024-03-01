@@ -13,10 +13,10 @@ def diel_populus(model):
                          "glt_c", "asn_c", "ser_c", "starch_p", "beta_d_fructose_c", "mal_c",
                          "fum_c", "cit_c"], ["EX_light"], nitrate_exchange_reaction=["EX_nitrate"], biomass_reaction_id="BiomassRxn")
 
-    cobra.io.write_sbml_model(model, os.path.join(TEST_DIR, 'models', 'diel_populus_model.xml'))
+    cobra.io.write_sbml_model(model, os.path.join(TEST_DIR, 'models', 'diel_populus_model_fixed.xml'))
 
 
 if __name__ == '__main__':
-    populus_model_path = os.path.join(TEST_DIR, 'models', 'Populus_iPop7188.xml')
+    populus_model_path = os.path.join(TEST_DIR, 'models', 'Populus_iPop7188_fixed.xml')
     populus_model = cobra.io.read_sbml_model(populus_model_path)
     diel_populus(populus_model)

@@ -24,6 +24,7 @@ class BiomassAdjuster(Step):
         """
         Function that joins the two biomass reactions (day and night) into one.
         Defines this new reaction as the objective function of the model.
+
         Returns
         -------
         biomass_reaction_total: cobra.Reaction

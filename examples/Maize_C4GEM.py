@@ -5,37 +5,37 @@ from diel_models.diel_models_creator import diel_models_creator
 import pandas as pd
 
 def diel_maizeC4GEM(model):
-
-    biomass_metabolite = cobra.Metabolite(
-        "x_biomass",
-        formula=None,
-        name="biomass",
-        compartment="C_biomass",
-    )
-
-    biomass_metabolite_rxn = cobra.Reaction("EX_x_biomass")
-    biomass_metabolite_rxn.name = "Biomass exchange reaction"
-    biomass_metabolite_rxn.bounds = (0, 1000000)
-
-    biomass_metabolite_rxn.add_metabolites({biomass_metabolite: -1})
-
-    model.add_reactions([biomass_metabolite_rxn])
-
-    model.add_metabolites(biomass_metabolite)
-
-    bm_met_df = pd.read_excel(os.path.join(TEST_DIR, 'models', 'C4GEM_Biomass_Reactions.xlsx'))
-    coef_dict = dict(zip(bm_met_df["Component"], bm_met_df["Coefficient"]))
-
-    biomass_rxn = cobra.Reaction("Biomass_rxn")
-    biomass_rxn.name = "Biomass Reaction"
-
-    for met, coef in coef_dict.items():
-        biomass_rxn.add_metabolites({model.metabolites.get_by_id(met): -float(coef)})
-
-    biomass_rxn.add_metabolites({biomass_metabolite: 1, model.metabolites.get_by_id("S_ADP_c"): 30,
-                                 model.metabolites.get_by_id("S_Orthophosphate_c"): 30})
-
-    model.add_reactions([biomass_rxn])
+    #
+    # biomass_metabolite = cobra.Metabolite(
+    #     "x_biomass",
+    #     formula=None,
+    #     name="biomass",
+    #     compartment="C_biomass",
+    # )
+    #
+    # biomass_metabolite_rxn = cobra.Reaction("EX_x_biomass")
+    # biomass_metabolite_rxn.name = "Biomass exchange reaction"
+    # biomass_metabolite_rxn.bounds = (0, 1000000)
+    #
+    # biomass_metabolite_rxn.add_metabolites({biomass_metabolite: -1})
+    #
+    # model.add_reactions([biomass_metabolite_rxn])
+    #
+    # model.add_metabolites(biomass_metabolite)
+    #
+    # bm_met_df = pd.read_excel(os.path.join(TEST_DIR, 'models', 'C4GEM_Biomass_Reactions.xlsx'))
+    # coef_dict = dict(zip(bm_met_df["Component"], bm_met_df["Coefficient"]))
+    #
+    # biomass_rxn = cobra.Reaction("Biomass_rxn")
+    # biomass_rxn.name = "Biomass Reaction"
+    #
+    # for met, coef in coef_dict.items():
+    #     biomass_rxn.add_metabolites({model.metabolites.get_by_id(met): -float(coef)})
+    #
+    # biomass_rxn.add_metabolites({biomass_metabolite: 1, model.metabolites.get_by_id("S_ADP_c"): 30,
+    #                              model.metabolites.get_by_id("S_Orthophosphate_c"): 30})
+    #
+    # model.add_reactions([biomass_rxn])
 
     diel_models_creator(model,
                         ["S_Sucrose_c", "S_Sulfate_c", "S_Nitrate_c", "S_L_45_Histidine_c", "S_L_45_Isoleucine_c",
@@ -44,7 +44,7 @@ def diel_maizeC4GEM(model):
                          "S_L_45_Cystine_c", "S_L_45_Glutamine_c", "S_Glycine_c", "S_L_45_Proline_c",
                          "S_L_45_Tyrosine_c", "S_Glutamate_c", "S_L_45_Alanine_c", "S_L_45_Aspartate_c",
                          "S_L_45_Serine_c", "S_Starch_p", "S_beta_45_D_45_Fructose_c", "S__40_S_41__45_Malate_c",
-                         "S_Fumarate_c", "S_Citrate_c"], ["EX11"],["EX_S_Nitrate_ext"], "Biomass_rxn")
+                         "S_Fumarate_c", "S_Citrate_c"], ["EX11"],["EX_S_Nitrate_ext"])#, "Biomass_rxn")
 
     cobra.io.write_sbml_model(model, os.path.join(TEST_DIR, 'models', 'diel_maizeC4GEM_model.xml'))
 
