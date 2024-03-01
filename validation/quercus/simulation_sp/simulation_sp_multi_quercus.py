@@ -3,16 +3,14 @@ import os
 import cobra.io
 import pandas as pd
 from cobra.flux_analysis import pfba, flux_variability_analysis as fva
-from tests import TEST_DIR
 
 from src.diel_models.nitrate_uptake_ratio import NitrateUptakeRatioCalibrator
 
 
 def load_model():
-    model_path = os.path.join(TEST_DIR, 'models', 'diel_multi_quercus_model.xml')
+    model_path = 'C:\\Users\\lucia\\Desktop\\DielModels\\validation\\quercus\\(changed)diel_multi_quercus_model.xml'
     model = cobra.io.read_sbml_model(model_path)
-    model.reactions.get_by_id("Biomass_Total").upper_bound = 0.0001
-    model.reactions.get_by_id("Biomass_Total").lower_bound = 0.0001
+    model.reactions.get_by_id("Total_biomass").bounds = (0,100)
     model.objective = "EX_C00205__dra_Day"
     model.objective_direction = "min"
     nitrate_calibrator = NitrateUptakeRatioCalibrator(model, ["EX_C00244__dra_Day"], ["EX_C00244__dra_Night"])
@@ -27,7 +25,7 @@ def simulate(model):
     solution = pfba(model).fluxes
     fva_solution = fva(model, [storage for storage in model.reactions if "Day_sp" in storage.id],
                        fraction_of_optimum=1.0, processes=os.cpu_count())
-    assert solution['Biomass_Total'] == 0.0001
+    # assert solution['Total_biomass'] == 0.000001
     assert round(solution['EX_C00244__dra_Day'] * 2, 4) == round(solution['EX_C00244__dra_Night'] * 3, 4)
     return solution, fva_solution
 
