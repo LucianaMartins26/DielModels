@@ -20,7 +20,6 @@
       <compartment id="C_ext_Day" name="Extra cellular Day" constant="true"/>
       <compartment id="C_acc_Day" name="Accumulation  Day" constant="true"/>
       <compartment id="C_total_Day" name="total Day" constant="true"/>
-      <compartment id="C_biomass_Day" name="Biomass  Day" constant="true"/>
       <compartment id="C_c_Night" name="Cytosol  Night" constant="true"/>
       <compartment id="C_p_Night" name="Plastid  Night" constant="true"/>
       <compartment id="C_ext_Night" name="Extra cellular Night" constant="true"/>
@@ -30,7 +29,6 @@
       <compartment id="C_pmd_Night" name="plasmodesmata Night" constant="true"/>
       <compartment id="C_v_Night" name="Vacuole  Night" constant="true"/>
       <compartment id="C_x_Night" name="Peroxisome  Night" constant="true"/>
-      <compartment id="C_biomass_Night" name="Biomass  Night" constant="true"/>
       <compartment id="sp" name="Storage Pool" constant="true"/>
     </listOfCompartments>
     <listOfSpecies>
@@ -1466,7 +1464,6 @@
       <species id="M_S_trans_45_Tetradec_45_2_45_enoyl_45__91_acp_93__p_Day" name="trans-Tetradec-2-enoyl-[acp] Day" compartment="C_p_Day" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="M_S_trans_45_beta_45_D_45_Glucosyl_45_2_45_hydroxycinnamate_c_Day" name="trans-beta-D-Glucosyl-2-hydroxycinnamate Day" compartment="C_c_Day" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="M_S_zeta_45_Carotene_c_Day" name="zeta-Carotene Day" compartment="C_c_Day" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="M_x_biomass_Day" name="biomass Day" compartment="C_biomass_Day" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="M_S_Acyl_45_carrier_32_protein_c_Night" name="Acyl-carrier protein Night" compartment="C_c_Night" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="M_S_Acyl_45_carrier_32_protein_p_Night" name="Acyl-carrier protein Night" compartment="C_p_Night" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="M_S_CO2_ext_Night" name="CO2_ext Night" compartment="C_ext_Night" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
@@ -2888,7 +2885,6 @@
       <species id="M_S_Hexadecanoic_32_acid_c_Night" name="Hexadecanoic acid Night" compartment="C_c_Night" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="M_S_FAD_m_Night" name="FAD Night" compartment="C_m_Night" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="M_S_FADH2_m_Night" name="FADH2 Night" compartment="C_m_Night" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="M_x_biomass_Night" name="biomass Night" compartment="C_biomass_Night" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="M_S_Sucrose_c__sp" name="Sucrose_c " compartment="sp" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="M_S_Sulfate_c__sp" name="Sulfate_c " compartment="sp" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="M_S_Nitrate_c__sp" name="Nitrate_c " compartment="sp" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
@@ -2919,12 +2915,10 @@
     </listOfSpecies>
     <listOfParameters>
       <parameter sboTerm="SBO:0000626" id="cobra_default_lb" value="-1000" constant="true"/>
-      <parameter sboTerm="SBO:0000626" id="cobra_default_ub" value="1000000" constant="true"/>
+      <parameter sboTerm="SBO:0000626" id="cobra_default_ub" value="1000" constant="true"/>
       <parameter sboTerm="SBO:0000626" id="cobra_0_bound" value="0" constant="true"/>
       <parameter sboTerm="SBO:0000626" id="minus_inf" value="-INF" constant="true"/>
       <parameter sboTerm="SBO:0000626" id="plus_inf" value="INF" constant="true"/>
-      <parameter sboTerm="SBO:0000625" id="R_EX_x_biomass_Day_upper_bound" value="1000000" units="mmol_per_gDW_per_hr" constant="true"/>
-      <parameter sboTerm="SBO:0000625" id="R_EX_x_biomass_Night_upper_bound" value="1000000" units="mmol_per_gDW_per_hr" constant="true"/>
     </listOfParameters>
     <listOfReactions>
       <reaction metaid="meta_R_EX_S_Acyl_45_carrier_32_protein_c_Day" sboTerm="SBO:0000627" id="R_EX_S_Acyl_45_carrier_32_protein_c_Day" name="EX_S_Acyl_45_carrier_32_protein_c" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
@@ -15480,57 +15474,6 @@
           <speciesReference species="M_S_ATP_p_Day" stoichiometry="2" constant="true"/>
         </listOfProducts>
       </reaction>
-      <reaction id="R_EX_x_biomass_Day" name="Biomass exchange reaction" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="R_EX_x_biomass_Day_upper_bound">
-        <listOfReactants>
-          <speciesReference species="M_x_biomass_Day" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-      </reaction>
-      <reaction id="R_Biomass_rxn_Day" name="Biomass Reaction" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_0_bound">
-        <listOfReactants>
-          <speciesReference species="M_S_Maltose_c_Day" stoichiometry="0.001" constant="true"/>
-          <speciesReference species="M_S_Sucrose_c_Day" stoichiometry="0.096" constant="true"/>
-          <speciesReference species="M_S_Glucose_c_Day" stoichiometry="0.053" constant="true"/>
-          <speciesReference species="M_S_beta_45_D_45_Fructose_c_Day" stoichiometry="0.053" constant="true"/>
-          <speciesReference species="M_S_Starch_p_Day" stoichiometry="0.265" constant="true"/>
-          <speciesReference species="M_S_Cellulose_c_Day" stoichiometry="0.305" constant="true"/>
-          <speciesReference species="M_S_D_45_Xylose_c_Day" stoichiometry="0.282" constant="true"/>
-          <speciesReference species="M_S_4_45_Coumaryl_32_alcohol_c_Day" stoichiometry="0.04" constant="true"/>
-          <speciesReference species="M_S_Coniferyl_32_alcohol_c_Day" stoichiometry="0.048" constant="true"/>
-          <speciesReference species="M_S_Sinapyl_32_alcohol_c_Day" stoichiometry="0.056" constant="true"/>
-          <speciesReference species="M_S_Hexadecanoic_32_acid_c_Day" stoichiometry="0.026" constant="true"/>
-          <speciesReference species="M_S_L_45_Alanine_c_Day" stoichiometry="0.107" constant="true"/>
-          <speciesReference species="M_S_L_45_Asparagine_c_Day" stoichiometry="0.39" constant="true"/>
-          <speciesReference species="M_S_L_45_Aspartate_c_Day" stoichiometry="0.162" constant="true"/>
-          <speciesReference species="M_S_L_45_Cystine_c_Day" stoichiometry="0.024" constant="true"/>
-          <speciesReference species="M_S_L_45_Glutamine_c_Day" stoichiometry="0.35" constant="true"/>
-          <speciesReference species="M_S_Glycine_c_Day" stoichiometry="0.14" constant="true"/>
-          <speciesReference species="M_S_Glutamate_c_Day" stoichiometry="0.39" constant="true"/>
-          <speciesReference species="M_S_L_45_Isoleucine_c_Day" stoichiometry="0.06" constant="true"/>
-          <speciesReference species="M_S_L_45_Leucine_c_Day" stoichiometry="0.14" constant="true"/>
-          <speciesReference species="M_S_L_45_Methionine_c_Day" stoichiometry="0.002" constant="true"/>
-          <speciesReference species="M_S_L_45_Phenylalanine_c_Day" stoichiometry="0.08" constant="true"/>
-          <speciesReference species="M_S_L_45_Proline_c_Day" stoichiometry="0.01" constant="true"/>
-          <speciesReference species="M_S_L_45_Serine_c_Day" stoichiometry="0.21" constant="true"/>
-          <speciesReference species="M_S_L_45_Threonine_c_Day" stoichiometry="0.086" constant="true"/>
-          <speciesReference species="M_S_L_45_Tryptophan_c_Day" stoichiometry="0.04" constant="true"/>
-          <speciesReference species="M_S_L_45_Tyrosine_c_Day" stoichiometry="0.03" constant="true"/>
-          <speciesReference species="M_S_L_45_Valine_c_Day" stoichiometry="0.1" constant="true"/>
-          <speciesReference species="M_S_L_45_Lysine_c_Day" stoichiometry="0.001" constant="true"/>
-          <speciesReference species="M_S_dATP_c_Day" stoichiometry="0.0027" constant="true"/>
-          <speciesReference species="M_S_dGTP_c_Day" stoichiometry="0.0017" constant="true"/>
-          <speciesReference species="M_S_dCTP_c_Day" stoichiometry="0.0019" constant="true"/>
-          <speciesReference species="M_S_dTTP_c_Day" stoichiometry="0.0028" constant="true"/>
-          <speciesReference species="M_S_ATP_c_Day" stoichiometry="30" constant="true"/>
-          <speciesReference species="M_S_GTP_c_Day" stoichiometry="0.0039" constant="true"/>
-          <speciesReference species="M_S_CTP_c_Day" stoichiometry="0.0033" constant="true"/>
-          <speciesReference species="M_S_dUTP_c_Day" stoichiometry="0.0029" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="M_x_biomass_Day" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_S_ADP_c_Day" stoichiometry="30" constant="true"/>
-          <speciesReference species="M_S_Orthophosphate_c_Day" stoichiometry="30" constant="true"/>
-        </listOfProducts>
-      </reaction>
       <reaction id="R_EX_S_Acyl_45_carrier_32_protein_c_Night" name="EX_S_Acyl_45_carrier_32_protein_c" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
         <listOfReactants>
           <speciesReference species="M_S_Acyl_45_carrier_32_protein_c_Night" stoichiometry="1" constant="true"/>
@@ -28084,57 +28027,6 @@
           <speciesReference species="M_S_ATP_p_Night" stoichiometry="2" constant="true"/>
         </listOfProducts>
       </reaction>
-      <reaction id="R_EX_x_biomass_Night" name="Biomass exchange reaction" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="R_EX_x_biomass_Night_upper_bound">
-        <listOfReactants>
-          <speciesReference species="M_x_biomass_Night" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-      </reaction>
-      <reaction id="R_Biomass_rxn_Night" name="Biomass Reaction" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_0_bound">
-        <listOfReactants>
-          <speciesReference species="M_S_Maltose_c_Night" stoichiometry="0.001" constant="true"/>
-          <speciesReference species="M_S_Sucrose_c_Night" stoichiometry="0.096" constant="true"/>
-          <speciesReference species="M_S_Glucose_c_Night" stoichiometry="0.053" constant="true"/>
-          <speciesReference species="M_S_beta_45_D_45_Fructose_c_Night" stoichiometry="0.053" constant="true"/>
-          <speciesReference species="M_S_Starch_p_Night" stoichiometry="0.265" constant="true"/>
-          <speciesReference species="M_S_Cellulose_c_Night" stoichiometry="0.305" constant="true"/>
-          <speciesReference species="M_S_D_45_Xylose_c_Night" stoichiometry="0.282" constant="true"/>
-          <speciesReference species="M_S_4_45_Coumaryl_32_alcohol_c_Night" stoichiometry="0.04" constant="true"/>
-          <speciesReference species="M_S_Coniferyl_32_alcohol_c_Night" stoichiometry="0.048" constant="true"/>
-          <speciesReference species="M_S_Sinapyl_32_alcohol_c_Night" stoichiometry="0.056" constant="true"/>
-          <speciesReference species="M_S_Hexadecanoic_32_acid_c_Night" stoichiometry="0.026" constant="true"/>
-          <speciesReference species="M_S_L_45_Alanine_c_Night" stoichiometry="0.107" constant="true"/>
-          <speciesReference species="M_S_L_45_Asparagine_c_Night" stoichiometry="0.39" constant="true"/>
-          <speciesReference species="M_S_L_45_Aspartate_c_Night" stoichiometry="0.162" constant="true"/>
-          <speciesReference species="M_S_L_45_Cystine_c_Night" stoichiometry="0.024" constant="true"/>
-          <speciesReference species="M_S_L_45_Glutamine_c_Night" stoichiometry="0.35" constant="true"/>
-          <speciesReference species="M_S_Glycine_c_Night" stoichiometry="0.14" constant="true"/>
-          <speciesReference species="M_S_Glutamate_c_Night" stoichiometry="0.39" constant="true"/>
-          <speciesReference species="M_S_L_45_Isoleucine_c_Night" stoichiometry="0.06" constant="true"/>
-          <speciesReference species="M_S_L_45_Leucine_c_Night" stoichiometry="0.14" constant="true"/>
-          <speciesReference species="M_S_L_45_Methionine_c_Night" stoichiometry="0.002" constant="true"/>
-          <speciesReference species="M_S_L_45_Phenylalanine_c_Night" stoichiometry="0.08" constant="true"/>
-          <speciesReference species="M_S_L_45_Proline_c_Night" stoichiometry="0.01" constant="true"/>
-          <speciesReference species="M_S_L_45_Serine_c_Night" stoichiometry="0.21" constant="true"/>
-          <speciesReference species="M_S_L_45_Threonine_c_Night" stoichiometry="0.086" constant="true"/>
-          <speciesReference species="M_S_L_45_Tryptophan_c_Night" stoichiometry="0.04" constant="true"/>
-          <speciesReference species="M_S_L_45_Tyrosine_c_Night" stoichiometry="0.03" constant="true"/>
-          <speciesReference species="M_S_L_45_Valine_c_Night" stoichiometry="0.1" constant="true"/>
-          <speciesReference species="M_S_L_45_Lysine_c_Night" stoichiometry="0.001" constant="true"/>
-          <speciesReference species="M_S_dATP_c_Night" stoichiometry="0.0027" constant="true"/>
-          <speciesReference species="M_S_dGTP_c_Night" stoichiometry="0.0017" constant="true"/>
-          <speciesReference species="M_S_dCTP_c_Night" stoichiometry="0.0019" constant="true"/>
-          <speciesReference species="M_S_dTTP_c_Night" stoichiometry="0.0028" constant="true"/>
-          <speciesReference species="M_S_ATP_c_Night" stoichiometry="30" constant="true"/>
-          <speciesReference species="M_S_GTP_c_Night" stoichiometry="0.0039" constant="true"/>
-          <speciesReference species="M_S_CTP_c_Night" stoichiometry="0.0033" constant="true"/>
-          <speciesReference species="M_S_dUTP_c_Night" stoichiometry="0.0029" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="M_x_biomass_Night" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_S_ADP_c_Night" stoichiometry="30" constant="true"/>
-          <speciesReference species="M_S_Orthophosphate_c_Night" stoichiometry="30" constant="true"/>
-        </listOfProducts>
-      </reaction>
       <reaction id="R_Sucrose_c__Day_sp_exchange" name="Sucrose_c  Day storage pool exchange" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
         <listOfReactants>
           <speciesReference species="M_S_Sucrose_c_Day" stoichiometry="1" constant="true"/>
@@ -28567,99 +28459,9 @@
           <speciesReference species="M_S_Citrate_c_Night" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
-      <reaction id="R_Biomass_Total" name="Total Biomass Reaction" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
-        <listOfReactants>
-          <speciesReference species="M_S_Maltose_c_Day" stoichiometry="0.0005" constant="true"/>
-          <speciesReference species="M_S_Sucrose_c_Day" stoichiometry="0.048" constant="true"/>
-          <speciesReference species="M_S_Glucose_c_Day" stoichiometry="0.0265" constant="true"/>
-          <speciesReference species="M_S_beta_45_D_45_Fructose_c_Day" stoichiometry="0.0265" constant="true"/>
-          <speciesReference species="M_S_Starch_p_Day" stoichiometry="0.1325" constant="true"/>
-          <speciesReference species="M_S_Cellulose_c_Day" stoichiometry="0.1525" constant="true"/>
-          <speciesReference species="M_S_D_45_Xylose_c_Day" stoichiometry="0.141" constant="true"/>
-          <speciesReference species="M_S_4_45_Coumaryl_32_alcohol_c_Day" stoichiometry="0.02" constant="true"/>
-          <speciesReference species="M_S_Coniferyl_32_alcohol_c_Day" stoichiometry="0.024" constant="true"/>
-          <speciesReference species="M_S_Sinapyl_32_alcohol_c_Day" stoichiometry="0.028" constant="true"/>
-          <speciesReference species="M_S_Hexadecanoic_32_acid_c_Day" stoichiometry="0.013" constant="true"/>
-          <speciesReference species="M_S_L_45_Alanine_c_Day" stoichiometry="0.0535" constant="true"/>
-          <speciesReference species="M_S_L_45_Asparagine_c_Day" stoichiometry="0.195" constant="true"/>
-          <speciesReference species="M_S_L_45_Aspartate_c_Day" stoichiometry="0.081" constant="true"/>
-          <speciesReference species="M_S_L_45_Cystine_c_Day" stoichiometry="0.012" constant="true"/>
-          <speciesReference species="M_S_L_45_Glutamine_c_Day" stoichiometry="0.175" constant="true"/>
-          <speciesReference species="M_S_Glycine_c_Day" stoichiometry="0.07" constant="true"/>
-          <speciesReference species="M_S_Glutamate_c_Day" stoichiometry="0.195" constant="true"/>
-          <speciesReference species="M_S_L_45_Isoleucine_c_Day" stoichiometry="0.03" constant="true"/>
-          <speciesReference species="M_S_L_45_Leucine_c_Day" stoichiometry="0.07" constant="true"/>
-          <speciesReference species="M_S_L_45_Methionine_c_Day" stoichiometry="0.001" constant="true"/>
-          <speciesReference species="M_S_L_45_Phenylalanine_c_Day" stoichiometry="0.04" constant="true"/>
-          <speciesReference species="M_S_L_45_Proline_c_Day" stoichiometry="0.005" constant="true"/>
-          <speciesReference species="M_S_L_45_Serine_c_Day" stoichiometry="0.105" constant="true"/>
-          <speciesReference species="M_S_L_45_Threonine_c_Day" stoichiometry="0.043" constant="true"/>
-          <speciesReference species="M_S_L_45_Tryptophan_c_Day" stoichiometry="0.02" constant="true"/>
-          <speciesReference species="M_S_L_45_Tyrosine_c_Day" stoichiometry="0.015" constant="true"/>
-          <speciesReference species="M_S_L_45_Valine_c_Day" stoichiometry="0.05" constant="true"/>
-          <speciesReference species="M_S_L_45_Lysine_c_Day" stoichiometry="0.0005" constant="true"/>
-          <speciesReference species="M_S_dATP_c_Day" stoichiometry="0.00135" constant="true"/>
-          <speciesReference species="M_S_dGTP_c_Day" stoichiometry="0.00085" constant="true"/>
-          <speciesReference species="M_S_dCTP_c_Day" stoichiometry="0.00095" constant="true"/>
-          <speciesReference species="M_S_dTTP_c_Day" stoichiometry="0.0014" constant="true"/>
-          <speciesReference species="M_S_ATP_c_Day" stoichiometry="15" constant="true"/>
-          <speciesReference species="M_S_GTP_c_Day" stoichiometry="0.00195" constant="true"/>
-          <speciesReference species="M_S_CTP_c_Day" stoichiometry="0.00165" constant="true"/>
-          <speciesReference species="M_S_dUTP_c_Day" stoichiometry="0.00145" constant="true"/>
-          <speciesReference species="M_S_Maltose_c_Night" stoichiometry="0.0005" constant="true"/>
-          <speciesReference species="M_S_Sucrose_c_Night" stoichiometry="0.048" constant="true"/>
-          <speciesReference species="M_S_Glucose_c_Night" stoichiometry="0.0265" constant="true"/>
-          <speciesReference species="M_S_beta_45_D_45_Fructose_c_Night" stoichiometry="0.0265" constant="true"/>
-          <speciesReference species="M_S_Starch_p_Night" stoichiometry="0.1325" constant="true"/>
-          <speciesReference species="M_S_Cellulose_c_Night" stoichiometry="0.1525" constant="true"/>
-          <speciesReference species="M_S_D_45_Xylose_c_Night" stoichiometry="0.141" constant="true"/>
-          <speciesReference species="M_S_4_45_Coumaryl_32_alcohol_c_Night" stoichiometry="0.02" constant="true"/>
-          <speciesReference species="M_S_Coniferyl_32_alcohol_c_Night" stoichiometry="0.024" constant="true"/>
-          <speciesReference species="M_S_Sinapyl_32_alcohol_c_Night" stoichiometry="0.028" constant="true"/>
-          <speciesReference species="M_S_Hexadecanoic_32_acid_c_Night" stoichiometry="0.013" constant="true"/>
-          <speciesReference species="M_S_L_45_Alanine_c_Night" stoichiometry="0.0535" constant="true"/>
-          <speciesReference species="M_S_L_45_Asparagine_c_Night" stoichiometry="0.195" constant="true"/>
-          <speciesReference species="M_S_L_45_Aspartate_c_Night" stoichiometry="0.081" constant="true"/>
-          <speciesReference species="M_S_L_45_Cystine_c_Night" stoichiometry="0.012" constant="true"/>
-          <speciesReference species="M_S_L_45_Glutamine_c_Night" stoichiometry="0.175" constant="true"/>
-          <speciesReference species="M_S_Glycine_c_Night" stoichiometry="0.07" constant="true"/>
-          <speciesReference species="M_S_Glutamate_c_Night" stoichiometry="0.195" constant="true"/>
-          <speciesReference species="M_S_L_45_Isoleucine_c_Night" stoichiometry="0.03" constant="true"/>
-          <speciesReference species="M_S_L_45_Leucine_c_Night" stoichiometry="0.07" constant="true"/>
-          <speciesReference species="M_S_L_45_Methionine_c_Night" stoichiometry="0.001" constant="true"/>
-          <speciesReference species="M_S_L_45_Phenylalanine_c_Night" stoichiometry="0.04" constant="true"/>
-          <speciesReference species="M_S_L_45_Proline_c_Night" stoichiometry="0.005" constant="true"/>
-          <speciesReference species="M_S_L_45_Serine_c_Night" stoichiometry="0.105" constant="true"/>
-          <speciesReference species="M_S_L_45_Threonine_c_Night" stoichiometry="0.043" constant="true"/>
-          <speciesReference species="M_S_L_45_Tryptophan_c_Night" stoichiometry="0.02" constant="true"/>
-          <speciesReference species="M_S_L_45_Tyrosine_c_Night" stoichiometry="0.015" constant="true"/>
-          <speciesReference species="M_S_L_45_Valine_c_Night" stoichiometry="0.05" constant="true"/>
-          <speciesReference species="M_S_L_45_Lysine_c_Night" stoichiometry="0.0005" constant="true"/>
-          <speciesReference species="M_S_dATP_c_Night" stoichiometry="0.00135" constant="true"/>
-          <speciesReference species="M_S_dGTP_c_Night" stoichiometry="0.00085" constant="true"/>
-          <speciesReference species="M_S_dCTP_c_Night" stoichiometry="0.00095" constant="true"/>
-          <speciesReference species="M_S_dTTP_c_Night" stoichiometry="0.0014" constant="true"/>
-          <speciesReference species="M_S_ATP_c_Night" stoichiometry="15" constant="true"/>
-          <speciesReference species="M_S_GTP_c_Night" stoichiometry="0.00195" constant="true"/>
-          <speciesReference species="M_S_CTP_c_Night" stoichiometry="0.00165" constant="true"/>
-          <speciesReference species="M_S_dUTP_c_Night" stoichiometry="0.00145" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="M_x_biomass_Day" stoichiometry="0.5" constant="true"/>
-          <speciesReference species="M_S_ADP_c_Day" stoichiometry="15" constant="true"/>
-          <speciesReference species="M_S_Orthophosphate_c_Day" stoichiometry="15" constant="true"/>
-          <speciesReference species="M_x_biomass_Night" stoichiometry="0.5" constant="true"/>
-          <speciesReference species="M_S_ADP_c_Night" stoichiometry="15" constant="true"/>
-          <speciesReference species="M_S_Orthophosphate_c_Night" stoichiometry="15" constant="true"/>
-        </listOfProducts>
-      </reaction>
     </listOfReactions>
     <fbc:listOfObjectives fbc:activeObjective="obj">
-      <fbc:objective fbc:id="obj" fbc:type="maximize">
-        <fbc:listOfFluxObjectives>
-          <fbc:fluxObjective fbc:reaction="R_Biomass_Total" fbc:coefficient="1"/>
-        </fbc:listOfFluxObjectives>
-      </fbc:objective>
+      <fbc:objective fbc:id="obj" fbc:type="maximize"/>
     </fbc:listOfObjectives>
   </model>
 </sbml>

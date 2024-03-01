@@ -16,8 +16,7 @@ def validate_reactions_fluxes(original_model, diel_model, original_multitissue_m
 
     diel_model.objective = "EX_C00205__dra_Day"
     diel_model.objective_direction = "max"
-    diel_model.reactions.get_by_id("Biomass_Total").lower_bound = 0.11
-    diel_model.reactions.get_by_id("Biomass_Total").upper_bound = 0.11
+    diel_model.reactions.get_by_id("Biomass_Total").bounds = (0,100)
     diel_carboxylation_day = diel_model.reactions.get_by_id("R00024__chlo_Day")
     diel_oxygenation_day = diel_model.reactions.get_by_id("R03140__chlo_Day")
 
@@ -38,6 +37,7 @@ def validate_reactions_fluxes(original_model, diel_model, original_multitissue_m
 
     diel_multitissue_model.objective = "EX_C00205__dra_Day"
     diel_multitissue_model.objective_direction = "max"
+    diel_multitissue_model.reactions.get_by_id("Biomass_Total").bounds = (0, 100)
     diel_multi_carboxylation_day = diel_multitissue_model.reactions.get_by_id("R00024__plst_Leaf_Day")
     diel_multi_oxygenation_day = diel_multitissue_model.reactions.get_by_id("R03140__plst_Leaf_Day")
 
@@ -129,8 +129,10 @@ def validate_reactions_fluxes(original_model, diel_model, original_multitissue_m
 
     tabel = pd.DataFrame(data)
 
-    tabel.index = ["Quercus", "Quercus Multi Tissue", "Day Quercus", "Night Quercus", "Day Multi Quercus",
+    tabel.index = ["Quercus", "Day Quercus", "Night Quercus", "Quercus Multi Tissue", "Day Multi Quercus",
                    "Night Multi Quercus"]
+
+    tabel.to_csv('Quercus_Reactions_Fluxes.csv', sep=',')
 
     print(tabel)
 
