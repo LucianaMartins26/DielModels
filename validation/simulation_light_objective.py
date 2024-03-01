@@ -36,6 +36,14 @@ if __name__ == '__main__':
     diel_maize_saha.objective = "EX_hv_Day"
     diel_maize_saha.objective_direction = "max"
 
+    maize_simons = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'Maize_Simons_mat.xml'))
+    diel_maize_simons = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'diel_maize_simons_model.xml'))
+
+    maize_simons.objective = "ExMe15"
+    maize_simons.objective_direction = "max"
+    diel_maize_simons.objective = "ExMe15_Day"
+    diel_maize_simons.objective_direction = "max"
+
     multiquercus = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'MultiTissueQuercusModel.xml'))
     diel_multiquercus = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'diel_multi_quercus_model.xml'))
 
@@ -60,8 +68,8 @@ if __name__ == '__main__':
     diel_potato.objective = "RB002_Day"
     diel_potato.objective_direction = "max"
 
-    rice_lakshmanan = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'Rice_Lakshmanan.xml'))
-    diel_rice_lakshmanan = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'diel_rice_Lakshmanan_model.xml'))
+    rice_lakshmanan = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'Rice_Lakshmanan_restricted.xml'))
+    diel_rice_lakshmanan = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'diel_rice_Lakshmanan_restricted.xml'))
 
     rice_lakshmanan.objective = "EX_photonVis_LPAREN_e_RPAREN_"
     rice_lakshmanan.objective_direction = "max"
@@ -108,8 +116,8 @@ if __name__ == '__main__':
     diel_colza.objective = "Ex_ph_t_Day"
     diel_colza.objective_direction = "max"
 
-    populus = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'Populus_iPop7188.xml'))
-    diel_populus = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'diel_populus_model.xml'))
+    populus = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'Populus_iPop7188_fixed.xml'))
+    diel_populus = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'diel_populus_model_fixed.xml'))
 
     populus.objective = "EX_light"
     populus.objective_direction = "max"
@@ -140,6 +148,8 @@ if __name__ == '__main__':
     print(f"Diel Maize iEB5204 {diel_maize_iEB5204.summary()}")
     print(f"Maize Saha {maize_saha.summary()}")
     print(f"Diel Maize Saha {diel_maize_saha.summary()}")
+    print(f"Maize Simons {maize_simons.summary()}")
+    print(f"Diel Maize Simons {diel_maize_simons.summary()}")
     print(f"Multi Quercus {multiquercus.summary()}")
     print(f"Diel Multi Quercus {diel_multiquercus.summary()}")
     print(f"Quercus {quercus.summary()}")

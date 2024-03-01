@@ -12,6 +12,14 @@ if __name__ == '__main__':
     diel_maize_saha.objective = "Biomass_Total"
     diel_maize_saha.objective_direction = "max"
 
+    maize_simons = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'Maize_Simons_mat.xml'))
+    diel_maize_simons = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'diel_maize_simons_model.xml'))
+
+    maize_saha.objective = "Bio_Nplus"
+    maize_saha.objective_direction = "max"
+    diel_maize_saha.objective = "Biomass_Total"
+    diel_maize_saha.objective_direction = "max"
+
     multiquercus = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'MultiTissueQuercusModel.xml'))
     diel_multiquercus = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'diel_multi_quercus_model.xml'))
 
@@ -70,6 +78,8 @@ if __name__ == '__main__':
 
     print(f"Maize Saha {maize_saha.summary()}")
     print(f"Diel Maize Saha {diel_maize_saha.summary()}")
+    print(f"Maize Simons {maize_simons.summary()}")
+    print(f"Diel Maize Simons {diel_maize_simons.summary()}")
     print(f"Multi Quercus {multiquercus.summary()}")
     print(f"Diel Multi Quercus {diel_multiquercus.summary()}")
     print(f"Quercus {quercus.summary()}")
