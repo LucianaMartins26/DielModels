@@ -25,7 +25,6 @@ if __name__ == '__main__':
 
     fba_sol_non_diel, fba_sol_diel_model = QY_AQ(original_model, diel_maize_saha_model)
 
-
     data_quantum_assimilation = {
         'Quantum Yield': [fba_sol_non_diel["R00024_p"] / - fba_sol_non_diel["EX_hv"],
                           fba_sol_diel_model["R00024_p_Day"] / - fba_sol_diel_model["EX_hv_Day"]]}

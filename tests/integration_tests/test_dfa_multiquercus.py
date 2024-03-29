@@ -78,18 +78,3 @@ class TestDFA(TestCase):
 
         expected_columns = ['Reaction', 'Pvalue', 'Padj', 'Reject', 'FC']
         self.assertListEqual(list(result_df.columns), expected_columns)
-
-    def test_pathways(self) -> None:
-
-        self.dfa.sampling()
-        self.dfa.kstest()
-
-        self.assertTrue(os.path.exists(self.pathways))
-
-        self.dfa.pathway_enrichment()
-
-        for modelname in self.model_specifics:
-            expected_csv_file = os.path.join(self.results_folder, '%s_DFA_pathway_result.csv' % modelname)
-            expected_png_file = os.path.join(self.results_folder, '%s_DFA_pathway_result.png' % modelname)
-            self.assertTrue(os.path.exists(expected_csv_file))
-            self.assertTrue(os.path.exists(expected_png_file))

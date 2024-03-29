@@ -16,7 +16,7 @@ def validate_reactions_fluxes(original_model, diel_model, original_multitissue_m
 
     diel_model.objective = "EX_C00205__dra_Day"
     diel_model.objective_direction = "max"
-    diel_model.reactions.get_by_id("Biomass_Total").bounds = (0,100)
+    diel_model.reactions.get_by_id("Biomass_Total").bounds = (0.11, 0.11)
     diel_carboxylation_day = diel_model.reactions.get_by_id("R00024__chlo_Day")
     diel_oxygenation_day = diel_model.reactions.get_by_id("R03140__chlo_Day")
 
@@ -37,7 +37,7 @@ def validate_reactions_fluxes(original_model, diel_model, original_multitissue_m
 
     diel_multitissue_model.objective = "EX_C00205__dra_Day"
     diel_multitissue_model.objective_direction = "max"
-    diel_multitissue_model.reactions.get_by_id("Biomass_Total").bounds = (0, 100)
+    diel_multitissue_model.reactions.get_by_id("Biomass_Total").bounds = (0.01, 0.01)
     diel_multi_carboxylation_day = diel_multitissue_model.reactions.get_by_id("R00024__plst_Leaf_Day")
     diel_multi_oxygenation_day = diel_multitissue_model.reactions.get_by_id("R03140__plst_Leaf_Day")
 
@@ -72,20 +72,20 @@ def validate_reactions_fluxes(original_model, diel_model, original_multitissue_m
                               diel_multitissue_solution["Photosystem_I__plst_Leaf_Day"],
                               diel_multitissue_solution["Photosystem_I__plst_Leaf_Night"]],
 
-            'G3P to 1,3Bisphosphoglicerate': [original_solution["R01512__cyto"],
+            'Glicerate-3P to 1,3Bisphosphoglicerate': [original_solution["R01512__cyto"],
                                               original_multitissue_solution["R01512__plst_Leaf"],
                                               diel_solution["R01512__cyto_Day"], diel_solution["R01512__cyto_Night"],
                                               diel_multitissue_solution["R01512__plst_Leaf_Day"],
                                               diel_multitissue_solution["R01512__plst_Leaf_Night"]],
 
-            '1,3Bisphosphoglicerate to Glyceraldehyde-3P': [original_solution["R01063__chlo"],
+            '1,3Bisphosphoglicerate to G3P': [original_solution["R01063__chlo"],
                                                             original_multitissue_solution["R01063__plst_Leaf"],
                                                             diel_solution["R01063__chlo_Day"],
                                                             diel_solution["R01063__chlo_Night"],
                                                             diel_multitissue_solution["R01063__plst_Leaf_Day"],
                                                             diel_multitissue_solution["R01063__plst_Leaf_Night"]],
 
-            'Glyceraldehyde-3P to Glycerone-P': [original_solution["R01015__cyto"],
+            'G3P to Glycerone-P': [original_solution["R01015__cyto"],
                                                  original_multitissue_solution["R01015__plst_Leaf"],
                                                  diel_solution["R01015__cyto_Day"], diel_solution["R01015__cyto_Night"],
                                                  diel_multitissue_solution["R01015__plst_Leaf_Day"],
@@ -129,7 +129,7 @@ def validate_reactions_fluxes(original_model, diel_model, original_multitissue_m
 
     tabel = pd.DataFrame(data)
 
-    tabel.index = ["Quercus", "Day Quercus", "Night Quercus", "Quercus Multi Tissue", "Day Multi Quercus",
+    tabel.index = ["Quercus", "Quercus Multi Tissue", "Day Quercus", "Night Quercus", "Day Multi Quercus",
                    "Night Multi Quercus"]
 
     tabel.to_csv('Quercus_Reactions_Fluxes.csv', sep=',')

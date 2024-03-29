@@ -10,9 +10,10 @@ from src.diel_models.nitrate_uptake_ratio import NitrateUptakeRatioCalibrator
 def load_model():
     model_path = 'C:\\Users\\lucia\\Desktop\\DielModels\\validation\\quercus\\(changed)diel_multi_quercus_model.xml'
     model = cobra.io.read_sbml_model(model_path)
-    model.reactions.get_by_id("Total_biomass").bounds = (0,100)
+    model.reactions.get_by_id("Total_biomass").bounds = (0.1, 100)
+    model.reactions.EX_C00205__dra_Day.bounds = (-1000, 1000)
     model.objective = "EX_C00205__dra_Day"
-    model.objective_direction = "min"
+    model.objective_direction = "max"
     nitrate_calibrator = NitrateUptakeRatioCalibrator(model, ["EX_C00244__dra_Day"], ["EX_C00244__dra_Night"])
     nitrate_calibrator.run()
     model = nitrate_calibrator.model
