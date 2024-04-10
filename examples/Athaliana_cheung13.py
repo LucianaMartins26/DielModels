@@ -1,8 +1,5 @@
 import cobra
 import os
-
-import pandas as pd
-
 from tests import TEST_DIR
 from diel_models.diel_models_creator import diel_models_creator
 
