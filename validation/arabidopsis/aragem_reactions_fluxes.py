@@ -6,7 +6,7 @@ from cobra.flux_analysis import pfba
 
 def validate_reactions_fluxes(original_model, diel_model):
     original_model.objective = "Ex16"
-    original_model.objective_direction = "max"
+    original_model.objective_direction = "min"
 
     original_model_carboxylation = original_model.reactions.get_by_id("R00024_p")
     original_model_oxygenation = original_model.reactions.get_by_id("R03140_p")
@@ -19,12 +19,19 @@ def validate_reactions_fluxes(original_model, diel_model):
     original_solution = pfba(original_model).fluxes
 
     diel_model.objective = "Ex16_Day"
-    diel_model.objective_direction = "max"
-    diel_model.reactions.get_by_id("Biomass_Total").lower_bound = 0.11
-    diel_model.reactions.get_by_id("Biomass_Total").upper_bound = 0.11
+    diel_model.objective_direction = "min"
+    diel_model.reactions.Biomass_Total.bounds = (0.11, 0.11)
 
     diel_model_carboxylation = diel_model.reactions.get_by_id("R00024_p_Day")
     diel_model_oxygenation = diel_model.reactions.get_by_id("R03140_p_Day")
+
+    same_flux = diel_model.problem.Constraint(
+        diel_model_carboxylation.flux_expression * 1 -
+        diel_model_oxygenation.flux_expression * 3, lb=0, ub=0)
+    diel_model.add_cons_vars(same_flux)
+
+    diel_model_carboxylation = diel_model.reactions.get_by_id("R00024_p_Night")
+    diel_model_oxygenation = diel_model.reactions.get_by_id("R03140_p_Night")
 
     same_flux = diel_model.problem.Constraint(
         diel_model_carboxylation.flux_expression * 1 -

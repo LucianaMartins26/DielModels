@@ -5,22 +5,23 @@ import pandas as pd
 from cobra.flux_analysis import pfba
 
 from tests import TEST_DIR
-
+from validation.quercus import QUERCUS_DIR
 
 if __name__ == '__main__':
     original_model = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'QuercusSuberGeneralModel.xml'))
 
-    luciana_diel_model = cobra.io.read_sbml_model("C:\\Users\\lucia\\Desktop\\DielModels\\validation\\quercus\\("
-                                                  "changed)diel_multi_quercus_model.xml")
+    luciana_diel_model = cobra.io.read_sbml_model(os.path.join(QUERCUS_DIR, '(changed)diel_multi_quercus_model.xml'))
     emanuel_diel_model = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'Emanuel_DielMultiTissueModel.xml'))
 
-
-    original_model.objective = "e_Biomass_Leaf__cyto"
+    original_model.objective = "EX_C00205__dra"
     original_model.objective_direction = "max"
-    luciana_diel_model.objective = "Total_biomass"
+    original_model.reactions.e_Biomass_Leaf__cyto.bounds = (0.08, 0.08)
+    luciana_diel_model.objective = "EX_C00205__dra_Day"
     luciana_diel_model.objective_direction = "max"
-    emanuel_diel_model.objective = "Total_biomass"
+    luciana_diel_model.reactions.get_by_id("Total_biomass").bounds = (0.08, 0.08)
+    emanuel_diel_model.objective = "EX_C00205__dra_Light"
     emanuel_diel_model.objective_direction = "max"
+    emanuel_diel_model.reactions.Total_biomass.bounds = (0.08, 0.08)
 
     fba_sol_non_diel = pfba(original_model).fluxes
     fba_sol_c = pfba(luciana_diel_model).fluxes

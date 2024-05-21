@@ -18,10 +18,12 @@ if __name__ == '__main__':
     original_model = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'tomato_Sl2183.xml'))
     diel_tomato_model = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', "diel_tomato2022_model.xml"))
 
-    original_model.objective = "BIOMASS_STEM"
+    original_model.objective = "EX_photon_h"
     original_model.objective_direction = "max"
-    diel_tomato_model.objective = "Biomass_Total"
+    original_model.reactions.BIOMASS_STEM.bounds = (0.11, 0.11)
+    diel_tomato_model.objective = "EX_photon_h_Day"
     diel_tomato_model.objective_direction = "max"
+    diel_tomato_model.reactions.Biomass_Total.bounds = (0.11, 0.11)
 
     fba_sol_non_diel, fba_sol_diel_model = QY_AQ(original_model, diel_tomato_model)
 

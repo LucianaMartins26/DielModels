@@ -13,6 +13,8 @@ With this in mind, this package aims to accelerate this process by being able to
 - [Installation](#installation)
     - [Pip](#pip)
 - [Getting Started](#getting-started)
+- [Expanding the pipeline](#expanding-the-pipeline)
+- [Where to find the paper results](#where-to-find-the-paper-results)
 
 ## Installation
 ### Pip
@@ -20,28 +22,120 @@ With this in mind, this package aims to accelerate this process by being able to
 ``` pip install DielModels==1.0.2 ```
 
 ## Getting Started
-Through this package, you can:
+Through this package, you can handle generic or multi-tissue models by:
 
-* Assign day and night to the non-diel model;
-* Insert specified metabolites into the storage pool allowing their transition between day and night, and vice versa; 
-* Block the photon reaction flow at night; 
-* Set the flux of the nitrate reactions to 3:2 according to the literature; 
-* Takes the day and night biomass reactions and creates a total biomass reaction resulting from the junctions of both. It also blocks the flow of the individual reactions to zero. Sets the total biomass reaction as the objective function.
+* Assigning day and night;
+* Inserting specified metabolites into the storage pool allowing their transition between day and night, and vice versa; 
+* Supressing the photon reaction flow at night; 
+* Setting the flux of the nitrate reactions to 3:2 according to the literature; 
+* (optional) Taking the day and night biomass reactions and creating a total biomass reaction resulting from the junctions of both. Supressing at the same time the flow of the individual reactions to zero and setting the total biomass reaction as the objective function.
 
 If each method is to be applied individually it is essential that the first 3 steps are applied in that order specifically.
 
-**Alternatively, it is possible to apply all methods to a given model, running the entire pipeline using:**
+**Alternatively, it is possible to apply all methods to a given model, running the entire pipeline (where the arguments are all relative to the original model), as shown below:**
+
+- Generic model:
 
 ```python
 import cobra
-import diel_models
 from diel_models.diel_models_creator import diel_models_creator
 
-model = cobra.io.read_sbml_model('../../desired_model.xml')
+model = cobra.io.read_sbml_model('.../.../desired_single_tissue_model.xml')
 
 storage_pool_metabolites = ['Metabolite_ID_1', 'Metabolite_ID_2', 'Metabolite_ID_3']
 
-diel_models_creator(model, storage_pool_metabolites, 'Photon_Reaction_ID', 'Biomass_Reaction_ID', 'Nitrate_Reaction_ID')
+diel_models_creator(model, storage_pool_metabolites, ['Photon_Reaction_ID'], ['Nitrate_Reaction_ID'], 'Biomass_Reaction_ID')
 ```
 
-It is possible due to the created *Pipeline* class that derives from a *Step* class with abstract methods - both present in the package.
+- Multi-tissue model:
+
+```python
+import cobra
+from diel_models.diel_models_creator import diel_models_creator
+
+model = cobra.io.read_sbml_model('.../.../desired_multi_tissue_model.xml')
+
+storage_pool_metabolites = ['Metabolite_ID_1', 'Metabolite_ID_2', 'Metabolite_ID_3']
+
+tissues = ['Tissue_ID_1', 'Tissue_ID_2']
+
+diel_models_creator(model, storage_pool_metabolites, ['Photon_Reaction_ID'], ['Nitrate_Reaction_ID'], 'Biomass_Reaction_ID', tissues)
+```
+
+This is possible due to the created *Pipeline* class that derives from a *Step* class with abstract methods - both present in this package, in the [pipeline.py](src/diel_models/pipeline.py) file.
+
+## Expanding the pipeline
+
+You can make changes to the methods that the *diel_models_creator* function contains. It is also possible to add other classes if desired, for example to make a different adjustment that needs to be taken into account in the diel models.
+To expand the pipeline, it is necessary to create a new class that inherits from the *Step* class and implement the abstract methods.
+  
+Considering a new hypothetical file **new_class.py**, this new class, in addition to the desired methods, would have to contain the two abstract methods of the *Step* class, *run* and *validate*, which, respectively, runs all the methods of the class returning the model and performs asserts to validate whether the class has been implemented successfully (or simply doesn't apply any if it doesn't make sense).
+
+```python
+from diel_models.pipeline import Step
+
+class NewClass(Step):
+
+  def __init__(self, model, param1):
+    self.model = model
+    self.param1 = param1
+
+  def method1(self):
+    pass
+
+  def method2(self):
+    pass
+
+  def run(self):
+    self.method1()
+    self.method2()
+
+    return self.model
+
+  def validate(self):
+    pass
+```
+
+Then you need to adjust the *diel_models_creator* function to integrate the new class. This function is in the [diel_models_creator.py](src/diel_models/diel_models_creator.py) file.
+
+```python
+from typing import List
+
+from cobra import Model
+
+from diel_models.new_class import NewClass
+
+from diel_models.pipeline import Pipeline
+
+def diel_models_creator(model: Model, storage_pool_metabolites: List[str], photon_reaction_id: List[str],
+                        nitrate_exchange_reaction: List[str], param1, biomass_reaction_id: str = None, tissues: List[str] = None) -> Model:  
+  
+    storage_pool_metabolites_with_day = [metabolite + "_Day" for metabolite in storage_pool_metabolites]
+    photon_reaction_id_night = [photon_night_reaction + "_Night" for photon_night_reaction in photon_reaction_id]
+    # ...
+    
+    steps = [
+             # ...
+            NewClass(model, param1)
+        ]
+
+    pipeline = Pipeline(model, steps)
+    pipeline.run()
+    return pipeline.model
+```
+
+Finally, you can run the *diel_models_creator* function with the new class.
+
+## Where to find the paper results
+
+### AraGEM:
+
+* Details about the fluxes in the AraGEM diel model reactions in the day and night phases, as well as in the original model where calculated in [aragem_reactions_fluxes.py](validation/arabidopsis/aragem_reactions_fluxes.py) file.
+* Validation of the metabolites exchange reactions through simulation using pFBA where performed in [simulation_sp.py](validation/arabidopsis/simulation_sp.py) file.
+* [DFA file](DFA/differential_flux_analysis.py) and respective [Test file](tests/integration_tests/test_dfa.py).
+* [Plot](tests/reconstruction_results/MODEL1507180028/results_troppo/DielModel/dfa/diel_model_DFA_pathway_result.png) from the pathway enrichment method representing the amount of differentially expressed reactions between day and night in each pathway.
+* [PCA](PCA_T-SNE/gráfico_pca_df_filtrado.png) and [t-SNE](PCA_T-SNE/gráfico_t-sne_df_filtrado.png) plots with the sampling values filtered by the differentially expressed reactions.
+
+### _Quercus suber_:
+
+* Details about the fluxes in the _Quercus suber_ diel model reactions in the day and night phases, as well as in the original model where calculated in [quercus_reactions_fluxes.py](validation/quercus/quercus_reactions_fluxes.py) file.
