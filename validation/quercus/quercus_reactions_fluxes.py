@@ -78,40 +78,41 @@ def validate_reactions_fluxes(original_model, diel_model, original_multitissue_m
 
     data = {'RuBisCO + O2': [original_solution["R03140__chlo"],
                              original_multitissue_solution["R03140__plst_Leaf"],
-                              diel_solution["R03140__chlo_Day"], diel_solution["R03140__chlo_Night"],
+                             diel_solution["R03140__chlo_Day"], diel_solution["R03140__chlo_Night"],
                              diel_multitissue_solution["R03140__plst_Leaf_Day"],
                              diel_multitissue_solution["R03140__plst_Leaf_Night"]],
 
             'RuBisCO + CO2': [original_solution["R00024__chlo"],
                               original_multitissue_solution["R00024__plst_Leaf"],
-                               diel_solution["R00024__chlo_Day"], diel_solution["R00024__chlo_Night"],
+                              diel_solution["R00024__chlo_Day"], diel_solution["R00024__chlo_Night"],
                               diel_multitissue_solution["R00024__plst_Leaf_Day"],
                               diel_multitissue_solution["R00024__plst_Leaf_Night"]],
 
             'Photosystem_I': [original_solution["Photosystem_I__chlo"],
                               original_multitissue_solution["Photosystem_I__plst_Leaf"],
-                               diel_solution["Photosystem_I__chlo_Day"], diel_solution["Photosystem_I__chlo_Night"],
+                              diel_solution["Photosystem_I__chlo_Day"], diel_solution["Photosystem_I__chlo_Night"],
                               diel_multitissue_solution["Photosystem_I__plst_Leaf_Day"],
                               diel_multitissue_solution["Photosystem_I__plst_Leaf_Night"]],
 
             'Glicerate-3P to 1,3Bisphosphoglicerate': [original_solution["R01512__cyto"],
-                                              original_multitissue_solution["R01512__plst_Leaf"],
-                                               diel_solution["R01512__cyto_Day"], diel_solution["R01512__cyto_Night"],
-                                              diel_multitissue_solution["R01512__plst_Leaf_Day"],
-                                              diel_multitissue_solution["R01512__plst_Leaf_Night"]],
+                                                       original_multitissue_solution["R01512__plst_Leaf"],
+                                                       diel_solution["R01512__cyto_Day"],
+                                                       diel_solution["R01512__cyto_Night"],
+                                                       diel_multitissue_solution["R01512__plst_Leaf_Day"],
+                                                       diel_multitissue_solution["R01512__plst_Leaf_Night"]],
 
             '1,3Bisphosphoglicerate to G3P': [original_solution["R01063__chlo"],
-                                                            original_multitissue_solution["R01063__plst_Leaf"],
-                                                            diel_solution["R01063__chlo_Day"],
-                                                            diel_solution["R01063__chlo_Night"],
-                                                            diel_multitissue_solution["R01063__plst_Leaf_Day"],
-                                                            diel_multitissue_solution["R01063__plst_Leaf_Night"]],
+                                              original_multitissue_solution["R01063__plst_Leaf"],
+                                              diel_solution["R01063__chlo_Day"],
+                                              diel_solution["R01063__chlo_Night"],
+                                              diel_multitissue_solution["R01063__plst_Leaf_Day"],
+                                              diel_multitissue_solution["R01063__plst_Leaf_Night"]],
 
             'G3P to Glycerone-P': [original_solution["R01015__cyto"],
-                                                 original_multitissue_solution["R01015__plst_Leaf"],
-                                                  diel_solution["R01015__cyto_Day"], diel_solution["R01015__cyto_Night"],
-                                                 diel_multitissue_solution["R01015__plst_Leaf_Day"],
-                                                 diel_multitissue_solution["R01015__plst_Leaf_Night"]],
+                                   original_multitissue_solution["R01015__plst_Leaf"],
+                                   diel_solution["R01015__cyto_Day"], diel_solution["R01015__cyto_Night"],
+                                   diel_multitissue_solution["R01015__plst_Leaf_Day"],
+                                   diel_multitissue_solution["R01015__plst_Leaf_Night"]],
 
             'Glycerone-P to Sedoheptulose1,7-bisphosphate': [original_solution["R01829__cyto"],
                                                              original_multitissue_solution["R01829__plst_Leaf"],
@@ -132,19 +133,19 @@ def validate_reactions_fluxes(original_model, diel_model, original_multitissue_m
 
             'Sedoheptulose7-phosphate  to R5P': [original_solution["R01641__cyto"],
                                                  original_multitissue_solution["R01641__plst_Leaf"],
-                                                  diel_solution["R01641__cyto_Day"], diel_solution["R01641__cyto_Night"],
+                                                 diel_solution["R01641__cyto_Day"], diel_solution["R01641__cyto_Night"],
                                                  diel_multitissue_solution["R01641__plst_Leaf_Day"],
                                                  diel_multitissue_solution["R01641__plst_Leaf_Night"]],
 
             'R5P to Ri5P': [original_solution["R01056__cyto"],
                             original_multitissue_solution["R01056__plst_Leaf"],
-                             diel_solution["R01056__cyto_Day"], diel_solution["R01056__cyto_Night"],
+                            diel_solution["R01056__cyto_Day"], diel_solution["R01056__cyto_Night"],
                             diel_multitissue_solution["R01056__plst_Leaf_Day"],
                             diel_multitissue_solution["R01056__plst_Leaf_Night"]],
 
             'Ri5P to Ri15P2': [original_solution["R01523__chlo"],
                                original_multitissue_solution["R01523__plst_Leaf"],
-                                diel_solution["R01523__chlo_Day"], diel_solution["R01523__chlo_Night"],
+                               diel_solution["R01523__chlo_Day"], diel_solution["R01523__chlo_Night"],
                                diel_multitissue_solution["R01523__plst_Leaf_Day"],
                                diel_multitissue_solution["R01523__plst_Leaf_Night"]]
             }
@@ -152,11 +153,12 @@ def validate_reactions_fluxes(original_model, diel_model, original_multitissue_m
     tabel = pd.DataFrame(data)
 
     tabel.index = ["Quercus", "Quercus Multi Tissue", "Day Quercus", "Night Quercus", "Day Multi Quercus",
-                    "Night Multi Quercus"]
+                   "Night Multi Quercus"]
 
     tabel.to_csv('Quercus_Reactions_Fluxes.csv', sep=',')
 
     print(tabel)
+
 
 if __name__ == '__main__':
     original_model = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', 'QuercusSuberGeneralModel.xml'))
@@ -166,4 +168,3 @@ if __name__ == '__main__':
     diel_multitissue_model = cobra.io.read_sbml_model(os.path.join(TEST_DIR, 'models', "diel_multi_quercus_model.xml"))
 
     validate_reactions_fluxes(original_model, diel_model, original_multitissue_model, diel_multitissue_model)
-

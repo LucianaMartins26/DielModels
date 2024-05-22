@@ -19,7 +19,7 @@ def diel_maize_simons(model):
                          'C00065[d]',
                          'C00369[c]', 'C00369[d]', 'C00149[c]', 'C00149[d]', 'C00158[c]', 'C00158[d]'],
                         ["ExMe15", "ExBe15"],
-                        ["ExBe10"], "Bio_Nplus",
+                        ["ExBe10"], "Biomass_synthesis_L",
                         tissues=["Bundle Sheath", "Mesophyll"])
 
     cobra.io.write_sbml_model(model, os.path.join(TEST_DIR, 'models', 'diel_maize_simons_model.xml'))
