@@ -14,7 +14,7 @@ With this in mind, this package aims to accelerate this process by being able to
     - [Pip](#pip)
 - [Getting Started](#getting-started)
 - [Expanding the pipeline](#expanding-the-pipeline)
-- [Where to find the paper results](#where-to-find-the-paper-results)
+- [Where to find the publication results](#where-to-find-the-publication-results)
 
 ## Installation
 ### Pip
@@ -66,7 +66,7 @@ This is possible due to the created *Pipeline* class that derives from a *Step* 
 
 ## Expanding the pipeline
 
-You can make changes to the methods that the *diel_models_creator* function contains. It is also possible to add other classes if desired, for example to make a different adjustment that needs to be taken into account in the diel models.
+It is possible to add other classes to the *diel_models_creator* function, if desired, for example to create a different adjustment that needs to be taken into account in the diel models.
 To expand the pipeline, it is necessary to create a new class that inherits from the *Step* class and implement the abstract methods.
   
 Considering a new hypothetical file **new_class.py**, this new class, in addition to the desired methods, would have to contain the two abstract methods of the *Step* class, *run* and *validate*, which, respectively, runs all the methods of the class returning the model and performs asserts to validate whether the class has been implemented successfully (or simply doesn't apply any if it doesn't make sense).
@@ -126,16 +126,27 @@ def diel_models_creator(model: Model, storage_pool_metabolites: List[str], photo
 
 Finally, you can run the *diel_models_creator* function with the new class.
 
-## Where to find the paper results
+Just as you can expand methods in the pipeline, you can modify or remove others.
+
+## Where to find the publication results
 
 ### AraGEM:
 
 * Details about the fluxes in the AraGEM diel model reactions in the day and night phases, as well as in the original model where calculated in [aragem_reactions_fluxes.py](validation/arabidopsis/aragem_reactions_fluxes.py) file.
-* Validation of the metabolites exchange reactions through simulation using pFBA where performed in [simulation_sp.py](validation/arabidopsis/simulation_sp.py) file.
+* Validation of the metabolites exchange reactions through simulation using pFBA where performed in [simulation_sp.py](validation/arabidopsis/simulation_sp/simulation_sp.py) file.
 * [DFA file](DFA/differential_flux_analysis.py) and respective [Test file](tests/integration_tests/test_dfa.py).
 * [Plot](tests/reconstruction_results/MODEL1507180028/results_troppo/DielModel/dfa/diel_model_DFA_pathway_result.png) from the pathway enrichment method representing the amount of differentially expressed reactions between day and night in each pathway.
 * [PCA](PCA_T-SNE/gráfico_pca_df_filtrado.png) and [t-SNE](PCA_T-SNE/gráfico_t-sne_df_filtrado.png) plots with the sampling values filtered by the differentially expressed reactions.
+* [Quantum Yield and Assimilation Quotient](validation/arabidopsis/QY&AQ/QY&AQ.py) estimated values.
 
 ### _Quercus suber_:
 
 * Details about the fluxes in the _Quercus suber_ diel model reactions in the day and night phases, as well as in the original model where calculated in [quercus_reactions_fluxes.py](validation/quercus/quercus_reactions_fluxes.py) file.
+* Slight adjustments to the biomass reaction in the generated diel model can be found [here](validation/quercus/comparison/auxiliar_model_change.py).
+* Validation of the metabolites exchange reactions through simulation using pFBA where performed in [simulation_sp_multi_quercus.py](validation/quercus/simulation_sp/simulation_sp_multi_quercus.py) file.
+* [Quantum Yield and Assimilation Quotient](validation/quercus/QY&AQ/QY&AQ.py) estimated values.
+* The comparison between the flux of the biomass reaction for both diel multi-tissue models are in the [quercus_diel_models_comparison.py](validation/quercus/comparison/quercus_multi_tissue_diel_models_comparison.py) file.
+
+### QY&AQ for the several models:
+
+* The scripts for quantum yield and assimilation quotient calculation for the _Zea mays L._ (2011), _Arabidopsis thaliana_ (2010), _Populus trichocarpa_ (2020), _Solanum lycopersicum_ (2015) and _Solanum lycopersicum_ (2022) models can be found in the [QY&AQ](validation/QY&AQ) folder.
