@@ -1,7 +1,7 @@
 # DielModels
 
 ### Description
-In this context, *DielModels* is a python package generated from this project [HERE](https://github.com/LucianaMartins26/DielModels.git).
+*DielModels* is a python package generated from this project [HERE](https://github.com/LucianaMartins26/DielModels.git).
 
 Despite numerous successful studies, modeling plant metabolism remains challenging for several reasons, such as limited information, incomplete annotations, and dynamic changes in plant metabolism that occur under different conditions, including night and day.
 In particular, the integration of these day-night cycles (diel cycles) is complex, laborious, and time-consuming.
@@ -22,11 +22,11 @@ With this in mind, this package aims to accelerate this process by being able to
 ``` pip install DielModels==1.0.2 ```
 
 ## Getting Started
-Through this package, you can handle generic or multi-tissue models by:
+Using this package, you can handle generic or multi-tissue models by:
 
 * Assigning day and night;
 * Inserting specified metabolites into the storage pool allowing their transition between day and night, and vice versa; 
-* Supressing the photon reaction flow at night; 
+* Supressing the photon reaction flux at night; 
 * Setting the flux of the nitrate reactions to 3:2 according to the literature; 
 * (optional) Taking the day and night biomass reactions and creating a total biomass reaction resulting from the junctions of both. Supressing at the same time the flow of the individual reactions to zero and setting the total biomass reaction as the objective function.
 
