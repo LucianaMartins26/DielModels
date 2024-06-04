@@ -34,15 +34,15 @@ if __name__ == '__main__':
     data_quantum_assimilation = {
 
         'Quantum Yield': [fba_sol_non_diel["R00024"] / - fba_sol_non_diel["RB002"],
-                          fba_sol_diel_model["R00024_Day"] / - fba_sol_diel_model["RB002_Day"]],
+                          fba_sol_diel_model["R00024_Day"] / - fba_sol_diel_model["RB002_Day"]]}
 
-        'Assimilation Quotient': [fba_sol_non_diel["R00024"] / fba_sol_non_diel["R04852"],
-                                  fba_sol_diel_model["R00024_Day"] / fba_sol_diel_model["R04852_Day"]]}
+#        'Assimilation Quotient': [fba_sol_non_diel["R00024"] / fba_sol_non_diel["RK0005"],
+#                                  fba_sol_diel_model["R00024_Day"] / fba_sol_diel_model["RK0005_Day"]]}
 
     tabel = pd.DataFrame(data_quantum_assimilation)
 
     tabel.index = ["Original Model", "Created Diel Model"]
 
-    tabel.to_csv('QY&AQ_potato.csv', sep=',')
+    tabel.to_csv('QY_potato.csv', sep=',')
 
     print(tabel)
