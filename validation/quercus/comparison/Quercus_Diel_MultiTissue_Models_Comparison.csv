@@ -1,0 +1,67 @@
+,0
+Original Diel Multi Tissue Quercus,"Objective
+=========
+1.0 Total_biomass = 0.08958480734686763
+
+Uptake
+------
+       Metabolite             Reaction      Flux  C-Number  C-Flux
+C00001__env_Light EX_C00001__dra_Light     6.921         0   0.00%
+ C00007__env_Dark  EX_C00007__dra_Dark      1.54         0   0.00%
+ C00009__env_Dark  EX_C00009__dra_Dark  0.004282         0   0.00%
+C00009__env_Light EX_C00009__dra_Light  0.003996         0   0.00%
+C00011__env_Light EX_C00011__dra_Light     8.635         1 100.00%
+ C00059__env_Dark  EX_C00059__dra_Dark 0.0002807         0   0.00%
+C00059__env_Light EX_C00059__dra_Light   0.01489         0   0.00%
+C00205__env_Light EX_C00205__dra_Light       100         0   0.00%
+C00244__env_Light EX_C00244__dra_Light    0.4891         0   0.00%
+ C00305__env_Dark  EX_C00305__dra_Dark 5.359E-07         0   0.00%
+C00305__env_Light EX_C00305__dra_Light 4.783E-07         0   0.00%
+ C14818__env_Dark  EX_C14818__dra_Dark 5.066E-07         0   0.00%
+C14818__env_Light EX_C14818__dra_Light 4.645E-07         0   0.00%
+
+Secretion
+---------
+       Metabolite             Reaction       Flux  C-Number  C-Flux
+ C00001__env_Dark  EX_C00001__dra_Dark     -1.951         0   0.00%
+C00007__env_Light EX_C00007__dra_Light     -10.65         0   0.00%
+ C00011__env_Dark  EX_C00011__dra_Dark     -1.195         1 100.00%
+ C00080__env_Dark  EX_C00080__dra_Dark -0.0001319         0   0.00%
+C00080__env_Light EX_C00080__dra_Light -0.0001321         0   0.00%
+ C00237__env_Dark  EX_C00237__dra_Dark -7.795E-07         1   0.00%
+C00237__env_Light EX_C00237__dra_Light -7.185E-07         1   0.00%
+    Total_biomass     EX_Total_biomass   -0.08958         0   0.00%
+"
+Created Diel Multi Tissue Quercus,"Objective
+=========
+1.0 Total_biomass = 0.08864506730776234
+
+Uptake
+------
+       Metabolite             Reaction      Flux  C-Number  C-Flux
+  C00001__env_Day   EX_C00001__dra_Day     7.639         0   0.00%
+C00007__env_Night EX_C00007__dra_Night      1.69         0   0.00%
+  C00009__env_Day   EX_C00009__dra_Day  0.003954         0   0.00%
+C00009__env_Night EX_C00009__dra_Night  0.003954         0   0.00%
+  C00011__env_Day   EX_C00011__dra_Day     9.498         1 100.00%
+  C00059__env_Day   EX_C00059__dra_Day   0.01435         0   0.00%
+C00059__env_Night EX_C00059__dra_Night  5.82E-05         0   0.00%
+  C00205__env_Day   EX_C00205__dra_Day       100         0   0.00%
+  C00244__env_Day   EX_C00244__dra_Day    0.4642         0   0.00%
+  C00305__env_Day   EX_C00305__dra_Day 4.733E-07         0   0.00%
+C00305__env_Night EX_C00305__dra_Night 4.733E-07         0   0.00%
+  C14818__env_Day   EX_C14818__dra_Day 4.905E-07         0   0.00%
+C14818__env_Night EX_C14818__dra_Night 4.905E-07         0   0.00%
+
+Secretion
+---------
+       Metabolite             Reaction       Flux  C-Number  C-Flux
+C00001__env_Night EX_C00001__dra_Night     -2.601         0   0.00%
+  C00007__env_Day   EX_C00007__dra_Day     -10.75         0   0.00%
+C00011__env_Night EX_C00011__dra_Night     -2.034         1 100.00%
+  C00080__env_Day   EX_C00080__dra_Day -0.0001308         0   0.00%
+C00080__env_Night EX_C00080__dra_Night -0.0001308         0   0.00%
+  C00237__env_Day   EX_C00237__dra_Day  -7.11E-07         1   0.00%
+C00237__env_Night EX_C00237__dra_Night  -7.11E-07         1   0.00%
+    Total_biomass     EX_Total_biomass   -0.08865         0   0.00%
+"

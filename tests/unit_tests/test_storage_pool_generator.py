@@ -86,8 +86,7 @@ class TestStoragePool(TestCase):
                                            "Sucrose_c__Night_sp_exchange", "Sulfate_c__Night_sp_exchange",
                                            "Nitrate_c__Night_sp_exchange", "L-Histidine__Night_sp_exchange"])
 
-
-    def test_create_storage_pool_metabolites_multi_tissue(self):
+    def test_create_storage_pool_metabolites_multi_tissue_compartment_tissues(self):
         multi_tissue_model = os.path.join(TEST_DIR, "data", "Multi_Tissue_day_night.xml")
         multi_model = cobra.io.read_sbml_model(multi_tissue_model)
         multi_model_copy = copy.deepcopy(multi_model)
@@ -104,14 +103,54 @@ class TestStoragePool(TestCase):
 
         for metabolite in multi_model_copy.metabolites:
             if metabolite.compartment == "Bundle_Sheath_sp":
-                self.assertIn("Bundle_Sheath_sp", metabolite.id)
+                self.assertIn("Bundle_Sheath", metabolite.id)
+                self.assertIn("sp", metabolite.id)
                 self.assertNotIn("Day", metabolite.name)
                 self.assertNotIn("Night", metabolite.name)
 
             if metabolite.compartment == "Mesophyll_sp":
-                self.assertIn("Mesophyll_sp", metabolite.id)
+                self.assertIn("Mesophyll", metabolite.id)
+                self.assertIn("sp", metabolite.id)
                 self.assertNotIn("Day", metabolite.name)
                 self.assertNotIn("Night", metabolite.name)
+
+    def test_create_storage_pool_metabolites_multi_tissue_no_compartment_tissues(self):
+        multi_tissue_model = os.path.join(TEST_DIR, "data", "Quercus_Multi_Tissue_Day_Night.xml")
+        multi_model = cobra.io.read_sbml_model(multi_tissue_model)
+        multi_model_copy = copy.deepcopy(multi_model)
+
+        storagepool_creator = StoragePoolGenerator(multi_model_copy,
+                             ['C02336__cyto_Leaf_Day', 'C02336__cyto_Ibark_Day', 'C02336__cyto_Phellogen_Day',
+                              'C00041__cyto_Leaf_Day', 'C00041__cyto_Ibark_Day', 'C00041__cyto_Phellogen_Day',
+                              'C00819__cyto_Ibark_Day', 'C00819__cyto_Leaf_Day', 'C00819__cyto_Phellogen_Day',
+                              'C00089__cyto_Leaf_Day', 'C00089__cyto_Phellogen_Day', 'C00089__cyto_Ibark_Day'],
+                             ["Leaf", "Phellogen", "Ibark"])
+
+        storagepool_creator.create_storage_pool_metabolites()
+        self.assertIn("Leaf_sp", multi_model_copy.compartments)
+        self.assertIn("Phellogen_sp", multi_model_copy.compartments)
+        self.assertIn("Ibark_sp", multi_model_copy.compartments)
+
+        for metabolite in multi_model_copy.metabolites:
+            if metabolite.compartment == "Leaf_sp":
+                self.assertIn("Leaf", metabolite.id)
+                self.assertIn("sp", metabolite.id)
+                self.assertNotIn("Day", metabolite.name)
+                self.assertNotIn("Night", metabolite.name)
+
+            if metabolite.compartment == "Phellogen_sp":
+                self.assertIn("Phellogen", metabolite.id)
+                self.assertIn("sp", metabolite.id)
+                self.assertNotIn("Day", metabolite.name)
+                self.assertNotIn("Night", metabolite.name)
+
+            if metabolite.compartment == "Ibark_sp":
+                self.assertIn("Ibark", metabolite.id)
+                self.assertIn("sp", metabolite.id)
+                self.assertNotIn("Day", metabolite.name)
+                self.assertNotIn("Night", metabolite.name)
+
+        cobra.io.write_sbml_model(multi_model_copy, os.path.join(TEST_DIR, 'data', 'Quercus_Multi_Tissue_Day_Night_sp.xml'))
 
     def test_sp_metabolites_with_invalid_metabolite_multi_tissue(self):
         multi_tissue_model = os.path.join(TEST_DIR, "data", "Multi_Tissue_day_night.xml")

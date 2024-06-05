@@ -1,0 +1,41 @@
+Models that don't simulate w/maximization of photon reaction as objective function:
+
+- Maize iEB5204
+- Diel Maize iEB5204
+- Maize saha
+- Diel Maize saha
+- Potato
+- Diel Potato
+- Rice Lakshmanan
+- Diel Rice Lakshmanan
+- Colza
+- Diel Colza
+
+Other models results:
+
+- A.thaliana13 (1000 and 1000, original and diel)
+- MaizeC4GEM (1000 and 1000, original and diel)
+- MultiQuercus (-3.34576432569681, -6.829990189855153, original and diel)
+- Quercus (-1.8461538461538474, -3.692307692307693, original and diel)
+- Rice OSI1136 (1000 and 1000, original and diel)
+- Rice Poolman (1000 and 1000, original and diel)
+- Sorghum (1000 and 1000, original and diel)
+- Sugar Cane (1000 and 1000, original and diel)
+- Populus (-19.983333333333334 and -69.94166666666655, original and diel)
+- Soybean (1000 and 1000, original and diel)
+- Tomato2022 (1000, 99999, original and diel)
+
+Models that don't simulate w/maximization of biomass reaction as objective function:
+
+- Colza
+- Diel Colza
+- Populus
+- Diel Populus
+
+Models that we will not use:
+
+- Medicago and Diel Medicago: cobrapy can't read the diel model
+- Athaliana Poolman 2009: non phototrophy conditions
+
+Simulações de modelos com fluxos quase o dobro entre o modelos normal e o diel, por exemplo, populus e tomato2022;
+Supostamente o Colza é simulável mas não simula nem com a reação de fotão nem com a de biomassa como função objetivo;

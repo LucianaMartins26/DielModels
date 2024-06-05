@@ -56,6 +56,17 @@ class StoragePoolGenerator(Step):
                             metabolite.compartment = f"{tissue_formatted}_sp"
                             metabolite_objs.append(metabolite)
                             break
+
+                        elif tissue.lower() in new_id.lower():
+                            metabolite_sp_id: str = f"{new_id}_sp"
+                            names.append(f"{metabolite_object.name} {tissue}")
+                            self.metabolite_sp_ids.append(metabolite_sp_id)
+
+                            metabolite = Metabolite(metabolite_sp_id)
+                            metabolite.compartment = f"{tissue_formatted}_sp"
+                            metabolite_objs.append(metabolite)
+                            break
+
                     else:
                         raise ValueError(f"No matching tissue found for metabolite '{identification}'")
 
@@ -65,6 +76,7 @@ class StoragePoolGenerator(Step):
 
                 else:
                     raise ValueError("Metabolite id not present in the model that was given.")
+
         else:
             for identification in self.metabolites:
                 if identification in self.model.metabolites:

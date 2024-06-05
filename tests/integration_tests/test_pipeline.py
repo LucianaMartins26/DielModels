@@ -31,7 +31,7 @@ class TestPipelineEndToEnd(TestCase):
                                     "S_D_45_Fructose_c[C_c]", "S__40_S_41__45_Malate_c[C_c]",
                                     "S_Fumarate_c[C_c]", "S_Citrate_c[C_c]"]
 
-        diel_models_creator(modelo, storage_pool_metabolites, ["Ex16"], "BIO_L", ["Ex4"])
+        diel_models_creator(modelo, storage_pool_metabolites, ["Ex16"],["Ex4"],"BIO_L")
 
         for reaction in modelo.reactions:
             if 'Biomass' not in reaction.id:
@@ -68,7 +68,7 @@ class TestPipelineEndToEnd(TestCase):
                                   'C00042[c]', 'C00042[d]', 'C00089[c]',
                                   'C00089[d]', 'C00122[c]', 'C00122[d]']
 
-        diel_models_creator(multi_tissue, storage_pool_metabolites, ["ExMe15", "ExBe15"], "Bio_Nplus", ["ExBe10"],
+        diel_models_creator(multi_tissue, storage_pool_metabolites, ["ExMe15", "ExBe15"], ["ExBe10"], "Bio_Nplus",
                             tissues = ["Bundle Sheath", "Mesophyll"])
 
         for reaction in multi_tissue.reactions:
