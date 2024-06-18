@@ -147,4 +147,4 @@ Just as you can expand methods in the pipeline, you can modify or remove others.
 
 ### QY for the several models:
 
-* The scripts for quantum yield and assimilation quotient calculation for the _Zea mays L._ (2011), _Arabidopsis thaliana_ (2010), _Populus trichocarpa_ (2020), _Solanum lycopersicum_ (2015), _Solanum lycopersicum_ (2022) and _Solanum tuberosum_ (2018) models can be found in the [QY&AQ](validation/QY) folder.
+* The scripts for quantum yield and assimilation quotient calculation for the _Zea mays L._ (2011), _Arabidopsis thaliana_ (2010), _Populus trichocarpa_ (2020), _Solanum lycopersicum_ (2015), _Solanum lycopersicum_ (2022) and _Solanum tuberosum_ (2018) models can be found in the [QY](validation/QY) folder.
