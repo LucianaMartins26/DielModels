@@ -1,3 +1,4 @@
-a:visited {
-    color: inherit;
+a {
+    color: #007bff; /* Cor azul padrão dos links */
+    text-decoration: none; /* Remover sublinhado dos links, se necessário */
 }
