@@ -1,8 +1,0 @@
-.custom-toc a {
-    color: #539dec;
-    text-decoration: none;
-}
-
-.custom-toc a:hover {
-    text-decoration: underline; /* Adicionar sublinhado ao passar o mouse sobre os links */
-}
