@@ -1,7 +1,8 @@
-a:visited {
-    color: #007bff;
+.custom-toc a {
+    color: #539dec;
+    text-decoration: none;
 }
 
-a:hover {
-    color: #007bff;
+.custom-toc a:hover {
+    text-decoration: underline; /* Adicionar sublinhado ao passar o mouse sobre os links */
 }
