@@ -12,7 +12,7 @@ import sys
 project = 'DielModels'
 copyright = '2023, Luciana Martins and João Capela'
 author = 'Luciana Martins and João Capela'
-release = 'v1.0.2'
+release = 'v1.1.0'
 
 sys.path.insert(0, os.path.abspath('../src/'))
 
@@ -34,3 +34,7 @@ source_suffix = {
     ".rst": "restructuredtext",
     ".md": "markdown",
 }
+
+
+def setup(app):
+    app.add_css_file('custom.css')

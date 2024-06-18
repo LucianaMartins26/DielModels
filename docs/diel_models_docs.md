@@ -52,7 +52,7 @@ tissues = ['Tissue_ID_1', 'Tissue_ID_2']
 diel_models_creator(model, storage_pool_metabolites, ['Photon_Reaction_ID'], ['Nitrate_Reaction_ID'], 'Biomass_Reaction_ID', tissues)
 ```
 
-This is possible due to the created *Pipeline* class that derives from a *Step* class with abstract methods - both present in this package, in the [pipeline.py](src/diel_models/pipeline.py) file.
+This is possible due to the created *Pipeline* class that derives from a *Step* class with abstract methods - both present in this package, in the pipeline.py file.
 
 ### Expanding the pipeline
 
@@ -86,7 +86,7 @@ class NewClass(Step):
     pass
 ```
 
-Then you need to adjust the *diel_models_creator* function to integrate the new class. This function is in the [diel_models_creator.py](src/diel_models/diel_models_creator.py) file.
+Then you need to adjust the *diel_models_creator* function to integrate the new class. This function is in the diel_models_creator.py file.
 
 ```python
 from typing import List
