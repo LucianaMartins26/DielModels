@@ -1,26 +1,6 @@
-# diel_models package
+# _DielModels_ package
 
-## Submodules
-
-## diel_models.biomass_adjuster module
-
-```{eval-rst}
-.. automodule:: diel_models.biomass_adjuster
-   :members:
-   :undoc-members:
-   :show-inheritance:
-```
-
-## diel_models.day_night_creator module
-
-```{eval-rst}
-.. automodule:: diel_models.day_night_creator
-   :members:
-   :undoc-members:
-   :show-inheritance:
-```
-
-## diel_models.diel_models_creator module
+## DielModelsCreator
 
 ```{eval-rst}
 .. automodule:: diel_models.diel_models_creator
@@ -29,34 +9,17 @@
    :show-inheritance:
 ```
 
-## diel_models.nitrate_uptake_ratio module
+## Submodules
+
+### DayNightCreator
 
 ```{eval-rst}
-.. automodule:: diel_models.nitrate_uptake_ratio
+.. automodule:: diel_models.day_night_creator
    :members:
    :undoc-members:
    :show-inheritance:
 ```
-
-## diel_models.photon_reaction_inhibitor module
-
-```{eval-rst}
-.. automodule:: diel_models.photon_reaction_inhibitor
-   :members:
-   :undoc-members:
-   :show-inheritance:
-```
-
-## diel_models.pipeline module
-
-```{eval-rst}
-.. automodule:: diel_models.pipeline
-   :members:
-   :undoc-members:
-   :show-inheritance:
-```
-
-## diel_models.storage_pool_generator module
+### StoragePoolGenerator
 
 ```{eval-rst}
 .. automodule:: diel_models.storage_pool_generator
@@ -65,10 +28,38 @@
    :show-inheritance:
 ```
 
-## Module contents
+### PhotonReactionInhibitor
 
 ```{eval-rst}
-.. automodule:: diel_models
+.. automodule:: diel_models.photon_reaction_inhibitor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+```
+### NitrateUptakeRatioCalibrator
+
+```{eval-rst}
+.. automodule:: diel_models.nitrate_uptake_ratio
+   :members:
+   :undoc-members:
+   :show-inheritance:
+```
+
+### BiomassAdjuster
+
+```{eval-rst}
+.. automodule:: diel_models.biomass_adjuster
+   :members:
+   :undoc-members:
+   :show-inheritance:
+```
+
+## Build Pipeline
+
+### Pipeline
+
+```{eval-rst}
+.. automodule:: diel_models.pipeline
    :members:
    :undoc-members:
    :show-inheritance:
