@@ -9,12 +9,7 @@
 :caption: 'Contents:'
 :maxdepth: 2
 
-.. toctree::
-   :hidden:
-   :titlesonly:
-   :class: custom-toc
-   
-    Install and Run Diel Models <diel_models_docs>
-    
-    modules
+Install and Run Diel Models <diel_models_docs>
+
+modules
 ```
