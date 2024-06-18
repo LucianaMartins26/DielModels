@@ -7,7 +7,7 @@ from cobra.flux_analysis import pfba
 from tests import TEST_DIR
 
 
-def QY_AQ(non_diel_model, diel_model):
+def QY(non_diel_model, diel_model):
     fba_sol_non_diel = pfba(non_diel_model).fluxes
     fba_sol_diel_model = pfba(diel_model).fluxes
 
@@ -36,21 +36,17 @@ if __name__ == '__main__':
     diel_populus_model.objective = "EX_light_Day"
     diel_populus_model.objective_direction = "max"
 
-    fba_sol_non_diel, fba_sol_diel_model = QY_AQ(original_model, diel_populus_model)
+    fba_sol_non_diel, fba_sol_diel_model = QY(original_model, diel_populus_model)
 
     data_quantum_assimilation = {
         'Quantum Yield': [fba_sol_non_diel["RIBULOSE_BISPHOSPHATE_CARBOXYLASE_RXN_p"] / - fba_sol_non_diel["EX_light"],
                           fba_sol_diel_model["RIBULOSE_BISPHOSPHATE_CARBOXYLASE_RXN_p_Day"] / - fba_sol_diel_model[
-                              "EX_light_Day"]],
-
-        'Assimilation Quotient': [
-            fba_sol_non_diel["RIBULOSE_BISPHOSPHATE_CARBOXYLASE_RXN_p"] / fba_sol_non_diel["PSII_RXN"],
-            fba_sol_diel_model["RIBULOSE_BISPHOSPHATE_CARBOXYLASE_RXN_p_Day"] / fba_sol_diel_model["PSII_RXN_Day"]]}
+                              "EX_light_Day"]]}
 
     tabel = pd.DataFrame(data_quantum_assimilation)
 
     tabel.index = ["Original Model", "Created Diel Model"]
 
-    tabel.to_csv('QY&AQ_Populus.csv', sep=',')
+    tabel.to_csv('QY_Populus.csv', sep=',')
 
     print(tabel)

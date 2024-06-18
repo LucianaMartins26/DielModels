@@ -30,16 +30,12 @@ if __name__ == '__main__':
     data_quantum_assimilation = {
         'Quantum Yield': [fba_sol_non_diel["R00024__chlo"] / - fba_sol_non_diel["EX_C00205__dra"],
                           fba_sol_c["R00024__plst_Leaf_Day"] / - fba_sol_c["EX_C00205__dra_Day"],
-                          fba_sol_o["R00024__plst_Leaf_Light"] / - fba_sol_o["EX_C00205__dra_Light"]],
-
-        'Assimilation Quotient': [fba_sol_non_diel["R00024__chlo"] / fba_sol_non_diel["Photosystem_II__chlo"],
-                                  fba_sol_c["R00024__plst_Leaf_Day"] / fba_sol_c["Photosystem_II__plst_Leaf_Day"],
-                                  fba_sol_o["R00024__plst_Leaf_Light"] / fba_sol_o["Photosystem_II__plst_Leaf_Light"]]}
+                          fba_sol_o["R00024__plst_Leaf_Light"] / - fba_sol_o["EX_C00205__dra_Light"]]}
 
     tabel = pd.DataFrame(data_quantum_assimilation)
 
     tabel.index = ["Original Quercus Model", "Created Diel Multi Tissue Quercus", "Original Diel Multi Tissue Quercus"]
 
-    tabel.to_csv('QY&AQ_Diel_MultiTissue_Quercus.csv', sep=',')
+    tabel.to_csv('QY_Diel_MultiTissue_Quercus.csv', sep=',')
 
     print(tabel)

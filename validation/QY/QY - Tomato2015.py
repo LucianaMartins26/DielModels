@@ -7,7 +7,7 @@ from cobra.flux_analysis import pfba
 from tests import TEST_DIR
 
 
-def QY_AQ(non_diel_model, diel_model):
+def QY(non_diel_model, diel_model):
     fba_sol_nd = pfba(non_diel_model).fluxes
     fba_sol_d = pfba(diel_model).fluxes
 
@@ -36,19 +36,16 @@ if __name__ == '__main__':
         if ex.id.startswith("EX_x_") and ex.id.split('_Day')[0].split('_Night')[0] not in media:
             ex.bounds = (0, 1000)
 
-    fba_sol_non_diel, fba_sol_diel_model = QY_AQ(original_model, diel_tomato_model)
+    fba_sol_non_diel, fba_sol_diel_model = QY(original_model, diel_tomato_model)
 
     data_quantum_assimilation = {
         'Quantum Yield': [fba_sol_non_diel["reac_1070"] / - fba_sol_non_diel["EX_x_Photon"],
-                          fba_sol_diel_model["reac_1070_Day"] / - fba_sol_diel_model["EX_x_Photon_Day"]],
-
-        'Assimilation Quotient': [fba_sol_non_diel["reac_1070"] / fba_sol_non_diel["reac_1017"],
-                                  fba_sol_diel_model["reac_1070_Day"] / fba_sol_diel_model["reac_1017_Day"]]}
+                          fba_sol_diel_model["reac_1070_Day"] / - fba_sol_diel_model["EX_x_Photon_Day"]]}
 
     tabel = pd.DataFrame(data_quantum_assimilation)
 
     tabel.index = ["Original Model", "Created Diel Model"]
 
-    tabel.to_csv('QY&AQ_Tomato15.csv', sep=',')
+    tabel.to_csv('QY_Tomato15.csv', sep=',')
 
     print(tabel)

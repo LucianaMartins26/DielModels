@@ -137,16 +137,14 @@ Just as you can expand methods in the pipeline, you can modify or remove others.
 * [DFA file](DFA/differential_flux_analysis.py) and respective [Test file](tests/integration_tests/test_dfa.py).
 * [Plot](tests/reconstruction_results/MODEL1507180028/results_troppo/DielModel/dfa/diel_model_DFA_pathway_result.png) from the pathway enrichment method representing the amount of differentially expressed reactions between day and night in each pathway.
 * [PCA](PCA_T-SNE/gráfico_pca_df_filtrado.png) and [t-SNE](PCA_T-SNE/gráfico_t-sne_df_filtrado.png) plots with the sampling values filtered by the differentially expressed reactions.
-* [Quantum Yield and Assimilation Quotient](validation/arabidopsis/QY&AQ/QY&AQ.py) estimated values.
 
 ### _Quercus suber_:
 
 * Details about the fluxes in the _Quercus suber_ diel model reactions in the day and night phases, as well as in the original model where calculated in [quercus_reactions_fluxes.py](validation/quercus/quercus_reactions_fluxes.py) file.
 * Slight adjustments to the biomass reaction in the generated diel model can be found [here](validation/quercus/comparison/auxiliar_model_change.py).
 * Validation of the metabolites exchange reactions through simulation using pFBA where performed in [simulation_sp_multi_quercus.py](validation/quercus/simulation_sp/simulation_sp_multi_quercus.py) file.
-* [Quantum Yield and Assimilation Quotient](validation/quercus/QY&AQ/QY&AQ.py) estimated values.
 * The comparison between the flux of the biomass reaction for both diel multi-tissue models are in the [quercus_diel_models_comparison.py](validation/quercus/comparison/quercus_multi_tissue_diel_models_comparison.py) file.
 
-### QY&AQ for the several models:
+### QY for the several models:
 
-* The scripts for quantum yield and assimilation quotient calculation for the _Zea mays L._ (2011), _Arabidopsis thaliana_ (2010), _Populus trichocarpa_ (2020), _Solanum lycopersicum_ (2015), _Solanum lycopersicum_ (2022) and _Solanum tuberosum_ (2018) models can be found in the [QY&AQ](validation/QY&AQ) folder.
+* The scripts for quantum yield and assimilation quotient calculation for the _Zea mays L._ (2011), _Arabidopsis thaliana_ (2010), _Populus trichocarpa_ (2020), _Solanum lycopersicum_ (2015), _Solanum lycopersicum_ (2022) and _Solanum tuberosum_ (2018) models can be found in the [QY&AQ](validation/QY) folder.
