@@ -9,7 +9,7 @@
 :caption: 'Contents:'
 :maxdepth: 2
 
-**Install and Run Diel Models** <diel_models_docs>
+Install and Run Diel Models <diel_models_docs>
 
 modules
 ```

@@ -7,19 +7,11 @@ In particular, the integration of these day-night cycles (diel cycles) is comple
 
 With this in mind, this package aims to accelerate this process by being able to transform a non-diel model into a diel model.
 
-### Table of contents:
-
-- [Installation](#installation)
-    - [Pip](#pip)
-- [Getting Started](#getting-started)
-- [Expanding the pipeline](#expanding-the-pipeline)
-
-## Installation
-### Pip
+### Installation
 
 ``` pip install DielModels==1.1.0 ```
 
-## Getting Started
+### Getting Started
 Using this package, you can handle generic or multi-tissue models by:
 
 * Assigning day and night;
@@ -62,7 +54,7 @@ diel_models_creator(model, storage_pool_metabolites, ['Photon_Reaction_ID'], ['N
 
 This is possible due to the created *Pipeline* class that derives from a *Step* class with abstract methods - both present in this package, in the [pipeline.py](src/diel_models/pipeline.py) file.
 
-## Expanding the pipeline
+### Expanding the pipeline
 
 It is possible to add other classes to the *diel_models_creator* function, if desired, for example to create a different adjustment that needs to be taken into account in the diel models.
 To expand the pipeline, it is necessary to create a new class that inherits from the *Step* class and implement the abstract methods.

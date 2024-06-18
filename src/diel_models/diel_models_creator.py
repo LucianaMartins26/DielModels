@@ -33,7 +33,7 @@ def diel_models_creator(model: Model, storage_pool_metabolites: List[str], photo
 
     Returns
     -------
-    Metabolic model after pipeline
+    cobra.Model
     """
     storage_pool_metabolites_with_day = [metabolite + "_Day" for metabolite in storage_pool_metabolites]
     photon_reaction_id_night = [photon_night_reaction + "_Night" for photon_night_reaction in photon_reaction_id]
