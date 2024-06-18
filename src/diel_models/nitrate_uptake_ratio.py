@@ -9,6 +9,8 @@ class NitrateUptakeRatioCalibrator(Step):
     def __init__(self, model: Model, id_nitrate_uptake_reaction_day: List[str],
                  id_nitrate_uptake_reaction_night: List[str]) -> None:
         """
+        Constructor
+
         Parameters
         ----------
         model: cobra.Model
@@ -25,6 +27,9 @@ class NitrateUptakeRatioCalibrator(Step):
     def ratio_set(self) -> None:
         """
         This function establishes a 3:2 ratio of nitrate uptake between day and night, respectively.
+
+        Raises:
+            ValueError: If the nitrate uptake reaction ID is not present in the given model.
         """
         for nitrate_uptake_day_reaction, nitrate_uptake_night_reaction in \
                 zip(self.id_nitrate_uptake_reaction_day, self.id_nitrate_uptake_reaction_night):

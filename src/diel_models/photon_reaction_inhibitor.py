@@ -8,6 +8,8 @@ class PhotonReactionInhibitor(Step):
 
     def __init__(self, model: Model, id_photon_reaction_night: List[str]) -> None:
         """
+        Constructor
+
         Parameters
         ----------
         model: cobra.Model
@@ -21,6 +23,9 @@ class PhotonReactionInhibitor(Step):
     def restrain(self) -> None:
         """
         Function that resets the photon reaction(s) limits to zero at night.
+
+        Raises:
+            ValueError: If the photon uptake reaction ID is not present in the given model.
         """
 
         for photon_night_reaction in self.id_photon_reaction_night:
@@ -43,7 +48,7 @@ class PhotonReactionInhibitor(Step):
 
     def validate(self) -> None:
         """
-        Validates the model that in addition to the above factors it must contain metabolites and storage pool
+        Validates the model that, in addition to the above factors, it must contain metabolites and storage pool
         compartments
         """
 

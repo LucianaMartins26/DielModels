@@ -15,7 +15,7 @@ class StoragePoolGenerator(Step):
         model: cobra.Model
         metabolites: List[str]
         tissues: List[str], optional
-            List of tissues in the multi-tissue model, defaults to None for single-tissue models.
+            List of tissues in the multi-tissue model, defaults to None for generic models.
         """
         self.model: Model = model
         self.metabolites: List[str] = metabolites

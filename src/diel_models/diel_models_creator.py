@@ -23,13 +23,13 @@ def diel_models_creator(model: Model, storage_pool_metabolites: List[str], photo
     storage_pool_metabolites: List[str]
         list with all the metabolites for storage pool
     photon_reaction_id: List[str]
-        id or ids for photon reaction(s) - in case of multi tissues models for example
-    biomass_reaction_id: str
-        id for biomass_reaction
+        id or ids for photon reaction(s) - in case of multi tissues models for example.
     nitrate_exchange_reaction: List[str]
         id for nitrate exchange reaction(s) - in case of multi tissues models for example.
+    biomass_reaction_id: str, optional
+        id for biomass_reaction, defaults to None in case no biomass reaction defined
     tissues: List[str], optional
-            List of tissues in the multi-tissue model, defaults to None for single-tissue models.
+            List of tissues in the multi-tissue model, defaults to None for generic models.
 
     Returns
     -------

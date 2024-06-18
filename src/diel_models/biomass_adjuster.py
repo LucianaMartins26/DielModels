@@ -6,6 +6,8 @@ class BiomassAdjuster(Step):
 
     def __init__(self, model: Model, id_biomass_reaction_day: str, id_biomass_reaction_night: str) -> None:
         """
+        Constructor
+
         Parameters
         ----------
         model: cobra.Model
@@ -25,9 +27,8 @@ class BiomassAdjuster(Step):
         Function that joins the two biomass reactions (day and night) into one.
         Defines this new reaction as the objective function of the model.
 
-        Returns
-        -------
-        biomass_reaction_total: cobra.Reaction
+        Raises:
+            ValueError: If the biomass reaction ID is not present in the given model.
         """
         if self.model.reactions.has_id(self.id_biomass_reaction_day) and \
                 self.model.reactions.has_id(self.id_biomass_reaction_night):
@@ -55,7 +56,7 @@ class BiomassAdjuster(Step):
 
     def run(self) -> Model:
         """
-        Executes the methods of the class BiomassRegulator
+        Executes the methods of the class BiomassAdjuster
 
         Returns
         Model

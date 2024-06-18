@@ -18,6 +18,8 @@ class Step(ABC):
 class Pipeline:
     def __init__(self, model: Model, steps: list) -> None:
         """
+        Constructor
+
         Parameters
         ----------
         model: cobra.Model
