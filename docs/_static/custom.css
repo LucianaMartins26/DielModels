@@ -1,4 +1,8 @@
 a {
-    color: #007bff; /* Cor azul padrão dos links */
-    text-decoration: none; /* Remover sublinhado dos links, se necessário */
+    color: #007bff !important;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
