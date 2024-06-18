@@ -119,7 +119,7 @@ class StoragePoolGenerator(Step):
 
         Returns
         -------
-        Reaction object
+        cobra.Reaction
         """
 
         met = self.model.metabolites.get_by_id(metabolite_sp_id)
@@ -186,10 +186,7 @@ class StoragePoolGenerator(Step):
 
     def run(self) -> Model:
         """
-        Executes the methods of the class StoragePoolGenerator
-
-        Returns
-        Model
+        Executes the methods of the class StoragePoolGenerator.
         """
 
         test = StoragePoolGenerator(self.model, self.metabolites, self.tissues)
@@ -201,7 +198,7 @@ class StoragePoolGenerator(Step):
 
     def validate(self) -> None:
         """
-        Validates the model, since it has to have metabolites, reactions and a Day and Night compartments
+        Validates the model, since it has to have metabolites, reactions and a Day and Night compartments.
         """
 
         for reaction in self.model.reactions:

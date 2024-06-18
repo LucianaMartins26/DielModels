@@ -48,10 +48,7 @@ class NitrateUptakeRatioCalibrator(Step):
 
     def run(self) -> Model:
         """
-        Executes the method of the class NitrateUptakeRatioCalibrator
-
-        Returns
-        Model
+        Executes the method of the class NitrateUptakeRatioCalibrator.
         """
         self.ratio_set()
 

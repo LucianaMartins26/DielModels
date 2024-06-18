@@ -37,10 +37,7 @@ class PhotonReactionInhibitor(Step):
 
     def run(self) -> Model:
         """
-        Executes the method of the class PhotonReactionInhibitor
-
-        Returns
-        Model
+        Executes the method of the class PhotonReactionInhibitor.
         """
         self.restrain()
 
@@ -49,7 +46,7 @@ class PhotonReactionInhibitor(Step):
     def validate(self) -> None:
         """
         Validates the model that, in addition to the above factors, it must contain metabolites and storage pool
-        compartments
+        compartments.
         """
 
         for compartment in self.model.compartments:

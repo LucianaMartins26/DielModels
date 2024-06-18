@@ -41,7 +41,6 @@
 ```{eval-rst}
 .. automodule:: diel_models.nitrate_uptake_ratio
    :members:
-   :undoc-members:
    :show-inheritance:
 ```
 
@@ -50,7 +49,6 @@
 ```{eval-rst}
 .. automodule:: diel_models.biomass_adjuster
    :members:
-   :undoc-members:
    :show-inheritance:
 ```
 

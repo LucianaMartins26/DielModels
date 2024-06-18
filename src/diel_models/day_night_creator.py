@@ -19,7 +19,7 @@ class DayNightCreator(Step):
     def day_attribution(self) -> None:
         """
         Loop into the reactions and metabolites of a metabolic model
-        and append "_Day" to reaction and metabolites identifications and names
+        and append "_Day" to reaction and metabolites identifications and names.
         """
         compartments_copy = copy.deepcopy(self.model.compartments)
         for model_reaction in self.model.reactions:
@@ -36,7 +36,7 @@ class DayNightCreator(Step):
         """
         Function that duplicates the original reactions and replaces
         the suffix "_Day" with the suffix "_Night" and further duplicates
-        the corresponding metabolites
+        the corresponding metabolites.
         """
         compartments_copy = copy.deepcopy(self.model.compartments)
         for model_reaction in self.model.reactions:
@@ -64,10 +64,7 @@ class DayNightCreator(Step):
 
     def run(self) -> Model:
         """
-        Executes the methods of the class DayNightCreator
-
-        Returns
-        Model
+        Executes the methods of the class DayNightCreator.
         """
         self.day_attribution()
         self.duplicate()
@@ -76,7 +73,7 @@ class DayNightCreator(Step):
 
     def validate(self) -> None:
         """
-        Validates the model received initially in terms of reactions, metabolites and objective function
+        Validates the model received initially in terms of reactions, metabolites and objective function.
         """
 
         assert len(self.model.reactions) > 0, "The model does not have any reaction."

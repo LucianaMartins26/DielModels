@@ -56,10 +56,7 @@ class BiomassAdjuster(Step):
 
     def run(self) -> Model:
         """
-        Executes the methods of the class BiomassAdjuster
-
-        Returns
-        Model
+        Executes the methods of the class BiomassAdjuster.
         """
         self.total_biomass_reaction()
 
