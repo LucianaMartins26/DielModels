@@ -64,7 +64,6 @@ def validate_reactions_fluxes(original_model, diel_model):
     print(f'Ribulose-5P to Ribulose-1,5P: {original_solution["R01523_p"]}, {diel_solution["R01523_p_Day"]}, '
           f'{diel_solution["R01523_p_Night"]}')
 
-
 if __name__ == '__main__':
     diel_model_path = os.path.join(TEST_DIR, 'reconstruction_results', 'MODEL1507180028', 'results_troppo', 'DielModel',
                               'reconstructed_models', 'Diel_Model.xml')
