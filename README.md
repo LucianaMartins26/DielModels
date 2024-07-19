@@ -130,6 +130,12 @@ Just as you can expand methods in the pipeline, you can modify or remove others.
 
 ## Where to find the publication results
 
+### Extra files
+
+[Here](https://drive.google.com/drive/folders/1XbkEK4WHxH1ZUy6C4K8kOOmveBYPPkbO?usp=sharing) you can find the folders containing the missing xml and xlsx files on GitHub.
+You can browse the folders individually or after doing ``` git clone https://github.com/LucianaMartins26/DielModels.git ``` you can download the 5 folders to the project directory and run the [start.sh](start.sh) bash script.
+This script will unzip and move the respective files into the respective folders. The original zip folders will then be deleted.
+
 ### AraGEM:
 
 * Details about the fluxes in the AraGEM diel model reactions in the day and night phases, as well as in the original model where calculated in [aragem_reactions_fluxes.py](validation/arabidopsis/aragem_reactions_fluxes.py) file.

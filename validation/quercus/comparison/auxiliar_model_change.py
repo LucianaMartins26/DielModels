@@ -113,5 +113,3 @@ if __name__ == '__main__':
 
     luciana_diel_model.objective = 'Total_biomass'
     luciana_diel_model.objective_direction = 'max'
-
-    cobra.io.write_sbml_model(luciana_diel_model, "quercus/(changed)diel_multi_quercus_model.xml")
