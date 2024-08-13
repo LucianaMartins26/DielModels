@@ -136,7 +136,7 @@ Just as you can expand methods in the pipeline, you can modify or remove others.
 * Validation of the metabolites exchange reactions through simulation using pFBA where performed in [simulation_sp.py](validation/arabidopsis/simulation_sp/simulation_sp.py) file.
 * [DFA file](DFA/differential_flux_analysis.py) and respective [Test file](tests/integration_tests/test_dfa.py).
 * [Plot](tests/reconstruction_results/MODEL1507180028/results_troppo/DielModel/dfa/diel_model_DFA_pathway_result.png) from the pathway enrichment method representing the amount of differentially expressed reactions between day and night in each pathway.
-* [PCA](PCA_T-SNE/gráfico_pca_df_filtrado.png) and [t-SNE](PCA_T-SNE/gráfico_t-sne_df_filtrado.png) plots with the sampling values filtered by the differentially expressed reactions.
+* [PCA](PCA/gráfico_pca_df_filtrado.png) plot with the sampling values filtered by the differentially expressed reactions.
 
 ### _Quercus suber_:
 
