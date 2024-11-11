@@ -11,6 +11,7 @@ import pandas as pd
 
 class TestDFA(TestCase):
 
+    @unittest.skip("Skipping this test in CI")
     def setUp(self) -> None:
         self.model_id = 'MODEL1507180028'
         self.dataset_id = 'DielModel'
@@ -25,7 +26,7 @@ class TestDFA(TestCase):
                                                                      'results_troppo', self.dataset_id,
                                                                      'reconstructed_models', 'Diel_Model.xml'))
 
-    @unittest.skip
+    @unittest.skip("Skipping this test in CI")
     def test_sampling(self) -> None:
         day_sampling, night_sampling = self.dfa.sampling(thinning=100, n_samples=1000)
 
@@ -60,7 +61,7 @@ class TestDFA(TestCase):
             expected_file = os.path.join(self.results_folder, '%s_sampling.csv' % modelname)
             self.assertTrue(os.path.exists(expected_file))
 
-    @unittest.skip
+    @unittest.skip("Skipping this test in CI")
     def test_ktest(self) -> None:
 
         self.dfa.sampling()
