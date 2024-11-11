@@ -24,7 +24,7 @@ class TestDFATomato(TestCase):
                                                                      self.dataset_id, 'reconstructed_models',
                                                                      'Tomato_Diel_Model.xml'))
 
-    @unittest.skip("Skipping this test in CI")
+    @unittest.skipIf(os.getenv('CI') == 'true', "Skipping this test in CI environment")
     def test_sampling(self) -> None:
         day_sampling, night_sampling = self.dfa.sampling(thinning=100, n_samples=1000)
 
@@ -59,7 +59,7 @@ class TestDFATomato(TestCase):
             expected_file = os.path.join(self.results_folder, '%s_sampling.csv' % modelname)
             self.assertTrue(os.path.exists(expected_file))
 
-    @unittest.skip("Skipping this test in CI")
+    @unittest.skipIf(os.getenv('CI') == 'true', "Skipping this test in CI environment")
     def test_ktest(self) -> None:
 
         self.dfa.sampling()
