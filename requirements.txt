@@ -4,4 +4,4 @@ statsmodels~=0.13.5
 matplotlib>=3.7.1
 numpy>=1.22
 scipy>=1.10
-setuptools~=65.6.3
+setuptools>=65.6.3
