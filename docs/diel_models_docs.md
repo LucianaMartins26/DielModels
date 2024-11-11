@@ -1,4 +1,4 @@
-# Install and Run DielModels
+# Install and Run diel_models
 
 ### Description
 
@@ -9,7 +9,7 @@ With this in mind, this package aims to accelerate this process by being able to
 
 ### Installation
 
-``` pip install DielModels==1.1.0 ```
+``` pip install diel_models==1.1.0 ```
 
 ### Getting Started
 Using this package, you can handle generic or multi-tissue models by:

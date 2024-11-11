@@ -3,13 +3,13 @@
 % You can adapt this file completely to your liking, but it should at least
 % contain the root `toctree` directive.
 
-# Welcome to DielModels's documentation!
+# Welcome to diel_models's documentation!
 
 ```{toctree}
 :caption: 'Contents:'
 :maxdepth: 2
 
-Install and Run Diel Models <diel_models_docs>
+Install and Run diel_models <diel_models_docs>
 
 modules
 ```

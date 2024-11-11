@@ -1,4 +1,4 @@
-# _DielModels_ package
+# _diel_models_ package
 
 ## DielModelsCreator
 

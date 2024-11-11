@@ -9,7 +9,7 @@ import sys
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'DielModels'
+project = 'diel_models'
 copyright = '2023, Luciana Martins and João Capela'
 author = 'Luciana Martins and João Capela'
 release = 'v1.1.0'
