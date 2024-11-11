@@ -1,7 +1,7 @@
-# DielModels
+# Diel Models
 
 ### Description
-*DielModels* is a python package generated from this project and has its own [ReadtheDocs](https://dielmodels.readthedocs.io/en/latest/index.html) file.
+*diel_models* is a python package generated from this project and has its own [ReadtheDocs](https://dielmodels.readthedocs.io/en/latest/index.html) file.
 
 Despite numerous successful studies, modeling plant metabolism remains challenging for several reasons, such as limited information, incomplete annotations, and dynamic changes in plant metabolism that occur under different conditions, including night and day.
 In particular, the integration of these day-night cycles (diel cycles) is complex, laborious, and time-consuming.
@@ -19,7 +19,7 @@ With this in mind, this package aims to accelerate this process by being able to
 ## Installation
 ### Pip
 
-``` pip install DielModels==1.1.0 ```
+``` pip install diel_models==1.1.1 ```
 
 ## Getting Started
 Using this package, you can handle generic or multi-tissue models by:
