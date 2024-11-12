@@ -1,5 +1,17 @@
 # Install and Run diel_models
 
+### Compatibility
+
+_diel_models_ is compatible with the following versions of Python:
+
+```
+Python 3.8
+Python 3.9
+Python 3.10
+Python 3.11
+Python 3.12
+```
+
 ### Description
 
 Despite numerous successful studies, modeling plant metabolism remains challenging for several reasons, such as limited information, incomplete annotations, and dynamic changes in plant metabolism that occur under different conditions, including night and day.
