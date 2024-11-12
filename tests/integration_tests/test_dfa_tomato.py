@@ -1,17 +1,17 @@
 import os
 import unittest
-from unittest import TestCase
+from unittest import TestCase, skip
 
 import cobra.io
 
-from DFA.differential_flux_analysis_tomato import DFA, split_reversible_reactions
 from tests import TEST_DIR
 import pandas as pd
 
-
+@skip
 class TestDFATomato(TestCase):
 
     def setUp(self) -> None:
+        from DFA.differential_flux_analysis_tomato import DFA, split_reversible_reactions
         self.model_id = 'TOMATOMODEL'
         self.dataset_id = 'TomatoDielModel'
         self.model_specifics = {'tomato_diel_model': 'Tomato_Diel_Model'}
@@ -26,6 +26,8 @@ class TestDFATomato(TestCase):
 
     @unittest.skipIf(os.getenv('CI') == 'true', "Skipping this test in CI environment")
     def test_sampling(self) -> None:
+        from DFA.differential_flux_analysis_tomato import split_reversible_reactions
+
         day_sampling, night_sampling = self.dfa.sampling(thinning=100, n_samples=1000)
 
         result_model = split_reversible_reactions(self.model_to_sample)

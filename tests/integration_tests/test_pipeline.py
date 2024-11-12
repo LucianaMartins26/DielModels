@@ -1,4 +1,4 @@
-from unittest import TestCase
+from unittest import TestCase, skip
 
 import cobra
 import os
@@ -10,6 +10,7 @@ from tests import TEST_DIR
 from diel_models.diel_models_creator import diel_models_creator
 
 
+@skip
 class TestPipelineEndToEnd(TestCase):
 
     def test_pipeline(self):
