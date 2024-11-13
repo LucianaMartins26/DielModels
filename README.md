@@ -2,7 +2,7 @@
 
 ### Compatibility
 
-_diel_models_ is compatible from Python version 7.0 onwards.
+_diel_models_ is compatible from Python version 8.0 onwards.
 
 ### Description
 *diel_models* is a python package generated from this project and has its own [ReadtheDocs](https://dielmodels.readthedocs.io/) file.
