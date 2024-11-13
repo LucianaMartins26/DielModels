@@ -2,15 +2,7 @@
 
 ### Compatibility
 
-_diel_models_ is compatible with the following versions of Python:
-
-```
-Python 3.8
-Python 3.9
-Python 3.10
-Python 3.11
-Python 3.12
-```
+_diel_models_ is compatible from Python version 6.0 onwards.
 
 ### Description
 
@@ -21,7 +13,7 @@ With this in mind, this package aims to accelerate this process by being able to
 
 ### Installation
 
-``` pip install diel_models==1.1.2 ```
+``` pip install diel_models==1.1.3 ```
 
 ### Getting Started
 Using this package, you can handle generic or multi-tissue models by:
