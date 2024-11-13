@@ -2,7 +2,7 @@
 
 ### Compatibility
 
-_diel_models_ is compatible from Python version 6.0 onwards.
+_diel_models_ is compatible from Python version 7.0 onwards.
 
 ### Description
 
