@@ -31,7 +31,7 @@ With this in mind, this package aims to accelerate this process by being able to
 ## Installation
 ### Pip
 
-``` pip install diel_models==1.1.1 ```
+``` pip install diel_models==1.1.2 ```
 
 ## Getting Started
 Using this package, you can handle generic or multi-tissue models by:
