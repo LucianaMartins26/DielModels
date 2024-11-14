@@ -1,4 +1,4 @@
-# Diel Models
+# Install and Run diel_models
 
 ### Compatibility
 
@@ -20,16 +20,7 @@ In particular, the integration of these day-night cycles (diel cycles) is comple
 
 With this in mind, this package aims to accelerate this process by being able to transform a non-diel model into a diel model.
 
-### Table of contents:
-
-- [Installation](#installation)
-    - [Pip](#pip)
-- [Getting Started](#getting-started)
-- [Expanding the pipeline](#expanding-the-pipeline)
-- [Where to find the publication results](#where-to-find-the-publication-results)
-
 ## Installation
-### Pip
 
 ``` pip install diel_models==1.2.2 ```
 
