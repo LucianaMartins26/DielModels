@@ -138,7 +138,7 @@ from diel_models.pipeline import Pipeline
 
 def diel_models_creator(model: Model, storage_pool_metabolites: List[str], photon_reaction_id: List[str],
                         nitrate_exchange_reaction: List[str], param1, biomass_reaction_id: str = None, tissues: List[str] = None,
-                        day_ratio_value: int = 2, night_ratio_value: int = 3) -> Model:  
+                        day_ratio_value: int = 3, night_ratio_value: int = 2) -> Model:  
   
     storage_pool_metabolites_with_day = [metabolite + "_Day" for metabolite in storage_pool_metabolites]
     photon_reaction_id_night = [photon_night_reaction + "_Night" for photon_night_reaction in photon_reaction_id]

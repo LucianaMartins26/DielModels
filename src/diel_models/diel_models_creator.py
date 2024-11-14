@@ -12,7 +12,7 @@ from diel_models.pipeline import Pipeline
 
 def diel_models_creator(model: Model, storage_pool_metabolites: List[str], photon_reaction_id: List[str],
                         nitrate_exchange_reaction: List[str], biomass_reaction_id: str = None, tissues: List[str] = None,
-                        day_ratio_value: int = 2, night_ratio_value: int = 3) -> Model:
+                        day_ratio_value: int = 3, night_ratio_value: int = 2) -> Model:
     """
     Function that allows you to run the pipeline in one go,
     returning the resulting model, where the arguments are all relative to the original model.
