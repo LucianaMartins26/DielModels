@@ -39,7 +39,7 @@ Using this package, you can handle generic or multi-tissue models by:
 * Assigning day and night;
 * Inserting specified metabolites into the storage pool allowing their transition between day and night, and vice versa; 
 * Supressing the photon reaction flux at night; 
-* Setting the flux of the nitrate reactions to 3:2 by default (according to the literature) or other ratio desired; 
+* Setting the flux of the nitrate reactions to 3:2 by default (according to the literature) or other desired ratio; 
 * (optional) Taking the day and night biomass reactions and creating a total biomass reaction resulting from the junctions of both. Supressing at the same time the flow of the individual reactions to zero and setting the total biomass reaction as the objective function.
 
 If each method is to be applied individually it is essential that the first 3 steps are applied in that order specifically.
@@ -59,7 +59,9 @@ storage_pool_metabolites = ['Metabolite_ID_1', 'Metabolite_ID_2', 'Metabolite_ID
 diel_models_creator(model, storage_pool_metabolites, ['Photon_Reaction_ID'], ['Nitrate_Reaction_ID'], 'Biomass_Reaction_ID')
 ```
 
-where the nitrate uptake ratio is 3:2, or:
+where the nitrate uptake ratio is 3:2, since _day_ratio_value_ is 3 and _night_ratio_value_ is 2.
+
+Alternatively, the ratio value can be set to a value other than 3:2.
 
 ```python
 import cobra
@@ -71,8 +73,6 @@ storage_pool_metabolites = ['Metabolite_ID_1', 'Metabolite_ID_2', 'Metabolite_ID
 
 diel_models_creator(model, storage_pool_metabolites, ['Photon_Reaction_ID'], ['Nitrate_Reaction_ID'], 'Biomass_Reaction_ID', day_ratio_value=desired_value_1, night_ratio_value=desired_value_2)
 ```
-
-where the nitrate uptake ratio is different from 3:2.
 
 - Multi-tissue model:
 
