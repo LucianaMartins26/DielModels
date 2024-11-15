@@ -12,7 +12,7 @@ import sys
 project = 'diel_models'
 copyright = '2023, Luciana Martins and João Capela'
 author = 'Luciana Martins and João Capela'
-release = 'v1.1.0'
+release = 'v1.2.2'
 
 sys.path.insert(0, os.path.abspath('../src/'))
 
